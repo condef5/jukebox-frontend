@@ -7,8 +7,11 @@ export const Title = styled.h1`
   margin: 0;
   color: #eb1aef;
   line-height: 1.4;
-  padding: 20px 0;
+  padding: 10px 0;
   text-align: center;
+  text-shadow: 1px 1px 15px rgba(255, 0, 0, 0),
+    -1px -1px 15px rgba(255, 0, 0, 0.61), 1px 1px 15px rgba(255, 0, 0, 0.61),
+    -1px -1px 15px rgba(255, 0, 0, 0.3);
   background-image: -webkit-gradient(
     linear,
     0% 0%,
@@ -19,3 +22,5 @@ export const Title = styled.h1`
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 `;
+
+export default {};

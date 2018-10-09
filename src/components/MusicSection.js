@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tab, MusicContainer } from './styles/MusicSection';
+import { Tab, MusicContainer, Letters } from './styles/MusicSection';
 
 const musics = [
   { name: 'In the end', author: 'Linkid park' },
@@ -14,8 +14,37 @@ const musics = [
   { name: 'Meteora', author: 'Linkid park' }
 ];
 
+const letters = [
+  'A',
+  'B',
+  'C',
+  'D',
+  'E',
+  'F',
+  'G',
+  'H',
+  'I',
+  'J',
+  'K',
+  'L',
+  'M',
+  'N',
+  'O',
+  'P',
+  'Q',
+  'R',
+  'S',
+  'T',
+  'U',
+  'V',
+  'W',
+  'X',
+  'Y',
+  'Z'
+];
+
 const MusicSection = () => (
-  <div style={{ marginBottom: '1em' }}>
+  <div style={{ marginBottom: '1em', padding: '0 1em' }}>
     <Tab>
       <div>Artistas</div>
       <div>Canciones</div>
@@ -27,12 +56,19 @@ const MusicSection = () => (
       </div>
     </Tab>
     <MusicContainer>
-      {musics.map(music => (
-        <div className="musica">
-          <div>{music.author}</div>
-          <div>{music.name}</div>
-        </div>
-      ))}
+      <div style={{ flex: '1', paddingRight: '1em' }}>
+        {musics.map(music => (
+          <div className="musica">
+            <div>{music.author}</div>
+            <div>{music.name}</div>
+          </div>
+        ))}
+      </div>
+      <Letters>
+        {letters.map(item => (
+          <div>{item}</div>
+        ))}
+      </Letters>
     </MusicContainer>
   </div>
 );
