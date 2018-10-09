@@ -33,23 +33,6 @@ body {
   margin: 2.5px 0;
 }
 
-.list-button button {
-  border: none;
-  outline: none;
-  color: #fff;
-  letter-spacing: 0.25px;
-  font-size: 12px;
-  padding: 0.35em 1.25em;
-  line-height: 20px;
-  margin-bottom: 8px;
-  border-radius: 4px;
-  background-color: rgb(107, 107, 107);
-  cursor: pointer;
-  text-transform: uppercase;
-  user-select: none;
-  font-weight: 100;
-}
-
 /* .swiper-slide-active img {
   transform: rotateY(-34deg) translateZ(-175px);
 }

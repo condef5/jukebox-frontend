@@ -13,6 +13,9 @@ export const Tab = styled.div`
   margin: 1em 0;
   height: 30px;
   text-transform: uppercase;
+  &:hover {
+    cursor: pointer;
+  }
   & > div {
     padding-left: 8px;
     flex: auto;
