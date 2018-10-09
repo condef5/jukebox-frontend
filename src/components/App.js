@@ -32,7 +32,7 @@ const App = () => (
       >
         <Banner />
         <Carrousel />
-        <ListGenre />
+        <ListGenre style={{ overflow: 'hidden', width: '100%' }} />
         <Options />
       </Column>
       <Column span="25">

@@ -11,7 +11,7 @@ const StyleSwipper = styled.div`
   .img-responsive {
     box-shadow: 1px 1px 15px rgba(255, 0, 0, 0.61), -1px -1px 15px rgba(255, 0, 0, 0.61),
       -1px 1px 15px rgba(255, 0, 0, 0.61), 1px -1px 15px rgba(255, 0, 0, 0.61);
-    max-width: 220px;
+    max-width: 250px;
     border-radius: 5px;
   }
 
@@ -29,6 +29,7 @@ const StyleSwipper = styled.div`
 
 const listImage = [
   'https://www.designformusic.com/wp-content/uploads/2016/05/sonic-creativity-album-cover-artwork.jpg',
+  'https://www.designformusic.com/wp-content/uploads/2018/07/Digital-World-album-cover-design.jpg',
   'https://www.designformusic.com/wp-content/uploads/2017/07/Punked-and-Disorderly-punk-album-cover-500x500.jpg',
   'https://www.designformusic.com/wp-content/uploads/2017/07/hout-sauce-soundcheck-samples-500x500.jpg',
   'https://www.designformusic.com/wp-content/uploads/2017/07/Kidnap-halle-berry-movie-soundtrack-500x500.jpg',
@@ -46,6 +47,7 @@ class Carrousel extends Component {
       effect: 'coverflow',
       grabCursor: true,
       slidesPerView: 3,
+      loop: true,
       coverflowEffect: {
         rotate: 5,
         stretch: 1,
