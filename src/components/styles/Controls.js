@@ -4,6 +4,7 @@ const Controls = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
+  padding-bottom: 1em;
   img {
     width: 40px;
   }
@@ -13,8 +14,8 @@ const Controls = styled.div`
     flex-direction: column;
     justify-content: center;
     display: flex;
-    height: 110px;
-    width: 110px;
+    height: 100px;
+    width: 100px;
     align-items: center;
     border: 3px solid #fff;
 
@@ -23,14 +24,14 @@ const Controls = styled.div`
     font-weight: bold;
     text-shadow: 1px 1px 4px #ef1a1cad, -1px -1px 4px #ef1a1cad;
     div:first-child {
-      font-size: 16px;
+      font-size: 15px;
       letter-spacing: 1px;
       text-transform: uppercase;
-      margin-top: 15px;
+      margin-top: 10px;
     }
     div:last-child {
-      font-size: 45px;
-      letter-spacing: 5px;
+      font-size: 35px;
+      letter-spacing: 2px;
     }
   }
 `;

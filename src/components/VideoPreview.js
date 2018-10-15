@@ -1,5 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
+import WaitingVideo from './WaitingVideo';
+
+const PreviewWrapper = styled.div`
+  transform-style: preserve-3d;
+  transform: perspective(700px);
+  width: 300px;
+  & > div {
+    transform: rotateX(0deg) rotateY(-25deg) translateZ(50px);
+  }
+`;
 
 const StylePreview = styled.div`
   border-radius: 5px;
@@ -11,16 +21,25 @@ const StylePreview = styled.div`
     -1px -1px 40px rgba(255, 0, 0, 0.61);
 `;
 
-const StyleVideo = styled.div`
-  height: 180px;
-  background: #fff;
-`;
-
 const VideoPreview = () => (
-  <div>
+  <PreviewWrapper>
     <StylePreview>Video Previo</StylePreview>
-    <StyleVideo />
-  </div>
+    <div>
+      <div className="videoWrapper">
+        <iframe
+          title="asdasd"
+          width="400"
+          height="315"
+          src="https://www.youtube.com/embed/B0cVKmkYamU"
+          frameBorder="0"
+          allow="autoplay; encrypted-media"
+          allowFullScreen
+        />
+      </div>
+      <div>Linkin park - In the end</div>
+    </div>
+    <WaitingVideo />
+  </PreviewWrapper>
 );
 
 export default VideoPreview;

@@ -5,7 +5,7 @@ const StyleContain = styled.div`
   background: red;
   padding: 1em;
   text-align: center;
-  max-height: 160px;
+  max-height: 150px;
   overflow: auto;
   margin-top: 1em;
   border-radius: 5px;
