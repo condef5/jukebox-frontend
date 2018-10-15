@@ -5,7 +5,8 @@ import WaitingVideo from './WaitingVideo';
 const PreviewWrapper = styled.div`
   transform-style: preserve-3d;
   transform: perspective(700px);
-  width: 300px;
+  width: 95%;
+  margin: auto;
   & > div {
     transform: rotateX(0deg) rotateY(-25deg) translateZ(50px);
   }

@@ -21,6 +21,7 @@ export const Tab = styled.div`
     flex: auto;
     display: flex;
     align-items: center;
+    justify-content: center;
     height: 100%;
     border-right: 2px solid rgba(255, 255, 255, 0.5);
     &:last-child {
