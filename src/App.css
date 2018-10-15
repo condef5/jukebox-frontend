@@ -19,6 +19,7 @@ body {
   margin-bottom: 0.25em;
   text-transform: uppercase;
   border-bottom: 1px solid;
+  cursor: pointer;
 }
 
 .musica div:first-child {
@@ -65,4 +66,5 @@ body {
   position: absolute;
   top: 0;
   left: 0;
+  overflow: hidden;
 }
