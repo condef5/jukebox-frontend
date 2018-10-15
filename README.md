@@ -1,3 +1,3 @@
-# Jukebox Yuno Fron-End
+# Jukebox Yuno Front-End
 
-Esta aplicacion contiene todas las funcionalidades de la parte de usuario de la rockola. 
+Esta aplicacion contiene todas las funcionalidades de la parte de usuario de la rockola.
