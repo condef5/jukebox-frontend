@@ -38,14 +38,7 @@ class App extends Component {
             <MusicSection />
             <Buttons />
           </Column>
-          <Column
-            span="50"
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between'
-            }}
-          >
+          <Column span="50">
             <Banner />
             <Carrousel />
             <ListGenre style={{ overflow: 'hidden', width: '100%' }} />
