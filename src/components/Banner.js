@@ -3,7 +3,7 @@ import StyleBanner from './styles/Banner';
 
 const Banner = () => (
   <StyleBanner>
-    <h3>Bono Chelero</h3>
+    <h3>Banner Publicitario</h3>
   </StyleBanner>
 );
 export default Banner;

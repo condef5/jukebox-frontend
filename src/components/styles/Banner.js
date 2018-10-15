@@ -1,12 +1,13 @@
 import styled from 'styled-components';
 
 const Banner = styled.div`
-  padding: 1em;
+  padding: 0.5em;
   display: flex;
   border-radius: 4px;
   justify-content: center;
   align-items: center;
-  box-shadow: 2px 2px 5px #f9950b, -2px -2px 5px #f9950b;
+  box-shadow: 2px 2px 5px #ff0000, -2px -2px 5px #ff0000, -2px 2px 5px #ff0000,
+    2px -2px 5px #ff0000;
   h3 {
     text-transform: uppercase;
     text-align: center;
