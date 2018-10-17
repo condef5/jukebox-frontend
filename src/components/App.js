@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Container, Row, Column } from './styles/Layout';
 import { Title } from './styles/Common';
 import Controls from './Controls';
-import ListGenre from './ListGenre';
+import ListGenders from './ListGenders';
 import Banner from './Banner';
 import MusicSection from './MusicSection';
 import Buttons from './Buttons';
@@ -41,7 +41,7 @@ class App extends Component {
           <Column span="50">
             <Banner />
             <Carrousel />
-            <ListGenre style={{ overflow: 'hidden', width: '100%' }} />
+            <ListGenders />
             <Options />
           </Column>
           <Column span="25">

@@ -1,5 +1,3 @@
-import React from 'react';
-import Swiper from 'react-id-swiper';
 import styled from 'styled-components';
 
 const widthItem = '100px';
@@ -18,7 +16,7 @@ const StyleSwipper = styled.div`
   }
 `;
 
-const StyleGenre = styled.div`
+const StyleGenders = styled.div`
   background-color: rgba(255, 9, 9, 0.8);
   width: ${widthItem};
   height: ${heightItem};
@@ -36,31 +34,4 @@ const StyleGenre = styled.div`
   margin: 1em;
 `;
 
-const listGen = ['Rock', 'Salsa', 'Country', 'Pop', 'Cumbia', 'Soul'];
-
-const params = {
-  effect: 'coverflow',
-  grabCursor: true,
-  slidesPerView: 4,
-  loop: true,
-  coverflowEffect: {
-    rotate: 0,
-    stretch: 1,
-    depth: 150,
-    modifier: 1,
-    slideShadows: false,
-    shadow: false
-  }
-};
-
-const ListGenre = () => (
-  <StyleSwipper>
-    <Swiper {...params}>
-      {listGen.map(item => (
-        <StyleGenre key={item}>{item}</StyleGenre>
-      ))}
-    </Swiper>
-  </StyleSwipper>
-);
-
-export default ListGenre;
+export { StyleSwipper, StyleGenders };

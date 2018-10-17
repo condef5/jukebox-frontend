@@ -92,7 +92,7 @@ class MusicSection extends Component {
   openMusic = url => {
     const { presenting } = this.state;
     const suffix = presenting ? '' : '?reproductor';
-    const originalLocation = 'http://localhost:3000';
+    const originalLocation = location.href;
     if (presenting === false && window.PresentationRequest) {
       const presentationRequest = new PresentationRequest([`${originalLocation}${suffix}`]);
       navigator.presentation.defaultRequest = presentationRequest;
