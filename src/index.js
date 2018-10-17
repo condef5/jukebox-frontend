@@ -14,13 +14,8 @@ import * as serviceWorker from './serviceWorker';
 
 const cache = new InMemoryCache();
 
-const GITHUB_BASE_URL = 'https://api.github.com/graphql';
-
 const httpLink = new HttpLink({
-  uri: GITHUB_BASE_URL,
-  headers: {
-    authorization: `Bearer ${'57ba2b4daeb5431fa7af24e4bea9bfc9155e98ab'}`
-  }
+  uri: 'http://localhost:4000/graphql'
 });
 
 const initialState = {
