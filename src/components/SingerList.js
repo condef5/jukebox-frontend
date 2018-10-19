@@ -18,25 +18,28 @@ const params = {
   }
 };
 
-const CarrouselSinger = ({ singers }) => (
-  <StyleSwipper>
-    <Swiper {...params}>
-      {singers.map(item => (
-        <div className="contain" key={item.id}>
-          <img
-            className="img-responsive"
-            src={item.image}
-            alt="title or description"
-          />
-        </div>
-      ))}
-    </Swiper>
-  </StyleSwipper>
-);
-
-const SingerList = ({ singers }) => {
+const SingerList = ({ singers, onSingerClick }) => {
   if (singers.length === 0) return 'Loading...';
-  return <CarrouselSinger singers={singers} />;
+  return (
+    <StyleSwipper>
+      <Swiper {...params}>
+        {singers.map(singer => (
+          <div
+            className="contain"
+            key={singer.id}
+            onClick={() => onSingerClick(singer.id)}
+            role="presentation"
+          >
+            <img
+              className="img-responsive"
+              src={singer.image}
+              alt="title or description"
+            />
+          </div>
+        ))}
+      </Swiper>
+    </StyleSwipper>
+  );
 };
 
 export default SingerList;

@@ -26,9 +26,11 @@ export default `
 
   type Mutation {
     selectedGender(id: Int!): Int!
+    selectedSinger(id: Int!): Int!
   }
   type Query {
     genderSelected: String!
+    selectedSinger: String!
     genders: [Gender]
     singers: [Singer]
     videoclips: [Videoclip]

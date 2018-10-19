@@ -3,7 +3,7 @@ import { graphql } from 'react-apollo';
 import SingerList from '../components/SingerList';
 
 const filterSingers = (singers, genderId) =>
-  singers.filter(singer => singer.gender_id == genderId);
+  singers.filter(singer => singer.gender_id === genderId);
 
 const SINGERS_QUERY = gql`
   {
@@ -26,4 +26,16 @@ const withSingers = graphql(SINGERS_QUERY, {
   }
 });
 
-export default withSingers(SingerList);
+const SINGER_MUTATION = gql`
+  mutation SelectSinger($id: Int!) {
+    selectedSinger(id: $id) @client
+  }
+`;
+
+const selectedSinger = graphql(SINGER_MUTATION, {
+  props: ({ mutate }) => ({
+    onSingerClick: id => mutate({ variables: { id } })
+  })
+});
+
+export default selectedSinger(withSingers(SingerList));
