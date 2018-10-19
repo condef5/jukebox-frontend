@@ -17,11 +17,13 @@ const params = {
   }
 };
 
-const GenderList = ({ genders }) => (
+const GenderList = ({ genders, onGenderClick }) => (
   <StyleSwipper>
     <Swiper {...params}>
       {genders.map(item => (
-        <StyleGenders key={item.id}>{item.name}</StyleGenders>
+        <StyleGenders key={item.id} onClick={() => onGenderClick(item.id)}>
+          {item.name}
+        </StyleGenders>
       ))}
     </Swiper>
   </StyleSwipper>

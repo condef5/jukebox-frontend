@@ -14,6 +14,7 @@ export default `
     id: Int!
     name: String!
     image: String!
+    gender_id: Int
   }
 
   type Videoclip {
@@ -24,13 +25,10 @@ export default `
   }
 
   type Mutation {
-    addTodo(text: String!): Todo
-    toggleTodo(id: Int!): Todo
-    visibilityFilter(filter: String!): String
+    selectedGender(id: Int!): Int!
   }
   type Query {
-    visibilityFilter: String
-    demo: String
+    genderSelected: String!
     genders: [Gender]
     singers: [Singer]
     videoclips: [Videoclip]

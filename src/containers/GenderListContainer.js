@@ -20,4 +20,16 @@ const withGenders = graphql(GENDERS_QUERY, {
   }
 });
 
-export default withGenders(GenderList);
+const GENDER_MUTATION = gql`
+  mutation SelectGender($id: Int!) {
+    selectedGender(id: $id) @client
+  }
+`;
+
+const selectedGender = graphql(GENDER_MUTATION, {
+  props: ({ mutate }) => ({
+    onGenderClick: id => mutate({ variables: { id } })
+  })
+});
+
+export default selectedGender(withGenders(GenderList));

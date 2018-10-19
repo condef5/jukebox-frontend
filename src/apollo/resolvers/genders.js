@@ -1,7 +1,8 @@
 // import gql from 'graphql-tag';
 
-const singers = {
+const genders = {
   defaults: {
+    genderSelected: 1,
     genders: [
       {
         id: '1',
@@ -47,9 +48,12 @@ const singers = {
   },
   resolvers: {
     Mutation: {
-      addTodo: () => {}
+      selectedGender: (_, { id }, { cache }) => {
+        cache.writeData({ data: { genderSelected: id } });
+        return null;
+      }
     }
   }
 };
 
-export default singers;
+export default genders;
