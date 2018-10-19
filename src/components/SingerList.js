@@ -1,21 +1,9 @@
 import React, { Component } from 'react';
 import Swiper from 'react-id-swiper';
-import gql from 'graphql-tag';
-import { Query } from 'react-apollo';
 import StyleSwipper from './styles/ListSingers';
 
-const GET_SINGERS = gql`
-  {
-    singers @client {
-      id
-      name
-      image
-    }
-  }
-`;
-
 /* eslint-disable */
-class Carrousel extends Component {
+class SingerList extends Component {
   render() {
     const { singers } = this.props;
     const params = {
@@ -46,16 +34,4 @@ class Carrousel extends Component {
   }
 }
 
-const WrapList = () => (
-  <Query query={GET_SINGERS}>
-    {({ data: { singers }, loading }) => {
-      if (loading) {
-        return <div>Loading ...</div>;
-      }
-
-      return <Carrousel singers={singers} />;
-    }}
-  </Query>
-);
-
-export default WrapList;
+export default SingerList;

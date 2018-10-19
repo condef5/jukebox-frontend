@@ -1,18 +1,5 @@
 import React, { Component } from 'react';
-import gql from 'graphql-tag';
-import { Query } from 'react-apollo';
 import { Tab, MusicContainer, Letters } from './styles/MusicSection';
-
-const GET_VIDEOCLIPS = gql`
-  {
-    videoclips @client {
-      id
-      name
-      author
-      url
-    }
-  }
-`;
 
 /* eslint-disable */
 const letters = [
@@ -44,7 +31,7 @@ const letters = [
   'Z'
 ];
 
-class MusicSection extends Component {
+class VideoclipList extends Component {
   constructor(props) {
     super(props);
     this.presentationConnection = null;
@@ -115,16 +102,4 @@ class MusicSection extends Component {
   }
 }
 
-const WrapList = () => (
-  <Query query={GET_VIDEOCLIPS}>
-    {({ data: { videoclips }, loading }) => {
-      if (loading) {
-        return <div>Loading ...</div>;
-      }
-
-      return <MusicSection videoclips={videoclips} />;
-    }}
-  </Query>
-);
-
-export default WrapList;
+export default VideoclipList;
