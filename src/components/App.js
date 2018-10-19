@@ -7,7 +7,7 @@ import Banner from './Banner';
 import MusicSection from './MusicSection';
 import Buttons from './Buttons';
 import VideoPreview from './VideoPreview';
-import Carrousel from './Carrousel';
+import ListSingers from './ListSingers';
 import Options from './Options';
 import Beat from './Beat';
 import Reproductor from './Reproductor';
@@ -40,7 +40,7 @@ class App extends Component {
           </Column>
           <Column span="50">
             <Banner />
-            <Carrousel />
+            <ListSingers />
             <ListGenders />
             <Options />
           </Column>

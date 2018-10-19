@@ -6,7 +6,7 @@ import { StyleSwipper, StyleGenders } from './styles/ListGenders';
 
 const GET_GENDERS = gql`
   {
-    genders {
+    genders @client {
       id
       name
     }

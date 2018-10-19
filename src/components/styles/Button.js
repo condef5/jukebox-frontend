@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const Button = styled.button`
+  font-family: inherit;
   border: none;
   outline: none;
   justify-content: center;

@@ -1,56 +1,20 @@
 import React, { Component } from 'react';
+import gql from 'graphql-tag';
+import { Query } from 'react-apollo';
 import { Tab, MusicContainer, Letters } from './styles/MusicSection';
-/* eslint-disable */
 
-const musics = [
+const GET_VIDEOCLIPS = gql`
   {
-    name: 'In the end',
-    author: 'Linkin Park',
-    url: 'https://www.youtube.com/watch?v=eVTXPUF4Oz4'
-  },
-  { name: 'Numb', author: 'Linkin Park', url: 'https://youtu.be/kXYiU_JCYtU' },
-  {
-    name: 'Leave out all the rest',
-    author: 'Linkin Park',
-    url: 'https://www.youtube.com/watch?v=yZIummTz9mM'
-  },
-  {
-    name: 'Shadow in the dark',
-    author: 'Linkin Park',
-    url: 'https://youtu.be/i8q8fFs3kTM'
-  },
-  {
-    name: 'New divide',
-    author: 'Linkin Park',
-    url: 'https://www.youtube.com/watch?v=ysSxxIqKNN0'
-  },
-  {
-    name: "What I've Done ",
-    author: 'Linkin Park',
-    url: 'https://www.youtube.com/watch?v=8sgycukafqQ'
-  },
-  {
-    name: 'Breaking The Habit',
-    author: 'Linkin Park',
-    url: 'https://youtu.be/v2H4l9RpkwM'
-  },
-  {
-    name: 'Papercut',
-    author: 'Linkid park',
-    url: 'https://youtu.be/vjVkXlxsO8Q'
-  },
-  {
-    name: 'Burn It Down',
-    author: 'Linkid park',
-    url: 'https://youtu.be/dxytyRy-O1k'
-  },
-  {
-    name: 'Somewhere I Belong',
-    author: 'Linkid park',
-    url: 'https://youtu.be/4h3F6pb0CNc'
+    videoclips @client {
+      id
+      name
+      author
+      url
+    }
   }
-];
+`;
 
+/* eslint-disable */
 const letters = [
   'A',
   'B',
@@ -81,8 +45,8 @@ const letters = [
 ];
 
 class MusicSection extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.presentationConnection = null;
     this.state = {
       presenting: false
@@ -119,6 +83,7 @@ class MusicSection extends Component {
   };
 
   render() {
+    const { videoclips } = this.props;
     return (
       <div style={{ marginBottom: '1em', padding: '0 1em' }}>
         <Tab>
@@ -132,7 +97,7 @@ class MusicSection extends Component {
         </Tab>
         <MusicContainer>
           <div style={{ flex: '1', paddingRight: '1em' }}>
-            {musics.map(music => (
+            {videoclips.map(music => (
               <div className="musica" onClick={() => this.openMusic(music.url)}>
                 <div>{music.author}</div>
                 <div>{music.name}</div>
@@ -150,4 +115,16 @@ class MusicSection extends Component {
   }
 }
 
-export default MusicSection;
+const WrapList = () => (
+  <Query query={GET_VIDEOCLIPS}>
+    {({ data: { videoclips }, loading }) => {
+      if (loading) {
+        return <div>Loading ...</div>;
+      }
+
+      return <MusicSection videoclips={videoclips} />;
+    }}
+  </Query>
+);
+
+export default WrapList;
