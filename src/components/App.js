@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
+import GenderListContainer from '../containers/GenderListContainer';
+import SingerListContainer from '../containers/SingerListContainer';
+import VideoclipListContainer from '../containers/VideoclipListContainer';
 import { Container, Row, Column } from './styles/Layout';
 import { Title } from './styles/Common';
 import Controls from './Controls';
-import ListGenders from './ListGenders';
 import Banner from './Banner';
-import MusicSection from './MusicSection';
 import Buttons from './Buttons';
 import VideoPreview from './VideoPreview';
-import ListSingers from './ListSingers';
 import Options from './Options';
 import Beat from './Beat';
 import Reproductor from './Reproductor';
@@ -35,13 +35,13 @@ class App extends Component {
           <Column span="25">
             {/* Logo */}
             <Title>Perumatic</Title>
-            <MusicSection />
+            <VideoclipListContainer />
             <Buttons />
           </Column>
           <Column span="50">
             <Banner />
-            <ListSingers />
-            <ListGenders />
+            <SingerListContainer />
+            <GenderListContainer />
             <Options />
           </Column>
           <Column span="25">
