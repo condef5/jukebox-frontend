@@ -24,7 +24,7 @@ class SingerList extends Component {
       <StyleSwipper>
         <Swiper {...params}>
           {singers.map(item => (
-            <div className="contain">
+            <div className="contain" key={item.id}>
               <img className="img-responsive" src={item.image} alt="title or description" />
             </div>
           ))}

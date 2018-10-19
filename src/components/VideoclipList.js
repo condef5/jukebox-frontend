@@ -85,7 +85,7 @@ class VideoclipList extends Component {
         <MusicContainer>
           <div style={{ flex: '1', paddingRight: '1em' }}>
             {videoclips.map(music => (
-              <div className="musica" onClick={() => this.openMusic(music.url)}>
+              <div className="musica" key={music.id} onClick={() => this.openMusic(music.url)}>
                 <div>{music.author}</div>
                 <div>{music.name}</div>
               </div>
@@ -93,7 +93,7 @@ class VideoclipList extends Component {
           </div>
           <Letters>
             {letters.map(item => (
-              <div>{item}</div>
+              <div key={item}>{item}</div>
             ))}
           </Letters>
         </MusicContainer>

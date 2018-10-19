@@ -30,7 +30,7 @@ export default `
   }
   type Query {
     visibilityFilter: String
-    todos: [Todo]
+    demo: String
     genders: [Gender]
     singers: [Singer]
     videoclips: [Videoclip]
