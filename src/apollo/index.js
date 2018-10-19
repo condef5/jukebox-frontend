@@ -3,8 +3,11 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloLink } from 'apollo-link';
 import { HttpLink } from 'apollo-link-http';
 import { withClientState } from 'apollo-link-state';
-import { resolvers } from './resolvers';
-import defaults from './defaults';
+import merge from 'lodash.merge';
+
+import singers from './resolvers/singers';
+import genders from './resolvers/genders';
+import videoclips from './resolvers/videoclips';
 import typeDefs from './typeDefs';
 
 const cache = new InMemoryCache();
@@ -14,8 +17,7 @@ const httpLink = new HttpLink({
 });
 
 const stateLink = withClientState({
-  defaults,
-  resolvers,
+  ...merge(singers, genders, videoclips),
   cache,
   typeDefs
 });
