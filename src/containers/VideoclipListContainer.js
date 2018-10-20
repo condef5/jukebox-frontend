@@ -28,4 +28,16 @@ const withVideoclips = graphql(VIDEOCLIPS_QUERY, {
   }
 });
 
-export default withVideoclips(VideoclipList);
+const WAITING_MUTATION = gql`
+  mutation AddVideo($id: Int!) {
+    addVideo(id: $id) @client
+  }
+`;
+
+const addVideo = graphql(WAITING_MUTATION, {
+  props: ({ mutate }) => ({
+    onAddVideo: id => mutate({ variables: { id } })
+  })
+});
+
+export default addVideo(withVideoclips(VideoclipList));

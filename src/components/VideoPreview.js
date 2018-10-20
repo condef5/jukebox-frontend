@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import WaitingVideo from './WaitingVideo';
+import WaitingListContainer from '../containers/WaitingListContainer';
 
 const PreviewWrapper = styled.div`
   transform-style: preserve-3d;
@@ -39,7 +39,7 @@ const VideoPreview = () => (
       </div>
       <div>Linkin park - In the end</div>
     </div>
-    <WaitingVideo />
+    <WaitingListContainer />
   </PreviewWrapper>
 );
 

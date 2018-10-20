@@ -1,4 +1,4 @@
-// import gql from 'graphql-tag';
+import gql from 'graphql-tag';
 
 const videoclips = {
   defaults: {
@@ -205,8 +205,8 @@ const videoclips = {
       },
       {
         id: 26,
-        name: 'Rewrite',
-        author: 'Haruka Kanata',
+        name: 'Haruka Kanata',
+        author: 'Asian kung-fu generation',
         url: 'https://youtu.be/nJ6A6GC_ki4',
         singer_id: 8,
         __typename: 'VideoclipItem'
@@ -215,7 +215,27 @@ const videoclips = {
   },
   resolvers: {
     Mutation: {
-      addTodo: () => {}
+      addVideo: (_, { id }, { cache }) => {
+        const query = gql`
+          query GetWaitings {
+            waitings @client {
+              video_id
+              client
+            }
+          }
+        `;
+        const { waitings } = cache.readQuery({ query });
+        const newWaiting = {
+          video_id: id,
+          client: 'normal',
+          __typename: 'WaitingItem'
+        };
+        const data = {
+          waitings: waitings.concat([newWaiting])
+        };
+        cache.writeData({ data });
+        return null;
+      }
     }
   }
 };
