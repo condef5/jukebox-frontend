@@ -11,6 +11,7 @@ import VideoPreview from './VideoPreview';
 import Options from './Options';
 import Beat from './Beat';
 import Reproductor from './Reproductor';
+import Manager from './Manager';
 
 import '../App.css';
 
@@ -30,27 +31,29 @@ class App extends Component {
       return <Reproductor />;
     }
     return (
-      <Container>
-        <Row>
-          <Column span="25">
-            {/* Logo */}
-            <Title>Perumatic</Title>
-            <VideoclipListContainer />
-            <Buttons />
-          </Column>
-          <Column span="50">
-            <Banner />
-            <SingerListContainer />
-            <GenderListContainer />
-            <Options />
-          </Column>
-          <Column span="25">
-            <Controls />
-            <VideoPreview />
-            <Beat />
-          </Column>
-        </Row>
-      </Container>
+      <Manager>
+        <Container>
+          <Row>
+            <Column span="25">
+              {/* Logo */}
+              <Title>Perumatic</Title>
+              <VideoclipListContainer />
+              <Buttons />
+            </Column>
+            <Column span="50">
+              <Banner />
+              <SingerListContainer />
+              <GenderListContainer />
+              <Options />
+            </Column>
+            <Column span="25">
+              <Controls />
+              <VideoPreview />
+              <Beat />
+            </Column>
+          </Row>
+        </Container>
+      </Manager>
     );
   }
 }

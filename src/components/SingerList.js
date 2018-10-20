@@ -12,9 +12,9 @@ const params = {
   coverflowEffect: {
     rotate: 5,
     stretch: 1,
-    depth: 400,
+    depth: 500,
     modifier: 1,
-    slideShadows: true
+    slideShadows: false
   }
 };
 
