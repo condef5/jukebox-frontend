@@ -16,6 +16,12 @@
       {
         "extensions": [".js", ".jsx"]
       }
+    ],
+    "react/sort-comp": [
+      1,
+      {
+        "order": ["constructor", "lifecycle", "everything-else", "render"]
+      }
     ]
   }
 }

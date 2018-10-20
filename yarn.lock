@@ -8219,6 +8219,13 @@ react-scripts@2.0.4:
   optionalDependencies:
     fsevents "1.2.4"
 
+react-simple-keyboard@^1.6.3:
+  version "1.6.3"
+  resolved "https://registry.yarnpkg.com/react-simple-keyboard/-/react-simple-keyboard-1.6.3.tgz#5106abbb432e2772bd24365b3d309a29f39e80dd"
+  integrity sha512-Pou5FFp01RxN2jcj0mefSMqUwwuQpAUWUfZtUWmjOcqDJMq2dgsu3JuLeD1JSEupRhbHUbQyxbzADPqgevyuvw==
+  dependencies:
+    simple-keyboard "^2.6.1"
+
 react@^16.5.2:
   version "16.5.2"
   resolved "https://registry.yarnpkg.com/react/-/react-16.5.2.tgz#19f6b444ed139baa45609eee6dc3d318b3895d42"
@@ -8883,6 +8890,11 @@ signal-exit@^3.0.0, signal-exit@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
   integrity sha1-tf3AjxKH6hF4Yo5BXiUTK3NkbG0=
+
+simple-keyboard@^2.6.1, simple-keyboard@^2.6.5:
+  version "2.6.5"
+  resolved "https://registry.yarnpkg.com/simple-keyboard/-/simple-keyboard-2.6.5.tgz#432e907222f133746130ec35c682a24f83d3ccf7"
+  integrity sha512-xn4Xjn0nZpRBRjpPSG++ABucm4PkAQgpHX06Y36lO+aKQPM63cn8NaFv2p16I37QZeCRzfnVG+M/f+Xfc4KIaw==
 
 simple-swizzle@^0.2.2:
   version "0.2.2"
