@@ -6,7 +6,7 @@ import { Container, Row, Column } from './styles/Layout';
 import { Title } from './styles/Common';
 import Controls from './Controls';
 import Banner from './Banner';
-import Buttons from './Buttons';
+import ButtonList from './ButtonList';
 import VideoPreview from './VideoPreview';
 import Options from './Options';
 import Beat from './Beat';
@@ -38,7 +38,7 @@ class App extends Component {
               {/* Logo */}
               <Title>Perumatic</Title>
               <VideoclipListContainer />
-              <Buttons />
+              <ButtonList />
             </Column>
             <Column span="50">
               <Banner />
