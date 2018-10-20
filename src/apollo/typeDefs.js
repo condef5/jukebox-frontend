@@ -1,10 +1,4 @@
 export default `
-  type Todo {
-    id: Int!
-    text: String!
-    completed: Boolean!
-  }
-
   type Gender {
     id: Int!
     name: String!
@@ -21,6 +15,7 @@ export default `
     id: Int!
     name: String!
     author: String!
+    singer_id: Int
     url: String!
   }
 
