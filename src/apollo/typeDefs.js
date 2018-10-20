@@ -15,19 +15,27 @@ export default `
     id: Int!
     name: String!
     author: String!
-    singer_id: Int
     url: String!
+    singer_id: Int
+  }
+ 
+  type Waiting {
+    video_id: Int!
+    client: String!
   }
 
   type Mutation {
     selectedGender(id: Int!): Int!
     selectedSinger(id: Int!): Int!
+    addVideo(id: Int!): String
   }
+  
   type Query {
     genderSelected: String!
     selectedSinger: String!
     genders: [Gender]
     singers: [Singer]
     videoclips: [Videoclip]
+    waitings: [Waiting]
   }
 `;

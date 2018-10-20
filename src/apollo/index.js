@@ -8,6 +8,7 @@ import merge from 'lodash.merge';
 import singers from './resolvers/singers';
 import genders from './resolvers/genders';
 import videoclips from './resolvers/videoclips';
+import waitings from './resolvers/waitings';
 import typeDefs from './typeDefs';
 
 const cache = new InMemoryCache();
@@ -17,7 +18,7 @@ const httpLink = new HttpLink({
 });
 
 const stateLink = withClientState({
-  ...merge(singers, genders, videoclips),
+  ...merge(singers, genders, videoclips, waitings),
   cache,
   typeDefs
 });
