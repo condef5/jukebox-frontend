@@ -2,34 +2,7 @@ import React from 'react';
 import { Tab, MusicContainer, Letters } from './styles/MusicSection';
 
 /* eslint-disable */
-const letters = [
-  'A',
-  'B',
-  'C',
-  'D',
-  'E',
-  'F',
-  'G',
-  'H',
-  'I',
-  'J',
-  'K',
-  'L',
-  'M',
-  'N',
-  'O',
-  'P',
-  'Q',
-  'R',
-  'S',
-  'T',
-  'U',
-  'V',
-  'W',
-  'X',
-  'Y',
-  'Z'
-];
+const letters = Array.from({ length: 26 }, (_, i) => String.fromCharCode(65 + i));
 
 const VideoclipList = ({ videoclips, onAddVideo }) => (
   <div style={{ marginBottom: '1em', padding: '0 1em' }}>
