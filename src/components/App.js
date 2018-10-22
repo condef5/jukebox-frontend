@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { hot } from 'react-hot-loader';
 import GenderListContainer from '../containers/GenderListContainer';
 import SingerListContainer from '../containers/SingerListContainer';
 import VideoclipListContainer from '../containers/VideoclipListContainer';
@@ -58,4 +59,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default hot(module)(App);
