@@ -15,9 +15,7 @@ export class Manager extends Component {
     const suffix = presenting ? '' : '?reproductor';
     const originalLocation = location.href;
     if (presenting === false && window.PresentationRequest) {
-      const presentationRequest = new PresentationRequest([
-        `${originalLocation}${suffix}`
-      ]);
+      const presentationRequest = new PresentationRequest([`${originalLocation}${suffix}`]);
       navigator.presentation.defaultRequest = presentationRequest;
       presentationRequest.start().then(connection => {
         console.log('ready');
@@ -29,7 +27,7 @@ export class Manager extends Component {
       });
     } else {
       console.log('change video...');
-      this._goToSlide(url);
+      this._goToSlide('https://youtu.be/CfbCLwNlGwU');
     }
   };
 
@@ -43,12 +41,7 @@ export class Manager extends Component {
 
   _handleEvent = e => {
     const event = window.event ? window.event : e;
-    if (
-      event.altKey &&
-      event.keyCode === 80 &&
-      !event.ctrlKey &&
-      !event.metaKey
-    ) {
+    if (event.altKey && event.keyCode === 80 && !event.ctrlKey && !event.metaKey) {
       this._togglePresenterMode('https://youtu.be/B0cVKmkYamU');
     }
   };

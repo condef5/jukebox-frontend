@@ -29,7 +29,8 @@ const StyleGenders = styled.div`
   text-align: center;
   color: #fff;
   opacity: 0.95;
-  box-shadow: 1px 1px 20px rgba(255,0,0,0.61), -1px -1px 20px rgba(255,0,0,0.61);
+  box-shadow: 1px 1px 20px rgba(255, 0, 0, 0.61),
+    -1px -1px 20px rgba(255, 0, 0, 0.61);
   border-radius: 4px;
   margin: 1em;
   display: flex;
