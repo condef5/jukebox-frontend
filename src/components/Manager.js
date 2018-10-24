@@ -1,52 +1,70 @@
 import React, { Component } from 'react';
 
-/* eslint-disable */
+import { NavigatorProvider } from '../context/NavigatorContext';
+
 export class Manager extends Component {
   constructor(props) {
     super(props);
     this.presentationConnection = null;
     this.state = {
-      presenting: false
+      presenting: false,
+      videos: []
     };
   }
 
-  _togglePresenterMode = url => {
-    const { presenting } = this.state;
-    const suffix = presenting ? '' : '?reproductor';
+  componentDidMount() {
+    this.attachEvents();
+  }
+
+  componentWillUnmount() {
+    this.presentationConnection = null;
+    this.detachEvents();
+  }
+
+  initPresenterMode = () => {
+    // eslint-disable-next-line
     const originalLocation = location.href;
+    const { presenting } = this.state;
     if (presenting === false && window.PresentationRequest) {
-      const presentationRequest = new PresentationRequest([`${originalLocation}${suffix}`]);
+      const presentationRequest = new PresentationRequest([
+        `${originalLocation}'?reproductor'`
+      ]);
       navigator.presentation.defaultRequest = presentationRequest;
       presentationRequest.start().then(connection => {
-        console.log('ready');
         this.presentationConnection = connection;
         this.setState({ presenting: true });
         this.presentationConnection.addEventListener('message', data => {
-          this._goToSlide(url);
+          this.receiveData({ key: 'jukebox_video', newValue: data.data });
         });
       });
-    } else {
-      console.log('change video...');
-      this._goToSlide('https://youtu.be/CfbCLwNlGwU');
+    } else if (this.presentationConnection) {
+      this.presentationConnection.terminate();
+      this.setState({ presenting: false });
     }
   };
 
-  _atachEvents = () => {
-    window.addEventListener('keydown', this._handleKeyPress);
+  attachEvents = () => {
+    window.addEventListener('keydown', this.handleKeyPress);
+    window.addEventListener('storage', this.receiveData);
   };
 
-  _detachEvents = () => {
-    window.removeEventListener('keydown', this._handleKeyPress);
+  detachEvents = () => {
+    window.removeEventListener('keydown', this.handleKeyPress);
   };
 
-  _handleEvent = e => {
+  handleEvent = e => {
     const event = window.event ? window.event : e;
-    if (event.altKey && event.keyCode === 80 && !event.ctrlKey && !event.metaKey) {
-      this._togglePresenterMode('https://youtu.be/B0cVKmkYamU');
+    if (
+      event.altKey &&
+      event.keyCode === 80 &&
+      !event.ctrlKey &&
+      !event.metaKey
+    ) {
+      this.initPresenterMode();
     }
   };
 
-  _handleKeyPress = e => {
+  handleKeyPress = e => {
     const event = window.event ? window.event : e;
     if (
       event.target instanceof HTMLInputElement ||
@@ -55,27 +73,50 @@ export class Manager extends Component {
     ) {
       return;
     }
-    this._handleEvent(e);
+    this.handleEvent(e);
   };
 
-  _goToSlide = url => {
+  addVideo = video => {
+    const { videos } = this.state;
+    const time = new Date();
+    this.setState({ videos: [...videos, { ...video, time }] });
+  };
+
+  sendData = data => {
+    const { presenting } = this.state;
     const msgData = JSON.stringify({
-      url
+      url: data.url
+      // add fields
     });
-    localStorage.setItem('video', msgData);
-    this.presentationConnection.send(msgData);
+    localStorage.setItem('jukebox_video', msgData);
+    if (presenting && this.presentationConnection) {
+      this.presentationConnection.send(msgData);
+    }
   };
 
-  componentDidMount() {
-    this._atachEvents();
-  }
-
-  componentWillUnmount() {
-    this._detachEvents();
-  }
+  receiveData = e => {
+    // eslint-disable-next-line
+    // const msgData = JSON.parse(data);
+    const data = JSON.parse(e.newValue);
+    if (e.key === 'jukebox_video' && data.action === 'end') {
+      // eslint-disable-next-line
+      const { videos } = this.state;
+      this.setState({ videos: videos.slice(1) });
+      console.log(data);
+      // change nextvideo
+    }
+    // manage volumen / play / end
+  };
 
   render() {
-    return <div>{this.props.children}</div>;
+    const { children } = this.props;
+    const data = {
+      state: this.state,
+      add: this.addVideo,
+      init: this.initPresenterMode,
+      sendData: this.sendData
+    };
+    return <NavigatorProvider value={data}>{children}</NavigatorProvider>;
   }
 }
 
