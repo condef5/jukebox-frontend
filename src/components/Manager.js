@@ -8,7 +8,8 @@ export class Manager extends Component {
     this.presentationConnection = null;
     this.state = {
       presenting: false,
-      videos: []
+      videos: [],
+      currentVideo: null
     };
   }
 
@@ -50,6 +51,7 @@ export class Manager extends Component {
 
   detachEvents = () => {
     window.removeEventListener('keydown', this.handleKeyPress);
+    window.removeEventListener('storage', this.receiveData);
   };
 
   handleEvent = e => {
@@ -77,9 +79,20 @@ export class Manager extends Component {
   };
 
   addVideo = video => {
-    const { videos } = this.state;
+    const { videos, currentVideo } = this.state;
     const time = new Date().getTime();
-    this.setState({ videos: [...videos, { ...video, time }] });
+    if (!currentVideo) {
+      this.setState({
+        currentVideo: { ...video, time }
+      });
+    } else {
+      this.setState({ videos: [...videos, { ...video, time }] });
+    }
+  };
+
+  getVideos = () => {
+    const { videos } = this.state;
+    return videos;
   };
 
   sendData = data => {
@@ -94,10 +107,6 @@ export class Manager extends Component {
     }
   };
 
-  getVideos = () => {
-    const { videos } = this.state;
-    return videos;
-  };
 
   receiveData = e => {
     // eslint-disable-next-line

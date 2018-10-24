@@ -10,7 +10,7 @@ import Banner from './Banner';
 import ButtonList from './ButtonList';
 import VideoPreview from './VideoPreview';
 import Options from './Options';
-import Beat from './Beat';
+import CurrentVideo from './CurrentVideo';
 import Manager from './Manager';
 
 import '../App.css';
@@ -34,7 +34,7 @@ const App = () => (
         <Column span="25">
           <Controls />
           <VideoPreview />
-          <Beat />
+          <CurrentVideo />
         </Column>
       </Row>
     </Container>
