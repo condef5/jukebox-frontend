@@ -7,14 +7,16 @@ import screenfull from 'screenfull';
 class Reproductor extends Component {
   constructor() {
     super();
+    this.presentationConnection = null;
+
     this.state = {
       url: 'https://youtu.be/WG2MvwLfhUQ',
+      video:[],
       playing: true,
       volume: 0.8
     };
 
     this._attachEvents = this._attachEvents.bind(this);
-    this._goToVideo = this._goToVideo.bind(this);
   }
 
   componentDidMount() {
@@ -23,27 +25,23 @@ class Reproductor extends Component {
   }
 
   _attachEvents() {
-    window.addEventListener('storage', this._goToVideo);
+    window.addEventListener('storage', this.receiveData);
     if ((((navigator || {}).presentation || {}).receiver || {}).connectionList) {
       navigator.presentation.receiver.connectionList.then(list => {
         list.connections.map(connection => {
+          this.presentationConnection = connection;
           connection.addEventListener('message', event => {
-            this._goToVideo({ key: 'spectacle-slide', newValue: event.data });
+            this.receiveData({ key: 'spectacle-slide', newValue: event.data });
           });
         });
         list.addEventListener('connectionavailable', e => {
+          this.presentationConnection = e.connection;
           e.connection.addEventListener('message', event => {
-            this._goToVideo({ key: 'spectacle-slide', newValue: event.data });
+            this.receiveData({ key: 'spectacle-slide', newValue: event.data });
           });
         });
       });
     }
-  }
-
-  _goToVideo(e) {
-    const data = JSON.parse(e.newValue);
-    console.log(data);
-    this.setState({ url: data.url });
   }
 
   load = url => {
@@ -71,13 +69,33 @@ class Reproductor extends Component {
     this.setState({ playing: false });
   };
 
-  onEnded = () => {
-    console.log('onEnded');
-  };
-
   onDuration = duration => {
     console.log('onDuration', duration);
     this.setState({ duration });
+  };
+
+  onEnded = () => {
+    console.log('onEnded');
+    this.sendData({
+      action: 'end'
+    });
+  };
+
+  // events to first screen
+  receiveData = e => {
+    const data = JSON.parse(e.newValue);
+    console.log(data);
+    // if (data.key == 'change') {
+    this.setState({ url: data.url });
+    // }s
+  };
+
+  sendData = data => {
+    const msgData = JSON.stringify(data);
+    localStorage.setItem('jukebox_video', msgData);
+    if (this.presentationConnection) {
+      this.presentationConnection.send(msgData);
+    }
   };
 
   ref = player => {
