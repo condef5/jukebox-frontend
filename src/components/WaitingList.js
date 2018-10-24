@@ -9,14 +9,7 @@ const WaitingList = () => (
         <header>Lista de espera</header>
         <div className="list">
           {context.state.videos.map(video => (
-            <div
-              className="row"
-              key={video.time}
-              role="presentation"
-              onClick={() =>
-                context.sendData({ url: video.url, time: video.time })
-              }
-            >
+            <div className="row" key={video.time}>
               <h4>{video.author}</h4>
               <p>{video.name}</p>
             </div>

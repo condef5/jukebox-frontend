@@ -82,11 +82,25 @@ export class Manager extends Component {
     const { videos, currentVideo } = this.state;
     const time = new Date().getTime();
     if (!currentVideo) {
-      this.setState({
-        currentVideo: { ...video, time }
-      });
+      this.setState(
+        {
+          currentVideo: { ...video, time }
+        },
+        () => this.sendData()
+      );
     } else {
       this.setState({ videos: [...videos, { ...video, time }] });
+    }
+  };
+
+  nextVideo = () => {
+    const { videos } = this.state;
+    if (videos.length > 0) {
+      const currentVideo = videos[0];
+      this.setState({ currentVideo }, () => this.sendData());
+      this.setState({ videos: videos.slice(1) });
+    } else {
+      this.setState({ currentVideo: null }, () => this.sendData());
     }
   };
 
@@ -95,43 +109,32 @@ export class Manager extends Component {
     return videos;
   };
 
-  sendData = data => {
-    const { presenting } = this.state;
-    const msgData = JSON.stringify({
-      url: data.url,
-      time: data.time
-    });
+  sendData = () => {
+    const { presenting, currentVideo } = this.state;
+    let msgData;
+    if (currentVideo) {
+      msgData = JSON.stringify({
+        url: currentVideo.url,
+        time: currentVideo.time,
+        finished: false
+      });
+    } else {
+      msgData = JSON.stringify({
+        finished: true
+      });
+    }
     localStorage.setItem('jukebox_video', msgData);
     if (presenting && this.presentationConnection) {
       this.presentationConnection.send(msgData);
     }
   };
 
-
   receiveData = e => {
     // eslint-disable-next-line
     const data = JSON.parse(e.newValue);
     if (e.key === 'jukebox_video' && data.action === 'end') {
       // eslint-disable-next-line
-      if (this.getVideos().length > 1) {
-        const newVideos = this.getVideos().filter(
-          item => item.time !== data.time
-        );
-        this.setState({ videos: newVideos });
-        this.sendData({
-          url: this.getVideos()[0].url,
-          time: this.getVideos()[0].time
-        });
-      } else {
-        const newVideos = this.getVideos().filter(
-          item => item.time !== data.time
-        );
-        this.setState({ videos: newVideos });
-        this.sendData({
-          url: null,
-          time: null
-        });
-      }
+      this.nextVideo();
     }
     // manage volumen / play / end
   };
@@ -142,7 +145,8 @@ export class Manager extends Component {
       state: this.state,
       add: this.addVideo,
       init: this.initPresenterMode,
-      sendData: this.sendData
+      sendData: this.sendData,
+      nextVideo: this.nextVideo
     };
     return <NavigatorProvider value={data}>{children}</NavigatorProvider>;
   }

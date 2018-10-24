@@ -9,6 +9,7 @@ const StyleBeat = styled.div`
   svg {
     width: 30px;
     color: #fff;
+    cursor: pointer;
   }
   .head {
     display: flex;
@@ -33,11 +34,11 @@ const StyleBeat = styled.div`
 
 const CurrentVideo = () => (
   <NavigatorConsumer>
-    {({ state: { currentVideo } }) => (
+    {({ state: { currentVideo }, nextVideo }) => (
       <StyleBeat>
         <div className="head">
           <h4>{currentVideo ? 'Reproducciendo...' : 'Pausa'}</h4>
-          <SkipNext />
+          <SkipNext onClick={nextVideo} />
         </div>
         <div className="content">
           <div className="sound">-----</div>

@@ -14,7 +14,8 @@ class Reproductor extends Component {
       url: null,
       time: null,
       playing: true,
-      volume: 0.8
+      volume: 0.8,
+      finished: true
     };
 
     this._attachEvents = this._attachEvents.bind(this);
@@ -78,20 +79,16 @@ class Reproductor extends Component {
 
   onEnded = () => {
     console.log('onEnded');
-    const { time } = this.state;
     this.sendData({
-      action: 'end',
-      time
+      action: 'end'
     });
   };
 
-  // events to first screen
   receiveData = e => {
     const data = JSON.parse(e.newValue);
-    console.log(data);
-    // if (data.key == 'change') {
-    this.setState({ url: data.url, time: data.time });
-    // }s
+    data.finished
+      ? this.setState({ finished: true })
+      : this.setState({ url: data.url, time: data.time, finished: false });
   };
 
   sendData = data => {
@@ -107,8 +104,8 @@ class Reproductor extends Component {
   };
 
   render() {
-    const { url, playing, volume } = this.state;
-    if (!url) {
+    const { url, playing, volume, finished } = this.state;
+    if (finished) {
       return (
         <div className="centerMessage">
           <Title>Perumatic</Title>
