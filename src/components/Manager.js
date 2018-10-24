@@ -28,7 +28,7 @@ export class Manager extends Component {
     const { presenting } = this.state;
     if (presenting === false && window.PresentationRequest) {
       const presentationRequest = new PresentationRequest([
-        `${originalLocation}'?reproductor'`
+        `${originalLocation}?reproductor`
       ]);
       navigator.presentation.defaultRequest = presentationRequest;
       presentationRequest.start().then(connection => {
@@ -84,12 +84,12 @@ export class Manager extends Component {
     if (!currentVideo) {
       this.setState(
         {
-          currentVideo: { ...video, time }
+          currentVideo: { time, ...video }
         },
         () => this.sendData()
       );
     } else {
-      this.setState({ videos: [...videos, { ...video, time }] });
+      this.setState({ videos: [...videos, { time, ...video }] });
     }
   };
 
@@ -123,6 +123,7 @@ export class Manager extends Component {
         finished: true
       });
     }
+    console.log(msgData);
     localStorage.setItem('jukebox_video', msgData);
     if (presenting && this.presentationConnection) {
       this.presentationConnection.send(msgData);

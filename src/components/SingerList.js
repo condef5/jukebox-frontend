@@ -4,6 +4,7 @@ import StyleSwipper from './styles/ListSingers';
 
 const params = {
   effect: 'coverflow',
+  clickable: true,
   grabCursor: true,
   slidesPerView: 3,
   loop: true,
