@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
 import ReactPlayer from 'react-player';
 import screenfull from 'screenfull';
+import { Title } from './styles/Common';
 
 /* eslint-disable*/
 class Reproductor extends Component {
@@ -10,8 +11,8 @@ class Reproductor extends Component {
     this.presentationConnection = null;
 
     this.state = {
-      url: 'https://youtu.be/WG2MvwLfhUQ',
-      video:[],
+      url: null,
+      time: null,
       playing: true,
       volume: 0.8
     };
@@ -31,22 +32,23 @@ class Reproductor extends Component {
         list.connections.map(connection => {
           this.presentationConnection = connection;
           connection.addEventListener('message', event => {
-            this.receiveData({ key: 'spectacle-slide', newValue: event.data });
+            this.receiveData({ key: 'jukebox_video', newValue: event.data });
           });
         });
         list.addEventListener('connectionavailable', e => {
           this.presentationConnection = e.connection;
           e.connection.addEventListener('message', event => {
-            this.receiveData({ key: 'spectacle-slide', newValue: event.data });
+            this.receiveData({ key: 'jukebox_video', newValue: event.data });
           });
         });
       });
     }
   }
 
-  load = url => {
+  load = (url, time) => {
     this.setState({
-      url
+      url,
+      time
     });
   };
 
@@ -76,8 +78,10 @@ class Reproductor extends Component {
 
   onEnded = () => {
     console.log('onEnded');
+    const { time } = this.state;
     this.sendData({
-      action: 'end'
+      action: 'end',
+      time
     });
   };
 
@@ -86,7 +90,7 @@ class Reproductor extends Component {
     const data = JSON.parse(e.newValue);
     console.log(data);
     // if (data.key == 'change') {
-    this.setState({ url: data.url });
+    this.setState({ url: data.url, time: data.time });
     // }s
   };
 
@@ -104,6 +108,13 @@ class Reproductor extends Component {
 
   render() {
     const { url, playing, volume } = this.state;
+    if (!url) {
+      return (
+        <div className="centerMessage">
+          <Title>Perumatic</Title>
+        </div>
+      );
+    }
     return (
       <ReactPlayer
         ref={this.ref}

@@ -2,7 +2,7 @@ import React from 'react';
 import StyleContain from './styles/WaitingList';
 import { NavigatorConsumer } from '../context/NavigatorContext';
 
-const WaitingList = ({ videos }) => (
+const WaitingList = () => (
   <NavigatorConsumer>
     {context => (
       <StyleContain>
@@ -13,7 +13,9 @@ const WaitingList = ({ videos }) => (
               className="row"
               key={video.time}
               role="presentation"
-              onClick={() => context.sendData({ url: video.url })}
+              onClick={() =>
+                context.sendData({ url: video.url, time: video.time })
+              }
             >
               <h4>{video.author}</h4>
               <p>{video.name}</p>

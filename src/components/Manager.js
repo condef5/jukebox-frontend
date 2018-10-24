@@ -78,15 +78,15 @@ export class Manager extends Component {
 
   addVideo = video => {
     const { videos } = this.state;
-    const time = new Date();
+    const time = new Date().getTime();
     this.setState({ videos: [...videos, { ...video, time }] });
   };
 
   sendData = data => {
     const { presenting } = this.state;
     const msgData = JSON.stringify({
-      url: data.url
-      // add fields
+      url: data.url,
+      time: data.time
     });
     localStorage.setItem('jukebox_video', msgData);
     if (presenting && this.presentationConnection) {
@@ -94,16 +94,35 @@ export class Manager extends Component {
     }
   };
 
+  getVideos = () => {
+    const { videos } = this.state;
+    return videos;
+  };
+
   receiveData = e => {
     // eslint-disable-next-line
-    // const msgData = JSON.parse(data);
     const data = JSON.parse(e.newValue);
     if (e.key === 'jukebox_video' && data.action === 'end') {
       // eslint-disable-next-line
-      const { videos } = this.state;
-      this.setState({ videos: videos.slice(1) });
-      console.log(data);
-      // change nextvideo
+      if (this.getVideos().length > 1) {
+        const newVideos = this.getVideos().filter(
+          item => item.time !== data.time
+        );
+        this.setState({ videos: newVideos });
+        this.sendData({
+          url: this.getVideos()[0].url,
+          time: this.getVideos()[0].time
+        });
+      } else {
+        const newVideos = this.getVideos().filter(
+          item => item.time !== data.time
+        );
+        this.setState({ videos: newVideos });
+        this.sendData({
+          url: null,
+          time: null
+        });
+      }
     }
     // manage volumen / play / end
   };
