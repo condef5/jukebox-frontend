@@ -9,11 +9,13 @@ export class Manager extends Component {
     this.state = {
       presenting: false,
       videos: [],
+      playing: false,
       currentVideo: null
     };
   }
 
   componentDidMount() {
+    localStorage.clear();
     this.attachEvents();
   }
 
@@ -104,19 +106,21 @@ export class Manager extends Component {
     }
   };
 
-  getVideos = () => {
-    const { videos } = this.state;
-    return videos;
+  tooglePlay = () => {
+    const { playing } = this.state;
+    this.setState({ playing: !playing }, () => this.sendData('play'));
   };
 
-  sendData = () => {
-    const { presenting, currentVideo } = this.state;
+  sendData = (action = 'nothing') => {
+    const { presenting, currentVideo, playing } = this.state;
     let msgData;
     if (currentVideo) {
       msgData = JSON.stringify({
         url: currentVideo.url,
         time: currentVideo.time,
-        finished: false
+        finished: false,
+        playing,
+        action
       });
     } else {
       msgData = JSON.stringify({
@@ -147,7 +151,8 @@ export class Manager extends Component {
       add: this.addVideo,
       init: this.initPresenterMode,
       sendData: this.sendData,
-      nextVideo: this.nextVideo
+      nextVideo: this.nextVideo,
+      tooglePlay: this.tooglePlay
     };
     return <NavigatorProvider value={data}>{children}</NavigatorProvider>;
   }

@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { SkipNext } from 'styled-icons/material/SkipNext';
+import { PlayArrow } from 'styled-icons/material/PlayArrow';
+import { Pause } from 'styled-icons/material/Pause';
 import { NavigatorConsumer } from '../context/NavigatorContext';
 
 const StyleBeat = styled.div`
@@ -34,10 +36,13 @@ const StyleBeat = styled.div`
 
 const CurrentVideo = () => (
   <NavigatorConsumer>
-    {({ state: { currentVideo }, nextVideo }) => (
+    {({ state: { currentVideo, playing }, nextVideo, tooglePlay }) => (
       <StyleBeat>
         <div className="head">
-          <h4>{currentVideo ? 'Reproducciendo...' : 'Pausa'}</h4>
+          <h4>{playing ? 'Reproducciendo...' : 'Pausa'}</h4>
+          <div onClick={tooglePlay} role="presentation">
+            {playing ? <Pause /> : <PlayArrow />}
+          </div>
           <SkipNext onClick={nextVideo} />
         </div>
         <div className="content">

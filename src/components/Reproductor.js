@@ -13,7 +13,7 @@ class Reproductor extends Component {
     this.state = {
       url: null,
       time: null,
-      playing: true,
+      playing: false,
       volume: 0.8,
       finished: true
     };
@@ -63,13 +63,13 @@ class Reproductor extends Component {
   };
 
   onPlay = () => {
-    console.log('onPlay');
     this.setState({ playing: true });
+    console.log('onPlay', this.state.playing);
   };
 
   onPause = () => {
-    console.log('onPause');
     this.setState({ playing: false });
+    console.log('onPause', this.state.playing);
   };
 
   onDuration = duration => {
@@ -86,9 +86,15 @@ class Reproductor extends Component {
 
   receiveData = e => {
     const data = JSON.parse(e.newValue);
-    data.finished
-      ? this.setState({ finished: true })
-      : this.setState({ url: data.url, time: data.time, finished: false });
+    console.log(data);
+    if (data.action == 'play') {
+      const { playing } = this.state;
+      this.setState({ playing: !playing });
+    } else {
+      data.finished
+        ? this.setState({ finished: true })
+        : this.setState({ url: data.url, time: data.time, finished: false });
+    }
   };
 
   sendData = data => {
