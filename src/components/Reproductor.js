@@ -93,7 +93,7 @@ class Reproductor extends Component {
     } else {
       data.finished
         ? this.setState({ finished: true })
-        : this.setState({ url: data.url, time: data.time, finished: false });
+        : this.setState({ url: data.url, time: data.time, volume: data.volume, finished: false });
     }
   };
 

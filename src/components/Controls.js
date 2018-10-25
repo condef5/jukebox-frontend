@@ -16,6 +16,14 @@ const Controls = () => (
           <PlayCircle style={{ width: '40px' }} onClick={context.init} />
         </div>
         <div className="volumen">
+          <input
+            type="range"
+            min={0}
+            max={1}
+            step="any"
+            value={context.state.volume}
+            onChange={context.setVolume}
+          />
           <VolumeUp style={{ width: '40px' }} />
         </div>
       </ControlStyle>

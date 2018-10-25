@@ -10,6 +10,7 @@ export class Manager extends Component {
       presenting: false,
       videos: [],
       playing: false,
+      volume: 0.8,
       currentVideo: null
     };
   }
@@ -111,8 +112,14 @@ export class Manager extends Component {
     this.setState({ playing: !playing }, () => this.sendData('play'));
   };
 
+  setVolume = e => {
+    this.setState({ volume: parseFloat(e.target.value) }, () =>
+      this.sendData()
+    );
+  };
+
   sendData = (action = 'nothing') => {
-    const { presenting, currentVideo, playing } = this.state;
+    const { presenting, currentVideo, playing, volume } = this.state;
     let msgData;
     if (currentVideo) {
       msgData = JSON.stringify({
@@ -120,6 +127,7 @@ export class Manager extends Component {
         time: currentVideo.time,
         finished: false,
         playing,
+        volume,
         action
       });
     } else {
@@ -152,7 +160,8 @@ export class Manager extends Component {
       init: this.initPresenterMode,
       sendData: this.sendData,
       nextVideo: this.nextVideo,
-      tooglePlay: this.tooglePlay
+      tooglePlay: this.tooglePlay,
+      setVolume: this.setVolume
     };
     return <NavigatorProvider value={data}>{children}</NavigatorProvider>;
   }
