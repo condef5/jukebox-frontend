@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { SkipNext } from 'styled-icons/material/SkipNext';
 import { PlayArrow } from 'styled-icons/material/PlayArrow';
 import { Pause } from 'styled-icons/material/Pause';
+import Duration from './Duration';
 import { NavigatorConsumer } from '../context/NavigatorContext';
 
 const StyleBeat = styled.div`
@@ -36,7 +37,11 @@ const StyleBeat = styled.div`
 
 const CurrentVideo = () => (
   <NavigatorConsumer>
-    {({ state: { currentVideo, playing }, nextVideo, tooglePlay }) => (
+    {({
+      state: { currentVideo, playing, duration },
+      nextVideo,
+      tooglePlay
+    }) => (
       <StyleBeat>
         <div className="head">
           <h4>{playing ? 'Reproducciendo...' : 'Pausa'}</h4>
@@ -48,10 +53,10 @@ const CurrentVideo = () => (
         <div className="content">
           <div className="sound">-----</div>
           <div className="music">
-            <div className="duration">{currentVideo ? '3:12' : '0:00'}</div>
+            <Duration seconds={duration} />
             <div>
               <div className="author">
-                {currentVideo ? currentVideo.author : '0:00'}
+                {currentVideo ? currentVideo.author : 'Artist Desconocido'}
               </div>
               <div className="song">
                 {currentVideo ? currentVideo.name : ''}

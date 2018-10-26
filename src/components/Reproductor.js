@@ -74,7 +74,7 @@ class Reproductor extends Component {
 
   onDuration = duration => {
     console.log('onDuration', duration);
-    this.setState({ duration });
+    this.sendData({ action: 'duration', duration });
   };
 
   onEnded = () => {

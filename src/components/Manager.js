@@ -11,7 +11,8 @@ export class Manager extends Component {
       videos: [],
       playing: false,
       volume: 0.8,
-      currentVideo: null
+      currentVideo: null,
+      duration: 0
     };
   }
 
@@ -135,7 +136,7 @@ export class Manager extends Component {
         finished: true
       });
     }
-    console.log(msgData);
+    // console.log(msgData);
     localStorage.setItem('jukebox_video', msgData);
     if (presenting && this.presentationConnection) {
       this.presentationConnection.send(msgData);
@@ -143,11 +144,13 @@ export class Manager extends Component {
   };
 
   receiveData = e => {
-    // eslint-disable-next-line
     const data = JSON.parse(e.newValue);
     if (e.key === 'jukebox_video' && data.action === 'end') {
-      // eslint-disable-next-line
       this.nextVideo();
+    }
+    if (e.key === 'jukebox_video' && data.action === 'duration') {
+      console.log(data.duration);
+      this.setState({ duration: data.duration });
     }
     // manage volumen / play / end
   };
