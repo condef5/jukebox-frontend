@@ -3,7 +3,7 @@ import { hot } from 'react-hot-loader';
 import GenderListContainer from '../containers/GenderListContainer';
 import SingerListContainer from '../containers/SingerListContainer';
 import VideoclipListContainer from '../containers/VideoclipListContainer';
-import { Container, Row, Column } from './styles/Layout';
+import { Row, Column } from './styles/Layout';
 import { Title } from './styles/Common';
 import Controls from './Controls';
 import Banner from './Banner';
@@ -17,27 +17,25 @@ import '../App.css';
 
 const App = () => (
   <Manager>
-    <Container>
-      <Row>
-        <Column span="25">
-          {/* Logo */}
-          <Title>Perumatic</Title>
-          <VideoclipListContainer />
-          <ButtonList />
-        </Column>
-        <Column span="50">
-          <Banner />
-          <SingerListContainer />
-          <GenderListContainer />
-          <Options />
-        </Column>
-        <Column span="25">
-          <Controls />
-          <VideoPreview />
-          <CurrentVideo />
-        </Column>
-      </Row>
-    </Container>
+    <Row>
+      <Column span="25">
+        {/* Logo */}
+        <Title>Perumatic</Title>
+        <VideoclipListContainer />
+        <ButtonList />
+      </Column>
+      <Column span="50">
+        <Banner />
+        <SingerListContainer />
+        <GenderListContainer />
+        <Options />
+      </Column>
+      <Column span="25">
+        <Controls />
+        <VideoPreview />
+        <CurrentVideo />
+      </Column>
+    </Row>
   </Manager>
 );
 

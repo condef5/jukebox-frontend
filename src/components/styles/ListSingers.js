@@ -11,6 +11,7 @@ const StyleSwipper = styled.div`
       1px -1px 15px rgba(255, 0, 0, 0.61);
     max-width: 250px;
     border-radius: 5px;
+    vertical-align: initial;
   }
 
   .swiper-slide-next {
