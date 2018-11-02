@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
+import ReactPlayer from 'react-player';
 import WaitingListContainer from '../containers/WaitingListContainer';
+import { NavigatorConsumer } from '../context/NavigatorContext';
 
 const PreviewWrapper = styled.div`
   transform-style: preserve-3d;
@@ -22,25 +24,58 @@ const StylePreview = styled.div`
     -1px -1px 40px rgba(255, 0, 0, 0.61);
 `;
 
-const VideoPreview = () => (
-  <PreviewWrapper>
-    <StylePreview>Video Previo</StylePreview>
-    <div>
-      <div className="videoWrapper">
-        <iframe
-          title="asdasd"
-          width="400"
-          height="315"
-          src="https://www.youtube.com/embed/B0cVKmkYamU"
-          frameBorder="0"
-          allow="autoplay; encrypted-media"
-          allowFullScreen
-        />
-      </div>
-      <div>Linkin park - In the end</div>
-    </div>
-    <WaitingListContainer />
-  </PreviewWrapper>
-);
+/* eslint-disable */
+class VideoPreview extends Component {
+  constructor() {
+    super();
+    this.state = {
+      muted: true,
+      playing: true,
+      maxTime: 10
+    };
+  }
+
+  onProgress = state => {
+    const { maxTime } = this.state;
+    if (state.playedSeconds > maxTime) {
+      this.player.seekTo(parseFloat(0));
+    }
+    console.log('onProgress', state);
+  };
+
+  ref = player => {
+    this.player = player;
+  };
+
+  render() {
+    const { playing, muted } = this.state;
+
+    return (
+      <NavigatorConsumer>
+        {({ state: { previewVideo } }) => (
+          <PreviewWrapper>
+            <StylePreview>Video Previo</StylePreview>
+            <div>
+              <div className="player-wrapper">
+                <ReactPlayer
+                  className="react-player-preview"
+                  ref={this.ref}
+                  url={previewVideo ? previewVideo.url : null}
+                  playing={playing}
+                  muted={muted}
+                  onProgress={this.onProgress}
+                  width="100%"
+                  height="100%"
+                />
+              </div>
+              <div>{previewVideo && previewVideo.author + ' - ' + previewVideo.name}</div>
+            </div>
+            <WaitingListContainer />
+          </PreviewWrapper>
+        )}
+      </NavigatorConsumer>
+    );
+  }
+}
 
 export default VideoPreview;

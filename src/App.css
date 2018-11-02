@@ -34,6 +34,18 @@ body {
   margin: 2.5px 0;
 }
 
+.player-wrapper {
+  position: relative;
+  padding-top: 56.25%; /* Player ratio: 100 / (1280 / 720) */
+  border: 2px solid cyan;
+}
+
+.react-player-preview {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
 /* .react-player > div {
   position: relative;
   overflow: hidden;
@@ -91,3 +103,5 @@ body {
   align-items: center;
   justify-content: center;
 }
+
+/* progress bar */

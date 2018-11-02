@@ -12,6 +12,7 @@ export class Manager extends Component {
       playing: false,
       volume: 0.8,
       currentVideo: null,
+      previewVideo: null,
       duration: 0
     };
   }
@@ -119,6 +120,10 @@ export class Manager extends Component {
     );
   };
 
+  preview = video => {
+    this.setState({ previewVideo: video });
+  };
+
   sendData = (action = 'nothing') => {
     const { presenting, currentVideo, playing, volume } = this.state;
     let msgData;
@@ -149,7 +154,6 @@ export class Manager extends Component {
       this.nextVideo();
     }
     if (e.key === 'jukebox_video' && data.action === 'duration') {
-      console.log(data.duration);
       this.setState({ duration: data.duration });
     }
     // manage volumen / play / end
@@ -164,7 +168,8 @@ export class Manager extends Component {
       sendData: this.sendData,
       nextVideo: this.nextVideo,
       tooglePlay: this.tooglePlay,
-      setVolume: this.setVolume
+      setVolume: this.setVolume,
+      preview: this.preview
     };
     return <NavigatorProvider value={data}>{children}</NavigatorProvider>;
   }

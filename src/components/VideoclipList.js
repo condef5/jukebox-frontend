@@ -21,7 +21,12 @@ const VideoclipList = ({ videoclips, onAddVideo }) => (
         <MusicContainer>
           <div style={{ flex: '1', paddingRight: '1em' }}>
             {videoclips.map(music => (
-              <div className="musica" key={music.id} onClick={() => context.add(music)}>
+              <div
+                className="musica"
+                key={music.id}
+                onClick={() => context.preview(music)}
+                onDoubleClick={() => context.add(music)}
+              >
                 <div>{music.author}</div>
                 <div>{music.name}</div>
               </div>
