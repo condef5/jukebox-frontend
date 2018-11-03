@@ -3,6 +3,14 @@ import { findDOMNode } from 'react-dom';
 import ReactPlayer from 'react-player';
 import screenfull from 'screenfull';
 import { Title } from './styles/Common';
+import Termometro from './Termometro';
+
+const premios = [
+  'Ganaste una cerveza',
+  'Ganaste una canción más',
+  'Ganaste un miniron',
+  'Ganaste una entrada gratis'
+];
 
 /* eslint-disable*/
 class Reproductor extends Component {
@@ -15,7 +23,10 @@ class Reproductor extends Component {
       time: null,
       playing: false,
       volume: 0.8,
-      finished: true
+      finished: true,
+      count: -1,
+      winner: false,
+      progress: 0
     };
 
     this._attachEvents = this._attachEvents.bind(this);
@@ -85,12 +96,20 @@ class Reproductor extends Component {
   };
 
   receiveData = e => {
+    const { url, count } = this.state;
     const data = JSON.parse(e.newValue);
     console.log(data);
     if (data.action == 'play') {
       const { playing } = this.state;
       this.setState({ playing: !playing });
     } else {
+      if (count % 5 == 0) {
+        this.setState({ winner: true });
+      }
+      if (url != data.url) {
+        this.setState({ count: count + 1 });
+        console.log(this.state.count);
+      }
       data.finished
         ? this.setState({ finished: true })
         : this.setState({ url: data.url, time: data.time, volume: data.volume, finished: false });
@@ -105,12 +124,26 @@ class Reproductor extends Component {
     }
   };
 
+  onProgress = state => {
+    const { count } = this.state;
+    console.log('onProgress', state.played);
+    const dur = (count % 5) * 20 + state.played * 20;
+    this.setState({ progress: dur });
+  };
+
   ref = player => {
     this.player = player;
   };
 
+  stop = () => {
+    setTimeout(() => {
+      this.setState({ winner: false });
+    }, 8000);
+  };
+
   render() {
-    const { url, playing, volume, finished } = this.state;
+    const { url, playing, volume, finished, winner, progress } = this.state;
+
     if (finished) {
       return (
         <div className="centerMessage">
@@ -118,24 +151,42 @@ class Reproductor extends Component {
         </div>
       );
     }
+
+    if (winner) {
+      this.stop();
+      const regalo = premios[Math.floor(Math.random() * premios.length)];
+      return (
+        <div className="fireworks">
+          <h2>{regalo}</h2>
+          <audio autoPlay loop>
+            <source src="/sound_winner.mp3" />
+          </audio>
+        </div>
+      );
+    }
+
     return (
-      <ReactPlayer
-        ref={this.ref}
-        className="react-player"
-        playing={true}
-        url={url}
-        playing={playing}
-        volume={volume}
-        onReady={() => console.log('onReady')}
-        onStart={() => console.log('onStart')}
-        onPlay={this.onPlay}
-        onPause={this.onPause}
-        onBuffer={() => console.log('onBuffer')}
-        onSeek={e => console.log('onSeek', e)}
-        onEnded={this.onEnded}
-        onError={e => console.log('onError', e)}
-        onDuration={this.onDuration}
-      />
+      <div>
+        <ReactPlayer
+          ref={this.ref}
+          className="react-player"
+          playing={true}
+          url={url}
+          playing={playing}
+          volume={volume}
+          onReady={() => console.log('onReady')}
+          onStart={() => console.log('onStart')}
+          onPlay={this.onPlay}
+          onPause={this.onPause}
+          onBuffer={() => console.log('onBuffer')}
+          onSeek={e => console.log('onSeek', e)}
+          onEnded={this.onEnded}
+          onError={e => console.log('onError', e)}
+          onProgress={this.onProgress}
+          onDuration={this.onDuration}
+        />
+        <Termometro load={progress + '%'} />
+      </div>
     );
   }
 }
