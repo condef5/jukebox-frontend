@@ -56,7 +56,7 @@ const CurrentVideo = () => (
             <Duration seconds={duration} />
             <div>
               <div className="author">
-                {currentVideo ? currentVideo.author : 'Artist Desconocido'}
+                {currentVideo ? currentVideo.author : 'Artista Desconocido'}
               </div>
               <div className="song">
                 {currentVideo ? currentVideo.name : ''}
