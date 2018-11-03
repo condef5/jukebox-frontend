@@ -96,6 +96,7 @@ export class Manager extends Component {
     } else {
       this.setState({ videos: [...videos, { time, ...video }] });
     }
+    this.setState({ previewVideo: null });
   };
 
   nextVideo = () => {
