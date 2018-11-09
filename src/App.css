@@ -110,7 +110,7 @@ body {
 /* firewors */
 
 .fireworks {
-  background-image: url(/static/media/fireworks.0d34c62b.gif);
+  background-image: url(./assets/fireworks.gif);
   background-size: cover;
   height: 100vh;
   width: 100%;

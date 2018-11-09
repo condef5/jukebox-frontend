@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactPlayer from 'react-player';
 
 import { NavigatorProvider } from '../context/NavigatorContext';
 
@@ -7,17 +8,20 @@ export class Manager extends Component {
     super(props);
     this.presentationConnection = null;
     this.state = {
-      presenting: false,
-      videos: [],
-      playing: false,
-      volume: 0.8,
       currentVideo: null,
+      duration: 0,
+      videos: [],
+      playing: true,
+      presenting: false,
       previewVideo: null,
-      duration: 0
+      volume: 0.8,
+      muted: true
     };
   }
 
   componentDidMount() {
+    // eslint-disable-next-line
+    const { duration, previewVideo } = this.state;
     localStorage.clear();
     this.attachEvents();
   }
@@ -103,7 +107,7 @@ export class Manager extends Component {
     const { videos } = this.state;
     if (videos.length > 0) {
       const currentVideo = videos[0];
-      this.setState({ currentVideo }, () => this.sendData());
+      this.setState({ currentVideo }, () => setTimeout(this.sendData(), 500));
       this.setState({ videos: videos.slice(1) });
     } else {
       this.setState({ currentVideo: null }, () => this.sendData());
@@ -117,7 +121,7 @@ export class Manager extends Component {
 
   setVolume = e => {
     this.setState({ volume: parseFloat(e.target.value) }, () =>
-      this.sendData()
+      this.sendData('volume')
     );
   };
 
@@ -142,7 +146,6 @@ export class Manager extends Component {
         finished: true
       });
     }
-    // console.log(msgData);
     localStorage.setItem('jukebox_video', msgData);
     if (presenting && this.presentationConnection) {
       this.presentationConnection.send(msgData);
@@ -151,19 +154,54 @@ export class Manager extends Component {
 
   receiveData = e => {
     const data = JSON.parse(e.newValue);
-    if (e.key === 'jukebox_video' && data.action === 'end') {
-      this.nextVideo();
+    switch (data.action) {
+      case 'duration':
+        this.setState({ duration: data.duration });
+        break;
+      case 'finished':
+        this.nextVideo();
+        break;
+      case 'next':
+        this.nextVideo();
+        break;
+      case 'play':
+        this.setState({ playing: data.playing });
+        break;
+      case 'load':
+        this.player.seekTo(parseFloat(0));
+        this.setState({ muted: false });
+        break;
+      default:
+        break;
     }
-    if (e.key === 'jukebox_video' && data.action === 'duration') {
-      this.setState({ duration: data.duration });
-    }
-    // manage volumen / play / end
+  };
+
+  ref = player => {
+    this.player = player;
   };
 
   render() {
     const { children } = this.props;
+    const {
+      currentVideo,
+      duration,
+      videos,
+      playing,
+      presenting,
+      previewVideo,
+      volume,
+      muted
+    } = this.state;
     const data = {
-      state: this.state,
+      state: {
+        currentVideo,
+        duration,
+        videos,
+        playing,
+        presenting,
+        previewVideo,
+        volume
+      },
       add: this.addVideo,
       init: this.initPresenterMode,
       sendData: this.sendData,
@@ -172,7 +210,23 @@ export class Manager extends Component {
       setVolume: this.setVolume,
       preview: this.preview
     };
-    return <NavigatorProvider value={data}>{children}</NavigatorProvider>;
+    return (
+      <NavigatorProvider value={data}>
+        {currentVideo && (
+          <ReactPlayer
+            className="react-player"
+            style={{ display: 'none' }}
+            url={currentVideo.url}
+            ref={this.ref}
+            playing={playing}
+            volume={volume}
+            muted={muted}
+            onReady={() => this.setState({ muted: true })}
+          />
+        )}
+        {children}
+      </NavigatorProvider>
+    );
   }
 }
 

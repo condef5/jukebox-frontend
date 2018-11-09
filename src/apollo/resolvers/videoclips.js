@@ -79,7 +79,7 @@ const videoclips = {
         id: 10,
         name: 'Somewhere I Belong',
         author: 'Linkid park',
-        url: 'https://youtu.be/4h3F6pb0CNc',
+        url: 'https://youtu.be/a8oDEY4yoR4',
         singer_id: 1,
         __typename: 'VideoclipItem'
       },

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
 import ReactPlayer from 'react-player';
 import screenfull from 'screenfull';
+import { hot } from 'react-hot-loader';
 import { Title } from './styles/Common';
 import Termometro from './Termometro';
 
@@ -21,7 +22,7 @@ class Reproductor extends Component {
     this.state = {
       url: null,
       time: null,
-      playing: false,
+      playing: true,
       volume: 0.8,
       finished: true,
       count: -1,
@@ -91,7 +92,7 @@ class Reproductor extends Component {
   onEnded = () => {
     console.log('onEnded');
     this.sendData({
-      action: 'end'
+      action: 'finished'
     });
   };
 
@@ -107,7 +108,7 @@ class Reproductor extends Component {
         this.setState({ winner: true });
       }
       if (url != data.url) {
-        this.setState({ count: count + 1 });
+        // this.setState({ count: count + 1 });
         console.log(this.state.count);
       }
       data.finished
@@ -173,9 +174,15 @@ class Reproductor extends Component {
           playing={true}
           url={url}
           playing={playing}
+          muted={true}
           volume={volume}
           onReady={() => console.log('onReady')}
-          onStart={() => console.log('onStart')}
+          onStart={() => {
+            console.log('onStart');
+            this.sendData({
+              action: 'load'
+            });
+          }}
           onPlay={this.onPlay}
           onPause={this.onPause}
           onBuffer={() => console.log('onBuffer')}
@@ -191,4 +198,4 @@ class Reproductor extends Component {
   }
 }
 
-export default Reproductor;
+export default hot(module)(Reproductor);
