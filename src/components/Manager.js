@@ -10,12 +10,12 @@ export class Manager extends Component {
     this.state = {
       currentVideo: null,
       duration: 0,
-      videos: [],
+      muted: true,
       playing: true,
       presenting: false,
       previewVideo: null,
       volume: 0.8,
-      muted: true
+      videos: []
     };
   }
 
@@ -95,7 +95,7 @@ export class Manager extends Component {
         {
           currentVideo: { time, ...video }
         },
-        () => this.sendData()
+        () => this.sendData('ADD_VIDEO')
       );
     } else {
       this.setState({ videos: [...videos, { time, ...video }] });
@@ -105,50 +105,61 @@ export class Manager extends Component {
 
   nextVideo = () => {
     const { videos } = this.state;
-    if (videos.length > 0) {
-      const currentVideo = videos[0];
-      this.setState({ currentVideo }, () => setTimeout(this.sendData(), 500));
-      this.setState({ videos: videos.slice(1) });
+    if (videos.length === 0) {
+      this.setState({ currentVideo: null }, () =>
+        this.sendData('SET_FINISHED')
+      );
     } else {
-      this.setState({ currentVideo: null }, () => this.sendData());
+      const currentVideo = videos[0];
+      this.setState({ currentVideo }, () =>
+        setTimeout(this.sendData('ADD_VIDEO'), 2000)
+      );
+      this.setState({ videos: videos.slice(1) });
     }
   };
 
   tooglePlay = () => {
     const { playing } = this.state;
-    this.setState({ playing: !playing }, () => this.sendData('play'));
+    this.setState({ playing: !playing }, () => this.sendData('SET_PLAY'));
   };
 
   setVolume = e => {
-    this.setState({ volume: parseFloat(e.target.value) }, () =>
-      this.sendData('volume')
-    );
+    this.setState({ volume: parseFloat(e.target.value) });
   };
 
   preview = video => {
     this.setState({ previewVideo: video });
   };
 
-  sendData = (action = 'nothing') => {
-    const { presenting, currentVideo, playing, volume } = this.state;
+  sendData = action => {
+    const { currentVideo, presenting, playing } = this.state;
     let msgData;
-    if (currentVideo) {
-      msgData = JSON.stringify({
-        url: currentVideo.url,
-        time: currentVideo.time,
-        finished: false,
-        playing,
-        volume,
-        action
-      });
-    } else {
-      msgData = JSON.stringify({
-        finished: true
-      });
+    switch (action) {
+      case 'ADD_VIDEO':
+        msgData = {
+          finished: false,
+          url: currentVideo.url,
+          time: currentVideo.time
+        };
+        break;
+      case 'SET_FINISHED':
+        msgData = { finished: true };
+        break;
+      case 'SET_PLAY':
+        msgData = { playing };
+        break;
+      case 'SET_WINNER':
+        msgData = {
+          prize: 'ganaste algo'
+        };
+        break;
+      default:
+        break;
     }
-    localStorage.setItem('jukebox_video', msgData);
+    msgData.action = action;
+    localStorage.setItem('jukebox_video', JSON.stringify(msgData));
     if (presenting && this.presentationConnection) {
-      this.presentationConnection.send(msgData);
+      this.presentationConnection.send(JSON.stringify(msgData));
     }
   };
 
@@ -214,8 +225,8 @@ export class Manager extends Component {
       <NavigatorProvider value={data}>
         {currentVideo && (
           <ReactPlayer
-            className="react-player"
             style={{ display: 'none' }}
+            className="react-player-preview"
             url={currentVideo.url}
             ref={this.ref}
             playing={playing}

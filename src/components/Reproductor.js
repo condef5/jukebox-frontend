@@ -6,7 +6,7 @@ import { hot } from 'react-hot-loader';
 import { Title } from './styles/Common';
 import Termometro from './Termometro';
 
-const premios = [
+const prizes = [
   'Ganaste una cerveza',
   'Ganaste una canción más',
   'Ganaste un miniron',
@@ -20,14 +20,15 @@ class Reproductor extends Component {
     this.presentationConnection = null;
 
     this.state = {
-      url: null,
-      time: null,
-      playing: true,
-      volume: 0.8,
+      countVideos: 0,
+      numVideoWinner: 2,
       finished: true,
-      count: -1,
+      progress: 0,
+      playing: true,
+      time: null,
+      url: null,
       winner: false,
-      progress: 0
+      volume: 0.8
     };
 
     this._attachEvents = this._attachEvents.bind(this);
@@ -76,44 +77,64 @@ class Reproductor extends Component {
 
   onPlay = () => {
     this.setState({ playing: true });
-    console.log('onPlay', this.state.playing);
   };
 
   onPause = () => {
     this.setState({ playing: false });
-    console.log('onPause', this.state.playing);
   };
 
   onDuration = duration => {
-    console.log('onDuration', duration);
     this.sendData({ action: 'duration', duration });
   };
 
+  onProgress = state => {
+    this.setProgress(state.played);
+  };
+
   onEnded = () => {
-    console.log('onEnded');
     this.sendData({
       action: 'finished'
     });
   };
 
+  setProgress = (played = 0) => {
+    const { countVideos, numVideoWinner } = this.state;
+    const numDivide = 100 / numVideoWinner;
+    const dur = ((countVideos - 1) % numVideoWinner) * numDivide + played * numDivide;
+    this.setState({ progress: dur });
+    console.log(numDivide);
+  };
+
   receiveData = e => {
-    const { url, count } = this.state;
-    const data = JSON.parse(e.newValue);
-    console.log(data);
-    if (data.action == 'play') {
-      const { playing } = this.state;
-      this.setState({ playing: !playing });
-    } else {
-      if (count % 5 == 0) {
-        this.setState({ winner: true });
-      }
-      if (url != data.url) {
-        // this.setState({ count: count + 1 });
-        console.log(this.state.count);
-      }
-      data.finished
-        ? this.setState({ finished: true })
-        : this.setState({ url: data.url, time: data.time, volume: data.volume, finished: false });
+    const { countVideos, numVideoWinner } = this.state;
+    const data = JSON.parse(e.newValue) || {};
+
+    if (countVideos % numVideoWinner === 0 && countVideos !== 0 && data.action !== 'SET_PLAY') {
+      this.setState({ winner: true });
+    }
+
+    switch (data.action) {
+      case 'ADD_VIDEO':
+        this.setState(
+          {
+            finished: false,
+            time: data.time,
+            url: data.url,
+            countVideos: countVideos + 1
+          },
+          () => this.setProgress()
+        );
+        break;
+      case 'SET_FINISHED':
+        this.setState({ finished: true });
+        break;
+      case 'SET_PLAY':
+        this.setState(prevState => ({
+          playing: !prevState.playing
+        }));
+        break;
+      default:
+        break;
     }
   };
 
@@ -125,18 +146,11 @@ class Reproductor extends Component {
     }
   };
 
-  onProgress = state => {
-    const { count } = this.state;
-    console.log('onProgress', state.played);
-    const dur = (count % 5) * 20 + state.played * 20;
-    this.setState({ progress: dur });
-  };
-
   ref = player => {
     this.player = player;
   };
 
-  stop = () => {
+  setStop = () => {
     setTimeout(() => {
       this.setState({ winner: false });
     }, 8000);
@@ -145,23 +159,23 @@ class Reproductor extends Component {
   render() {
     const { url, playing, volume, finished, winner, progress } = this.state;
 
-    if (finished) {
+    if (winner) {
+      this.setStop();
+      const prize = prizes[Math.floor(Math.random() * prizes.length)];
       return (
-        <div className="centerMessage">
-          <Title>Perumatic</Title>
+        <div className="fireworks">
+          <h2>{prize}</h2>
+          <audio autoPlay loop>
+            <source src="/sound_winner.mp3" />
+          </audio>
         </div>
       );
     }
 
-    if (winner) {
-      this.stop();
-      const regalo = premios[Math.floor(Math.random() * premios.length)];
+    if (finished) {
       return (
-        <div className="fireworks">
-          <h2>{regalo}</h2>
-          <audio autoPlay loop>
-            <source src="/sound_winner.mp3" />
-          </audio>
+        <div className="centerMessage">
+          <Title>Perumatic</Title>
         </div>
       );
     }

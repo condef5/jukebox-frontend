@@ -29,7 +29,7 @@ class VideoPreview extends Component {
   constructor() {
     super();
     this.state = {
-      muted: false,
+      muted: true,
       playing: true,
       maxTime: 10
     };
