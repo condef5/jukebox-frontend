@@ -14,6 +14,7 @@ export class Manager extends Component {
       playing: true,
       presenting: false,
       previewVideo: null,
+      winner: false,
       volume: 0.8,
       videos: []
     };
@@ -106,14 +107,12 @@ export class Manager extends Component {
   nextVideo = () => {
     const { videos } = this.state;
     if (videos.length === 0) {
-      this.setState({ currentVideo: null }, () =>
+      this.setState({ currentVideo: null, playing: false, duration: 0 }, () =>
         this.sendData('SET_FINISHED')
       );
     } else {
       const currentVideo = videos[0];
-      this.setState({ currentVideo }, () =>
-        setTimeout(this.sendData('ADD_VIDEO'), 2000)
-      );
+      this.setState({ currentVideo }, () => this.sendData('ADD_VIDEO'));
       this.setState({ videos: videos.slice(1) });
     }
   };
@@ -164,7 +163,7 @@ export class Manager extends Component {
   };
 
   receiveData = e => {
-    const data = JSON.parse(e.newValue);
+    const data = JSON.parse(e.newValue) || {};
     switch (data.action) {
       case 'duration':
         this.setState({ duration: data.duration });
@@ -181,6 +180,12 @@ export class Manager extends Component {
       case 'load':
         this.player.seekTo(parseFloat(0));
         this.setState({ muted: false });
+        break;
+      case 'SET_WINNER':
+        this.setState({ winner: true });
+        break;
+      case 'CANCEL_WINNER':
+        this.setState({ winner: false });
         break;
       default:
         break;
@@ -201,7 +206,8 @@ export class Manager extends Component {
       presenting,
       previewVideo,
       volume,
-      muted
+      muted,
+      winner
     } = this.state;
     const data = {
       state: {
@@ -235,6 +241,7 @@ export class Manager extends Component {
             onReady={() => this.setState({ muted: true })}
           />
         )}
+        {winner && <div>Ganador</div>}
         {children}
       </NavigatorProvider>
     );

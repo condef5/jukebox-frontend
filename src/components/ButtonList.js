@@ -35,7 +35,7 @@ class ButtonList extends Component {
             <Question />
           </button>
         </ButtonListStyled>
-        {actived && <VirtualKey />}
+        {actived && <VirtualKey toogle={this.toogle} />}
       </div>
     );
   }

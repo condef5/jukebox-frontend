@@ -28,7 +28,7 @@ class Reproductor extends Component {
       time: null,
       url: null,
       winner: false,
-      volume: 0.8
+      volume: 0.8,
     };
 
     this._attachEvents = this._attachEvents.bind(this);
@@ -106,24 +106,32 @@ class Reproductor extends Component {
   };
 
   receiveData = e => {
-    const { countVideos, numVideoWinner } = this.state;
+    const { countVideos, numVideoWinner, winner } = this.state;
     const data = JSON.parse(e.newValue) || {};
 
-    if (countVideos % numVideoWinner === 0 && countVideos !== 0 && data.action !== 'SET_PLAY') {
+    if (
+      countVideos % numVideoWinner === 0 &&
+      countVideos !== 0 &&
+      data.action !== 'SET_PLAY' &&
+      !winner
+    ) {
+      this.sendData({ action: 'SET_WINNER' });
       this.setState({ winner: true });
     }
 
     switch (data.action) {
       case 'ADD_VIDEO':
-        this.setState(
-          {
-            finished: false,
-            time: data.time,
-            url: data.url,
-            countVideos: countVideos + 1
-          },
-          () => this.setProgress()
-        );
+        setTimeout(() => {
+          this.setState(
+            {
+              finished: false,
+              time: data.time,
+              url: data.url,
+              countVideos: countVideos + 1
+            },
+            () => this.setProgress()
+          );
+        }, 1000);
         break;
       case 'SET_FINISHED':
         this.setState({ finished: true });
@@ -153,6 +161,7 @@ class Reproductor extends Component {
   setStop = () => {
     setTimeout(() => {
       this.setState({ winner: false });
+      this.sendData({ action: 'CANCEL_WINNER' });
     }, 8000);
   };
 

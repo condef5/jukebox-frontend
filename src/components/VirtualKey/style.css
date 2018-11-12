@@ -1,0 +1,77 @@
+.wrapTeclado {
+  position: fixed;
+  right: 23.5%;
+  bottom: -2px;
+  width: 52.5%;
+  z-index: 1000;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  padding: 5px;
+  border-radius: 10px 0px 0px 10px;
+  background: #232425;
+}
+
+.teclado {
+}
+
+.simple-keyboard.myTheme1 {
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 0;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.simple-keyboard.myTheme1 .hg-button {
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+}
+
+.simple-keyboard.myTheme1 .hg-button:active {
+  background: cyan;
+  color: white;
+}
+
+#root .simple-keyboard.myTheme1 + .simple-keyboard-preview {
+  background: cyan;
+}
+
+.wrapInput {
+  transition: background 0.3s ease-in-out;
+  background: rgba(0, 0, 0, 0.8);
+  border: 5px solid rgba(0, 0, 0, 0.1);
+  height: 70px;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  padding: 10px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.wrapInput input {
+  color: hsla(0, 0%, 100%, 0.9);
+  background: 0 0;
+  border: none;
+  outline: none;
+  font-family: monospace;
+  width: 100%;
+  height: 100%;
+  font-size: 18px;
+  caret-color: #1db954;
+}
+
+.closeKeyboard {
+  color: #ffffff;
+  cursor: pointer;
+  width: 30px;
+  position: absolute;
+  right: -10px;
+  top: -10px;
+}
+
+.closeKeyboard svg {
+  width: 25px;
+}
