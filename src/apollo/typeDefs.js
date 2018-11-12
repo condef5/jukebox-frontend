@@ -28,6 +28,7 @@ export default `
     selectedGender(id: Int!): Int!
     selectedSinger(id: Int!): Int!
     addVideo(id: Int!): String
+    changeSearch(text: String): String
   }
   
   type Query {
@@ -37,5 +38,6 @@ export default `
     singers: [Singer]
     videoclips: [Videoclip]
     waitings: [Waiting]
+    search: String
   }
 `;

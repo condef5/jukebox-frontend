@@ -9,6 +9,7 @@ import singers from './resolvers/singers';
 import genders from './resolvers/genders';
 import videoclips from './resolvers/videoclips';
 import waitings from './resolvers/waitings';
+import search from './resolvers/search';
 import typeDefs from './typeDefs';
 
 const cache = new InMemoryCache();
@@ -18,7 +19,7 @@ const httpLink = new HttpLink({
 });
 
 const stateLink = withClientState({
-  ...merge(singers, genders, videoclips, waitings),
+  ...merge(singers, genders, videoclips, waitings, search),
   cache,
   typeDefs
 });
