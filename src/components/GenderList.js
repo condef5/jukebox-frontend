@@ -7,8 +7,9 @@ const params = {
   grabCursor: true,
   slidesPerView: 4,
   loop: true,
+  centeredSlides: true,
   coverflowEffect: {
-    rotate: 0,
+    rotate: 5,
     stretch: 1,
     depth: 150,
     modifier: 1,

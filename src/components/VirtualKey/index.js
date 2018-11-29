@@ -19,7 +19,7 @@ class VirtualKey extends Component {
   };
 
   onChange = input => {
-    // this.props.onSearch(input);
+    this.props.onSearch(input);
     this.setState({
       input
     });

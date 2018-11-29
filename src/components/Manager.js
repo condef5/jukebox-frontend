@@ -107,7 +107,7 @@ export class Manager extends Component {
   nextVideo = () => {
     const { videos } = this.state;
     if (videos.length === 0) {
-      this.setState({ currentVideo: null, playing: false, duration: 0 }, () =>
+      this.setState({ currentVideo: null, duration: 0 }, () =>
         this.sendData('SET_FINISHED')
       );
     } else {

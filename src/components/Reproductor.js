@@ -131,7 +131,7 @@ class Reproductor extends Component {
             },
             () => this.setProgress()
           );
-        }, 1000);
+        }, 2000);
         break;
       case 'SET_FINISHED':
         this.setState({ finished: true });
@@ -174,7 +174,7 @@ class Reproductor extends Component {
       return (
         <div className="fireworks">
           <h2>{prize}</h2>
-          <audio autoPlay loop>
+          <audio autoPlay loop id="sound_winner">
             <source src="/sound_winner.mp3" />
           </audio>
         </div>

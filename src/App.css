@@ -20,6 +20,9 @@ body {
   text-transform: uppercase;
   border-bottom: 1px solid;
   cursor: pointer;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
 }
 
 .musica div:first-child {
@@ -194,4 +197,27 @@ body {
   top: -37px;
   z-index: 30;
   right: -37px;
+}
+
+.svg-wrap {
+  position: absolute;
+  width: 0px;
+  height: 0px;
+  overflow: hidden;
+}
+
+.icon-wrap {
+  background: #fbfbfb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+  width: 44px;
+  outline: none;
+}
+
+.icon-wrap svg {
+  fill: #000;
+  -webkit-transition: fill 0.3s;
+  transition: fill 0.3s;
 }

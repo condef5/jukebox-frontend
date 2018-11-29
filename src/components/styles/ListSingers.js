@@ -15,9 +15,8 @@ const StyleSwipper = styled.div`
   }
 
   .swiper-slide-next {
-    padding-top: 1em;
-    transition: all 1s;
-    cursor: pointer;
+    /* padding-top: 1em; */
+    /* transition: all 1s; */
   }
 
   /* container slider */
