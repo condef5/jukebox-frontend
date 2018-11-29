@@ -12,7 +12,8 @@ const RadioGroup = Radio.Group;
 class VideoclipList extends Component {
   state = {
     modal: false,
-    value: 'normal'
+    value: 'normal',
+    music: null
   };
 
   onChange = (e) => {
@@ -20,6 +21,11 @@ class VideoclipList extends Component {
     this.setState({
       value: e.target.value,
     });
+  }
+
+  addVideo = (fn) => {
+    fn({...this.state.music, type: this.state.value});
+    this.setState({ modal: false });
   }
 
 
@@ -50,7 +56,7 @@ class VideoclipList extends Component {
                       <div>{music.author}</div>
                       <div>{music.name}</div>
                     </div>
-                    <PlayCircle style={{ width: '20px', color: '#fff' }} onClick={ () => this.setState({ modal: true }) }/>
+                    <PlayCircle style={{ minWidth: '22px', color: '#fff' }} onClick={ () => this.setState({music, modal: true }) }/>
                   </div>
                 ))}
               </div>
@@ -64,7 +70,7 @@ class VideoclipList extends Component {
               title="Elija su opcion de video"
               centered
               visible={this.state.modal}
-              onOk={() => this.setState({ modal: false })}
+              onOk={() => this.addVideo(context.add)}
               onCancel={() => this.setState({ modal: false })}
             >
               <RadioGroup onChange={this.onChange} value={this.state.value}  buttonStyle="solid">

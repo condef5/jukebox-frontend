@@ -122,8 +122,8 @@ export class Manager extends Component {
     this.setState({ playing: !playing }, () => this.sendData('SET_PLAY'));
   };
 
-  setVolume = e => {
-    this.setState({ volume: parseFloat(e.target.value) });
+  setVolume = volume => {
+    this.setState({ volume });
   };
 
   preview = video => {
