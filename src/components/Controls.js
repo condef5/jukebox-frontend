@@ -21,9 +21,6 @@ class Controls extends Component {
                 <div>Créditos</div>
                 <div>20</div>
               </div>
-              <div>
-                <PlayCircle style={{ width: '40px' }} onClick={context.init} />
-              </div>
               <div className="volumen">
                 <VolumeUp
                   style={{ width: '40px' }}

@@ -14,6 +14,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* helpers */
+
+.text-center {
+  text-align: center;
+}
+
 .musica {
   padding: 0.24em 0;
   margin-bottom: 0.25em;
@@ -48,6 +54,23 @@ body {
   position: absolute;
   top: 0;
   left: 0;
+}
+
+.react-player-screen {
+  position: absolute;
+  top: 0;
+  overflow: hidden;
+  left: 0;
+  height: 100vh !important;
+  width: 100% !important;
+}
+
+.overlay-reproductor {
+  position: relative;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
 }
 
 /* .react-player > div {

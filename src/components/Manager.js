@@ -1,22 +1,29 @@
 import React, { Component } from 'react';
 import ReactPlayer from 'react-player';
+import { Modal, Radio } from 'antd';
 
 import { NavigatorProvider } from '../context/NavigatorContext';
+
+const RadioGroup = Radio.Group;
 
 export class Manager extends Component {
   constructor(props) {
     super(props);
     this.presentationConnection = null;
     this.state = {
+      activity: true,
       currentVideo: null,
       duration: 0,
+      lastActivity: 0,
       muted: true,
       playing: true,
       presenting: false,
       previewVideo: null,
-      winner: false,
+      screen: '1',
       volume: 0.8,
-      videos: []
+      videos: [],
+      visible: true,
+      winner: false
     };
   }
 
@@ -24,6 +31,7 @@ export class Manager extends Component {
     // eslint-disable-next-line
     const { duration, previewVideo } = this.state;
     localStorage.clear();
+    this.observerScreen();
     this.attachEvents();
   }
 
@@ -57,11 +65,18 @@ export class Manager extends Component {
   attachEvents = () => {
     window.addEventListener('keydown', this.handleKeyPress);
     window.addEventListener('storage', this.receiveData);
+    window.addEventListener('click', this.lastEvent);
   };
 
   detachEvents = () => {
     window.removeEventListener('keydown', this.handleKeyPress);
     window.removeEventListener('storage', this.receiveData);
+    window.removeEventListener('click', this.lastEvent);
+  };
+
+  lastEvent = e => {
+    const lastActivity = Date.now();
+    this.setState({ lastActivity });
   };
 
   handleEvent = e => {
@@ -196,18 +211,51 @@ export class Manager extends Component {
     this.player = player;
   };
 
+  onChange = e => {
+    this.setState({ screen: e.target.value });
+  };
+
+  handleOk = () => {
+    const { screen } = this.state;
+    this.setState({ visible: false });
+    if (screen === '2') {
+      this.initPresenterMode();
+    } else {
+      this.setState({ muted: false });
+    }
+  };
+
+  observerScreen = () => {
+    setInterval(() => {
+      const { lastActivity, currentVideo } = this.state;
+      const diff = Date.now() - lastActivity;
+      if (diff > 30000 && currentVideo) {
+        this.setScreen(false);
+      }
+    }, 1000);
+  };
+
+  setScreen = activity => {
+    this.setState({ activity });
+    document.querySelector('body').style.overflow = activity
+      ? 'inherit'
+      : 'hidden';
+  };
+
   render() {
     const { children } = this.props;
     const {
+      activity,
       currentVideo,
       duration,
       videos,
       playing,
       presenting,
       previewVideo,
+      screen,
       volume,
       muted,
-      winner
+      visible
     } = this.state;
     const data = {
       state: {
@@ -229,19 +277,41 @@ export class Manager extends Component {
     };
     return (
       <NavigatorProvider value={data}>
-        {currentVideo && (
-          <ReactPlayer
-            style={{ display: 'none' }}
-            className="react-player-preview"
-            url={currentVideo.url}
-            ref={this.ref}
-            playing={playing}
-            volume={volume}
-            muted={muted}
-            onReady={() => this.setState({ muted: true })}
+        <div style={{ display: activity ? 'none' : 'block' }}>
+          {currentVideo && (
+            <ReactPlayer
+              className="react-player-screen"
+              url={currentVideo.url}
+              ref={this.ref}
+              playing={playing}
+              volume={volume}
+              muted={muted}
+              onReady={() => this.setState({ muted: screen === '2' })}
+            />
+          )}
+          <div
+            className="overlay-reproductor"
+            role="presentation"
+            onClick={() => this.setScreen(true)}
           />
-        )}
-        {winner && <div>Ganador</div>}
+        </div>
+        <Modal
+          title="Configuracion Inicial"
+          visible={visible}
+          centered
+          onOk={this.handleOk}
+          onCancel={this.handleCancel}
+        >
+          <RadioGroup
+            onChange={this.onChange}
+            defaultValue="1"
+            size="large"
+            buttonStyle="solid"
+          >
+            <Radio value="1">Una pantalla</Radio>
+            <Radio value="2">Dos pantallas</Radio>
+          </RadioGroup>
+        </Modal>
         {children}
       </NavigatorProvider>
     );
