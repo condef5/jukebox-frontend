@@ -1,4 +1,5 @@
 import React from 'react';
+import { Badge } from 'antd';
 import StyleContain from './styles/WaitingList';
 import { NavigatorConsumer } from '../context/NavigatorContext';
 
@@ -6,12 +7,15 @@ const WaitingList = () => (
   <NavigatorConsumer>
     {context => (
       <StyleContain>
-        <header>Lista de espera</header>
+        <header>
+          <strong>Lista de espera</strong>
+          <Badge count={4} />
+        </header>
         <div className="list">
           {context.state.videos.map(video => (
             <div className="row" key={video.time}>
-              <h4>{video.author}</h4>
-              <p>{video.name}</p>
+              <p className="song ellipsis-one-line">{video.name}</p>
+              <h4 className="author ">{video.author}</h4>
             </div>
           ))}
         </div>

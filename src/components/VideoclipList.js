@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, Button, Radio } from 'antd';
+import { Modal, Radio } from 'antd';
 import { PlayCircle } from 'styled-icons/feather/PlayCircle';
 import { Tab, MusicContainer, Letters } from './styles/MusicSection';
 import { NavigatorConsumer } from '../context/NavigatorContext';
@@ -24,7 +24,7 @@ class VideoclipList extends Component {
   }
 
   addVideo = (fn) => {
-    fn({...this.state.music, type: this.state.value});
+    fn({...this.state.music, option: this.state.value});
     this.setState({ modal: false });
   }
 
@@ -50,7 +50,6 @@ class VideoclipList extends Component {
                   <div
                     className="musica"
                     key={music.id}
-                    onDoubleClick={() => context.add(music)}
                   >
                     <div onClick={() => context.preview(music)}>
                       <div>{music.author}</div>

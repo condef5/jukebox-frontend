@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const Controls = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   padding-bottom: 1em;
   img {
@@ -18,7 +18,7 @@ const Controls = styled.div`
     width: 100px;
     align-items: center;
     border: 3px solid #fff;
-
+    margin-right: 1.15em;
     -webkit-text-stroke: 1px #ef1a1c;
     color: white;
     font-weight: bold;

@@ -1,6 +1,6 @@
 import React from 'react';
 import Swiper from 'react-id-swiper';
-import { StyleSwipper, StyleGenders } from './styles/ListGenders';
+import { StyleSwipper, StyleGenders } from './styles/GendersList';
 
 const params = {
   effect: 'coverflow',

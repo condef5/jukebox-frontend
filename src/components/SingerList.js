@@ -1,6 +1,6 @@
 import React from 'react';
 import Swiper from 'react-id-swiper';
-import StyleSwipper from './styles/ListSingers';
+import StyleSwipper from './styles/SingerList';
 
 const params = {
   effect: 'coverflow',

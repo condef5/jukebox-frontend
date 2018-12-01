@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { VolumeUp } from 'styled-icons/fa-solid/VolumeUp';
-import { PlayCircle } from 'styled-icons/fa-solid/PlayCircle';
 import { Modal, Slider } from 'antd';
 import ControlStyle from './styles/Controls';
 import { NavigatorConsumer } from '../context/NavigatorContext';
@@ -21,12 +20,10 @@ class Controls extends Component {
                 <div>Créditos</div>
                 <div>20</div>
               </div>
-              <div className="volumen">
-                <VolumeUp
-                  style={{ width: '40px' }}
-                  onClick={() => this.setState({ visible: true })}
-                />
-              </div>
+              <VolumeUp
+                style={{ width: '40px' }}
+                onClick={() => this.setState({ visible: true })}
+              />
             </ControlStyle>
             <Modal
               title="Control de volumen"

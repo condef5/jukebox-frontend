@@ -10,7 +10,7 @@ export const Row = styled.div`
     flex: 0 0 auto;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    /* justify-content: space-around; */
   }
 `;
 

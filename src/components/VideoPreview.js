@@ -5,23 +5,31 @@ import WaitingListContainer from '../containers/WaitingListContainer';
 import { NavigatorConsumer } from '../context/NavigatorContext';
 
 const PreviewWrapper = styled.div`
-  transform-style: preserve-3d;
-  transform: perspective(700px);
+  /* transform-style: preserve-3d; */
+  /* transform: perspective(700px); */
   width: 95%;
-  margin: auto;
   & > div {
-    transform: rotateX(0deg) rotateY(-25deg) translateZ(50px);
+    /* transform: rotateX(0deg) rotateY(-25deg) translateZ(50px); */
+  }
+  .player-wrapper {
+    position: relative;
+    padding-top: 56.25%;
+    border: 3px solid #291844;
+    border-radius: 4px;
+    margin-bottom: 1.5em;
   }
 `;
 
 const StylePreview = styled.div`
-  border-radius: 5px;
-  background: red;
+  bottom: 0;
+  position: absolute;
+  width: 100%;
   padding: 0.5em 1em;
-  margin: 1em;
   text-align: center;
-  box-shadow: 1px 1px 40px rgba(255, 0, 0, 0.61),
-    -1px -1px 40px rgba(255, 0, 0, 0.61);
+  mix-blend-mode: lighten;
+  color: white;
+  font-weight: 600;
+  background: linear-gradient(#17274e, #370e3e 85%);
 `;
 
 /* eslint-disable */
@@ -54,22 +62,20 @@ class VideoPreview extends Component {
       <NavigatorConsumer>
         {({ state: { previewVideo } }) => (
           <PreviewWrapper>
-            <StylePreview>Video Previo</StylePreview>
-            <div>
-              <div className="player-wrapper">
-                <ReactPlayer
-                  className="react-player-preview"
-                  ref={this.ref}
-                  url={previewVideo ? previewVideo.url : null}
-                  playing={playing}
-                  muted={muted}
-                  onProgress={this.onProgress}
-                  width="100%"
-                  height="100%"
-                />
-              </div>
-              <div>{previewVideo && previewVideo.author + ' - ' + previewVideo.name}</div>
+            <div className="player-wrapper">
+              <ReactPlayer
+                className="react-player-preview"
+                ref={this.ref}
+                url={previewVideo ? previewVideo.url : null}
+                playing={playing}
+                muted={muted}
+                onProgress={this.onProgress}
+                width="100%"
+                height="100%"
+              />
+              <StylePreview>Video Previo</StylePreview>
             </div>
+            <div>{previewVideo && previewVideo.author + ' - ' + previewVideo.name}</div>
             <WaitingListContainer />
           </PreviewWrapper>
         )}
