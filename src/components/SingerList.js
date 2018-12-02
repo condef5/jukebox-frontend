@@ -7,7 +7,7 @@ const params = {
   clickable: true,
   grabCursor: true,
   slidesPerView: 3,
-  loop: true,
+  // loop: true,
   centeredSlides: true,
   rebuildOnUpdate: true,
   shouldSwiperUpdate: true,
@@ -30,11 +30,11 @@ const params = {
     </span>
   ),
   coverflowEffect: {
-    rotate: 5,
-    stretch: 1,
     depth: 500,
     modifier: 1,
-    slideShadows: false
+    rotate: 5,
+    slideShadows: false,
+    stretch: 1
   }
 };
 
@@ -68,11 +68,13 @@ const SingerList = ({ singers, onSingerClick }) => {
               onClick={() => onSingerClick(singer.id)}
               role="presentation"
             >
-              <img
-                className="img-responsive"
-                src={singer.image}
-                alt="title or description"
-              />
+              <div className="column">
+                <img
+                  className="img-responsive"
+                  src={singer.image}
+                  alt="title or description"
+                />
+              </div>
             </div>
           ))}
         </Swiper>
