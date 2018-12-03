@@ -7,6 +7,7 @@ import { NavigatorConsumer } from '../context/NavigatorContext';
 /* eslint-disable */
 const letters = Array.from({ length: 26 }, (_, i) => String.fromCharCode(65 + i));
 
+const minVideos = 4;
 const RadioGroup = Radio.Group;
 
 class VideoclipList extends Component {
@@ -24,7 +25,7 @@ class VideoclipList extends Component {
   };
 
   showModal = music => {
-    if (this.props.state.videos.length >= 4) this.setState({ music, modal: true });
+    if (this.props.state.videos.length >= minVideos) this.setState({ music, modal: true });
     else {
       this.props.add({ ...music, option: 'normal' });
     }
