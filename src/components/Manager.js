@@ -74,7 +74,7 @@ export class Manager extends Component {
     window.removeEventListener('click', this.lastEvent);
   };
 
-  lastEvent = e => {
+  lastEvent = () => {
     const lastActivity = Date.now();
     this.setState({ lastActivity });
   };
@@ -114,10 +114,18 @@ export class Manager extends Component {
         () => this.sendData('ADD_VIDEO')
       );
     } else {
-      this.setState({ videos: [...videos, { time, ...video }] });
+      this.setState({
+        videos: this.orderPriority([...videos, { time, ...video }])
+      });
     }
     this.setState({ previewVideo: null });
   };
+
+  orderPriority = arr => [
+    ...arr.filter(item => item.option === 'supervip'),
+    ...arr.filter(item => item.option === 'vip'),
+    ...arr.filter(item => item.option === 'normal')
+  ];
 
   nextVideo = () => {
     const { videos } = this.state;
@@ -229,8 +237,10 @@ export class Manager extends Component {
     setInterval(() => {
       const { lastActivity, currentVideo } = this.state;
       const diff = Date.now() - lastActivity;
-      if (diff > 30000 && currentVideo) {
+      if (diff > 300000 && currentVideo) {
         this.setScreen(false);
+      } else {
+        this.setScreen(true);
       }
     }, 1000);
   };
@@ -240,6 +250,11 @@ export class Manager extends Component {
     document.querySelector('body').style.overflow = activity
       ? 'inherit'
       : 'hidden';
+  };
+
+  onEnded = () => {
+    const { screen } = this.state;
+    if (screen === '1') this.nextVideo();
   };
 
   render() {
@@ -287,6 +302,7 @@ export class Manager extends Component {
               volume={volume}
               muted={muted}
               onReady={() => this.setState({ muted: screen === '2' })}
+              onEnded={this.onEnded}
             />
           )}
           <div
@@ -300,7 +316,7 @@ export class Manager extends Component {
           visible={visible}
           centered
           onOk={this.handleOk}
-          onCancel={this.handleCancel}
+          onCancel={() => this.setState({ visible: false })}
         >
           <RadioGroup
             onChange={this.onChange}
