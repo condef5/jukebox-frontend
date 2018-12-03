@@ -5,6 +5,7 @@ import { PlayArrow } from 'styled-icons/material/PlayArrow';
 import { Pause } from 'styled-icons/material/Pause';
 import Duration from './Duration';
 import { NavigatorConsumer } from '../context/NavigatorContext';
+import buffer from '../assets/ecualizador.gif';
 
 const StyleBeat = styled.div`
   padding: 1em 0;
@@ -33,6 +34,38 @@ const StyleBeat = styled.div`
     justify-content: space-between;
     align-items: center;
   }
+
+  .music {
+    flex: 1;
+    margin-left: 5px;
+    flex: 1;
+    padding-left: 10px;
+    font-size: 16px;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin: 0;
+    color: #eb1aef;
+    line-height: 1.4;
+    text-shadow: 1px 1px 15px rgba(255, 0, 0, 0),
+      -1px -1px 15px rgba(255, 0, 0, 0.61), 1px 1px 15px rgba(255, 0, 0, 0.61),
+      -1px -1px 15px rgba(255, 0, 0, 0.3);
+    background-image: -webkit-gradient(
+      linear,
+      0% 0%,
+      35% 100%,
+      from(#d417d8),
+      to(#f12e2e)
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .sound {
+    width: 60%;
+    img {
+      width: 100%;
+    }
+  }
 `;
 
 const CurrentVideo = () => (
@@ -45,13 +78,15 @@ const CurrentVideo = () => (
       <StyleBeat>
         <div className="head">
           <h4>{playing ? 'Reproducciendo...' : 'Pausa'}</h4>
-          <div onClick={tooglePlay} role="presentation">
+          {/* <div onClick={tooglePlay} role="presentation">
             {playing ? <Pause /> : <PlayArrow />}
-          </div>
+          </div> */}
           <SkipNext onClick={nextVideo} />
         </div>
         <div className="content">
-          <div className="sound">-----</div>
+          <div className="sound">
+            <img src={buffer} alt="perumatic buffer" />
+          </div>
           <div className="music">
             <Duration seconds={duration} />
             <div>

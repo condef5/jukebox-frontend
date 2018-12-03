@@ -4,7 +4,7 @@ import GenderListContainer from '../containers/GenderListContainer';
 import SingerListContainer from '../containers/SingerListContainer';
 import VideoclipListContainer from '../containers/VideoclipListContainer';
 import { Row, Column } from './styles/Layout';
-import { Title } from './styles/Common';
+import { WrapLogo } from './styles/Common';
 import Controls from './Controls';
 import Banner from './Banner';
 import ButtonList from './ButtonList';
@@ -12,6 +12,7 @@ import VideoPreview from './VideoPreview';
 import Options from './Options';
 import CurrentVideo from './CurrentVideo';
 import Manager from './Manager';
+import logo from '../assets/logo.gif';
 
 import '../App.css';
 
@@ -19,8 +20,9 @@ const App = () => (
   <Manager>
     <Row>
       <Column span="25">
-        {/* Logo */}
-        <Title>Perumatic</Title>
+        <WrapLogo>
+          <img src={logo} alt="perumatic-logo" />
+        </WrapLogo>
         <VideoclipListContainer />
         <ButtonList />
       </Column>

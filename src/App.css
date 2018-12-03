@@ -9,6 +9,9 @@ body {
   /* 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue'; */
   font-family: 'Dosis', sans-serif;
   background: #000;
+  background-image: url('./assets/background.jpg');
+  background-attachment: fixed;
+  background-size: cover;
   color: #fff;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

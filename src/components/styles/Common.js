@@ -23,4 +23,10 @@ export const Title = styled.h1`
   -webkit-text-fill-color: transparent;
 `;
 
+export const WrapLogo = styled.div`
+  img {
+    width: 100%;
+  }
+`;
+
 export default {};
