@@ -1,8 +1,6 @@
-FROM mhart/alpine-node:10
-ARG CI
-WORKDIR /usr/src
-COPY package.json yarn.lock /usr/src/
-RUN yarn install
-COPY . .
-RUN yarn build
-RUN mv /usr/src/build /public
+FROM nginx:alpine
+LABEL author="Sara Vieira"
+COPY ./build /var/www
+COPY nginx.conf /etc/nginx/nginx.conf
+EXPOSE 80
+ENTRYPOINT ["nginx","-g","daemon off;"]
