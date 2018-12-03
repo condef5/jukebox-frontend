@@ -15,7 +15,7 @@ const videoclips = {
         id: 2,
         name: 'Numb',
         author: 'Linkin Park',
-        url: 'https://youtu.be/kXYiU_JCYtU',
+        url: 'https://www.youtube.com/watch?v=kXYiU_JCYtU',
         singer_id: 1,
         __typename: 'VideoclipItem'
       },

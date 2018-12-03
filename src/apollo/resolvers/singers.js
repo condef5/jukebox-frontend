@@ -7,7 +7,8 @@ const singers = {
       {
         id: 1,
         name: ' Linkin park',
-        image: 'https://i.imgur.com/swFmQOc.jpg',
+        image:
+          'https://direct.rhapsody.com/imageserver/images/Alb.54733637/500x500.jpg',
         gender_id: 1,
         __typename: 'SingerItem'
       },
@@ -86,6 +87,22 @@ const singers = {
         name: 'Marck Antony',
         image: 'https://i.imgur.com/QG2zBWl.jpgs',
         gender_id: 2,
+        __typename: 'SingerItem'
+      },
+      {
+        id: 13,
+        name: 'Nirvana',
+        image:
+          'http://fc03.deviantart.net/fs70/f/2012/051/8/f/nirvana_by_ucarts-d4qcjxb.jpg',
+        gender_id: 1,
+        __typename: 'SingerItem'
+      },
+      {
+        id: 14,
+        name: 'Artick Monkeys',
+        image:
+          'https://assets7.domestika.org/project-items/002/247/677/arctic_01_BIG-big.png?1517993254',
+        gender_id: 1,
         __typename: 'SingerItem'
       }
     ]
