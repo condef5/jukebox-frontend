@@ -9,13 +9,19 @@ const WaitingList = () => (
       <StyleContain>
         <header>
           <strong>Lista de espera</strong>
-          <Badge count={4} />
+          <Badge count={context.state.videos.length} />
         </header>
         <div className="list">
-          {context.state.videos.map(video => (
+          {context.state.videos.map((video, index) => (
             <div className="row" key={video.time}>
-              <p className="song ellipsis-one-line">{video.name}</p>
-              <h4 className="author ">{video.author}</h4>
+              <div className="info">
+                <span>{`${index + 1}.`}</span>
+                <p className="song ellipsis-one-line">{video.name}</p>
+                <span className={`option ${video.option}`}>
+                  {`(${video.option})`}
+                </span>
+              </div>
+              <h4 className="author">{video.author}</h4>
             </div>
           ))}
         </div>

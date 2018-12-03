@@ -5,10 +5,6 @@ const sizeImage = '275px';
 const StyleSwipper = styled.div`
   margin: 2em 0em;
 
-  .swiper-slide-active:hover {
-    cursor: pointer;
-  }
-
   .column {
     border-radius: 5px;
     position: relative;
@@ -27,13 +23,16 @@ const StyleSwipper = styled.div`
 
   .swiper-slide:nth-child(3n + 1) .column {
     background: #00ff36;
+    transition: all 0.3s;
     &::after {
       background-color: #23278a;
       mix-blend-mode: lighten;
+      transition: all 0.3s;
     }
     img {
       filter: grayscale(100%) contrast(1);
       mix-blend-mode: multiply;
+      transition: all 0.3s;
     }
   }
 
@@ -61,6 +60,21 @@ const StyleSwipper = styled.div`
     img {
       filter: grayscale(100%) contrast(0.8);
       mix-blend-mode: lighten;
+    }
+  }
+
+  .swiper-slide-active {
+    cursor: pointer;
+    .column {
+      background: none;
+      &::after {
+        display: none;
+      }
+      img {
+        filter: none !important;
+        mix-blend-mode: initial !important;
+        opacity: 1 !important;
+      }
     }
   }
 
