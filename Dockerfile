@@ -1,5 +1,5 @@
 FROM nginx:alpine
-LABEL author="Sara Vieira"
+LABEL author="Frank Condezo"
 COPY ./build /var/www
 COPY nginx.conf /etc/nginx/nginx.conf
 EXPOSE 80
