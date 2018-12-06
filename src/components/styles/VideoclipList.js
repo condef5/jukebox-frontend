@@ -35,17 +35,41 @@ export const MusicContainer = styled.div`
   padding-left: 7px;
   display: flex;
   justify-content: space-between;
+
   & > div {
     color: #ef1a1c;
+  }
+
+  .musica {
+    padding: 0.1em 0;
+    margin-bottom: 0.25em;
+    text-transform: uppercase;
+    border-bottom: 1px solid;
+    cursor: pointer;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .musica div div:first-child {
+    font-size: 13px;
+    letter-spacing: 1px;
+    font-weight: 600;
+  }
+
+  .musica div div:last-child {
+    letter-spacing: 2px;
+    font-size: 12px;
+    margin: 2.5px 0;
   }
 `;
 
 export const Letters = styled.div`
   padding: 0 1em;
-  font-size: 14px;
+  font-size: 13px;
   text-align: center;
   div {
-    padding: 1px 0;
+    padding: 0.1px 0;
     cursor: pointer;
   }
 `;

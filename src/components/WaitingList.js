@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
 import { Badge } from 'antd';
+import posed, { PoseGroup } from 'react-pose';
 import StyleContain from './styles/WaitingList';
 import { NavigatorConsumer } from '../context/NavigatorContext';
 
 const timeScroll = 30;
+const minScrollHeight = 260;
+
+const Item = posed.div({
+  enter: { y: 0, opacity: 1, transition: { duration: 500 } },
+  exit: { y: 20, opacity: 0.01, transition: { duration: 450 } }
+});
 
 class WaitingList extends Component {
   state = {
@@ -17,7 +24,7 @@ class WaitingList extends Component {
   observerScroll = () => {
     setInterval(() => {
       const { scroll } = this.state;
-      if (this.list.scrollHeight > 360 && scroll) {
+      if (this.list.scrollHeight > minScrollHeight && scroll) {
         this.setState({ scroll: false });
         this.move(this.list);
       }
@@ -25,11 +32,11 @@ class WaitingList extends Component {
   };
 
   move = elem => {
-    let heigth = 0;
+    let height = 0;
     let id = null;
     const frame = () => {
-      heigth += 1;
-      elem.scrollTo(0, heigth);
+      height += 1;
+      elem.scrollTo(0, height);
       if (elem.scrollHeight - elem.scrollTop === elem.clientHeight) {
         clearInterval(id);
         this.backMove(elem);
@@ -39,12 +46,17 @@ class WaitingList extends Component {
   };
 
   backMove = elem => {
-    let heigth = elem.scrollTop;
+    let height = elem.scrollTop;
     let id = null;
+    if (height === 0) {
+      this.setState({ scroll: true });
+      clearInterval(id);
+      return;
+    }
     const frame = () => {
-      heigth -= 1;
-      elem.scrollTo(0, heigth);
-      if (heigth === 1) {
+      height -= 1;
+      elem.scrollTo(0, height);
+      if (height === 1) {
         clearInterval(id);
         this.move(elem);
       }
@@ -67,18 +79,20 @@ class WaitingList extends Component {
                 <Badge count={context.state.videos.length} />
               </header>
               <div className="list">
-                {context.state.videos.map((video, index) => (
-                  <div className="row" key={video.time}>
-                    <div className="info">
-                      <span>{`${index + 1}.`}</span>
-                      <p className="song ellipsis-one-line">{video.name}</p>
-                      <span className={`option ${video.option}`}>
-                        {video.option}
-                      </span>
-                    </div>
-                    <h4 className="author">{video.author}</h4>
-                  </div>
-                ))}
+                <PoseGroup>
+                  {context.state.videos.map((video, index) => (
+                    <Item className="row" key={video.time}>
+                      <div className="info">
+                        <span>{`${index + 1}.`}</span>
+                        <p className="song ellipsis-one-line">{video.name}</p>
+                        <span className={`option ${video.option}`}>
+                          {video.option}
+                        </span>
+                      </div>
+                      <h4 className="author">{video.author}</h4>
+                    </Item>
+                  ))}
+                </PoseGroup>
               </div>
             </div>
           </StyleContain>

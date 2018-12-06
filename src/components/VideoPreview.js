@@ -50,7 +50,7 @@ class VideoPreview extends Component {
     this.state = {
       muted: true,
       playing: true,
-      maxTime: 10
+      maxTime: 20
     };
   }
 
