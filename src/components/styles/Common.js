@@ -29,4 +29,17 @@ export const WrapLogo = styled.div`
   }
 `;
 
+export const TextShadow = styled.div`
+  color: #f12e2e;
+  margin: 0;
+  line-height: 1.4;
+  font-size: ${props => props.fontSize || '16px'};
+  font-weight: ${props => props.fontWeight || '700'};
+  margin: 0;
+  text-transform: uppercase;
+  text-align: ${props => props.textAlign || 'normal'};
+  text-shadow: 1px 1px 15px rgba(255, 0, 0, 0),
+    -1px -1px 15px rgba(255, 0, 0, 0.61), 1px 1px 15px rgba(255, 0, 0, 0.61);
+`;
+
 export default {};

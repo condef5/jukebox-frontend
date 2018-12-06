@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import ReactPlayer from 'react-player';
+import posed from 'react-pose';
 import WaitingListContainer from '../containers/WaitingListContainer';
 import { NavigatorConsumer } from '../context/NavigatorContext';
+import { TextShadow } from './styles/Common';
+
+const Item = posed.div({
+  show: { x: 0, opacity: 1, transition: { duration: 400 } },
+  hide: { x: '-50px', opacity: 0.01, transition: { duration: 250 } }
+});
 
 const PreviewWrapper = styled.div`
   transform-style: preserve-3d;
@@ -27,7 +34,7 @@ const PreviewWrapper = styled.div`
     background: rgba(0, 0, 0, 0.4);
   }
   .meta-video {
-    height: 20px;
+    min-height: 20px;
   }
 `;
 
@@ -93,9 +100,16 @@ class VideoPreview extends Component {
                 <StylePreview>Video Previo</StylePreview>
               </div>
             </div>
-            <div className="meta-video">
-              {previewVideo && previewVideo.author + ' - ' + previewVideo.name}
-            </div>
+            <TextShadow
+              className="meta-video"
+              fontSize="14px"
+              fontWeigth="normal"
+              textAlign="center"
+            >
+              <Item pose={previewVideo ? 'show' : 'hide'}>
+                {previewVideo && previewVideo.author + ' - ' + previewVideo.name}
+              </Item>
+            </TextShadow>
             <WaitingListContainer />
           </PreviewWrapper>
         )}
