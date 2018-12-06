@@ -30,7 +30,6 @@ const VIDEOCLIPS_QUERY = gql`
 const withVideoclips = graphql(VIDEOCLIPS_QUERY, {
   props: ({ data }) => {
     if (data.loading || data.error) return { videoclips: [] };
-    console.log(data.selectedSinger);
     return {
       videoclips: filterSingers(
         data.videoclips,

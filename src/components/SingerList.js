@@ -1,42 +1,6 @@
-import React from 'react';
-import Swiper from 'react-id-swiper';
+import React, { Component } from 'react';
+import { Swiper, Slide } from 'react-dynamic-swiper';
 import StyleSwipper from './styles/SingerList';
-
-const params = {
-  effect: 'coverflow',
-  clickable: true,
-  grabCursor: true,
-  slidesPerView: 3,
-  // loop: true,
-  centeredSlides: true,
-  rebuildOnUpdate: true,
-  shouldSwiperUpdate: true,
-  navigation: {
-    nextEl: '.swip-control.swiper-button-next',
-    prevEl: '.swip-control.swiper-button-prev'
-  },
-  renderPrevButton: () => (
-    <span className="icon-wrap swip-control swiper-button-prev">
-      <svg className="icon" width="32" height="32" viewBox="0 0 64 64">
-        <use xlinkHref="#arrow-left-1" />
-      </svg>
-    </span>
-  ),
-  renderNextButton: () => (
-    <span className="icon-wrap swip-control swiper-button-next">
-      <svg className="icon" width="32" height="32" viewBox="0 0 64 64">
-        <use xlinkHref="#arrow-right-1" />
-      </svg>
-    </span>
-  ),
-  coverflowEffect: {
-    depth: 500,
-    modifier: 1,
-    rotate: 5,
-    slideShadows: false,
-    stretch: 1
-  }
-};
 
 const SvgIcons = () => (
   <div className="svg-wrap">
@@ -55,27 +19,66 @@ const SvgIcons = () => (
   </div>
 );
 
+const MyPrevButton = () => (
+  <span className="icon-wrap swip-control swiper-button-prev">
+    <svg className="icon" width="32" height="32" viewBox="0 0 64 64">
+      <use xlinkHref="#arrow-left-1" />
+    </svg>
+  </span>
+);
+
+const MyNextButton = () => (
+  <span className="icon-wrap swip-control swiper-button-next">
+    <svg className="icon" width="32" height="32" viewBox="0 0 64 64">
+      <use xlinkHref="#arrow-right-1" />
+    </svg>
+  </span>
+);
+
+const params = {
+  effect: 'coverflow',
+  clickable: true,
+  grabCursor: true,
+  slidesPerView: 3,
+  centeredSlides: true,
+  navigation: {
+    nextEl: '.swip-control.swiper-button-next',
+    prevEl: '.swip-control.swiper-button-prev'
+  },
+  coverflowEffect: {
+    depth: 500,
+    modifier: 1,
+    rotate: 5,
+    slideShadows: false,
+    stretch: 1
+  }
+};
+
 const SingerList = ({ singers, onSingerClick }) => {
   if (singers.length === 0) return 'Loading...';
   return (
     <>
       <StyleSwipper>
-        <Swiper {...params}>
+        <Swiper
+          swiperOptions={params}
+          pagination={false}
+          nextButton={<MyNextButton />}
+          prevButton={swiper => (
+            <MyPrevButton onClick={() => swiper.slideNext()} />
+          )}
+        >
           {singers.map(singer => (
-            <div
-              className="contain"
-              key={singer.id}
-              onClick={() => onSingerClick(singer.id)}
-              role="presentation"
-            >
-              <div className="column">
-                <img
-                  className="img-responsive"
-                  src={singer.image}
-                  alt="title or description"
-                />
+            <Slide key={singer.id} onActive={() => onSingerClick(singer.id)}>
+              <div className="contain" role="presentation">
+                <div className="column">
+                  <img
+                    className="img-responsive"
+                    src={singer.image}
+                    alt="title or description"
+                  />
+                </div>
               </div>
-            </div>
+            </Slide>
           ))}
         </Swiper>
       </StyleSwipper>
@@ -83,5 +86,4 @@ const SingerList = ({ singers, onSingerClick }) => {
     </>
   );
 };
-
 export default SingerList;
