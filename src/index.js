@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { ApolloProvider } from 'react-apollo';
 import { client } from './apollo';
 import App from './components/App';
-import Reproductor from './components/Reproductor';
+import SecondScreen from './components/SecondScreen';
 
 import * as serviceWorker from './serviceWorker';
 
@@ -11,7 +11,7 @@ import * as serviceWorker from './serviceWorker';
 const isReproductor = location.href.indexOf('?reproductor') !== -1;
 
 if (isReproductor) {
-  ReactDOM.render(<Reproductor />, document.getElementById('root'));
+  ReactDOM.render(<SecondScreen />, document.getElementById('root'));
 } else {
   ReactDOM.render(
     <ApolloProvider client={client}>

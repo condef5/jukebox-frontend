@@ -5,11 +5,12 @@ import WaitingListContainer from '../containers/WaitingListContainer';
 import { NavigatorConsumer } from '../context/NavigatorContext';
 
 const PreviewWrapper = styled.div`
-  /* transform-style: preserve-3d; */
-  /* transform: perspective(700px); */
-  width: 95%;
+  transform-style: preserve-3d;
+  transform: perspective(900px);
+  /* width: 95%; */
+  margin: 10px 10px 10px 0px;
   & > div {
-    /* transform: rotateX(0deg) rotateY(-25deg) translateZ(50px); */
+    transform: rotateX(-7deg) rotateY(-25deg) translateZ(15px);
   }
   .player-wrapper {
     position: relative;
@@ -17,6 +18,16 @@ const PreviewWrapper = styled.div`
     border: 3px solid #291844;
     border-radius: 4px;
     margin-bottom: 1.5em;
+    box-shadow: 4px 0px 8px rgba(0, 0, 0, 0.3);
+  }
+  .react-player-preview {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.4);
+  }
+  .meta-video {
+    height: 20px;
   }
 `;
 
@@ -73,11 +84,18 @@ class VideoPreview extends Component {
                   onProgress={this.onProgress}
                   width="100%"
                   height="100%"
+                  config={{
+                    youtube: {
+                      playerVars: { showinfo: 0, controls: 0, title: 0 }
+                    }
+                  }}
                 />
                 <StylePreview>Video Previo</StylePreview>
               </div>
             </div>
-            <div>{previewVideo && previewVideo.author + ' - ' + previewVideo.name}</div>
+            <div className="meta-video">
+              {previewVideo && previewVideo.author + ' - ' + previewVideo.name}
+            </div>
             <WaitingListContainer />
           </PreviewWrapper>
         )}

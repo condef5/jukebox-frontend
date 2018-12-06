@@ -6,8 +6,8 @@ const StyleContain = styled.div`
     border-radius: 3px;
     box-shadow: 1px 1px 10px rgba(206, 7, 7, 0.63),
       -1px -1px 10px rgb(72, 18, 83);
-    max-height: 300px;
-    min-height: 250px;
+    max-height: 200px;
+    min-height: 200px;
     position: relative;
     margin: 1em 0;
     text-align: center;
@@ -27,6 +27,7 @@ const StyleContain = styled.div`
     width: 100%;
     z-index: 10;
   }
+
   header strong {
     font-weight: bold;
     font-size: 15px;

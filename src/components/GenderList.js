@@ -7,6 +7,10 @@ const params = {
   grabCursor: true,
   slidesPerView: 4,
   loop: true,
+  autoplay: {
+    delay: 2500,
+    disableOnInteraction: false
+  },
   centeredSlides: true,
   coverflowEffect: {
     rotate: 5,
