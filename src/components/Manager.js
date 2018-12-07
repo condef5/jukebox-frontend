@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import ReactPlayer from 'react-player';
 import { Modal, Radio } from 'antd';
-
+import { Screen } from './Animations';
 import { NavigatorProvider } from '../context/NavigatorContext';
 
 const RadioGroup = Radio.Group;
+const timeShowScreen = 10000;
 
 export class Manager extends Component {
   constructor(props) {
@@ -237,12 +238,13 @@ export class Manager extends Component {
     setInterval(() => {
       const { lastActivity, currentVideo } = this.state;
       const diff = Date.now() - lastActivity;
-      if (diff > 300000 && currentVideo) {
+      if (diff > 3000 && currentVideo) {
+        window.scrollTo(0, 0);
         this.setScreen(false);
       } else {
         this.setScreen(true);
       }
-    }, 1000);
+    }, timeShowScreen);
   };
 
   setScreen = activity => {
@@ -292,25 +294,30 @@ export class Manager extends Component {
     };
     return (
       <NavigatorProvider value={data}>
-        <div style={{ display: activity ? 'none' : 'block' }}>
+        <Screen pose={activity ? 'thumbnail' : 'fullscreen'}>
           {currentVideo && (
-            <ReactPlayer
-              className="react-player-screen"
-              url={currentVideo.url}
-              ref={this.ref}
-              playing={playing}
-              volume={volume}
-              muted={muted}
-              onReady={() => this.setState({ muted: screen === '2' })}
-              onEnded={this.onEnded}
-            />
+            <div className="player-wrapper">
+              <ReactPlayer
+                className="react-player-screen"
+                url={currentVideo.url}
+                ref={this.ref}
+                playing={playing}
+                volume={volume}
+                muted={muted}
+                onDuration={d => this.setState({ duration: d })}
+                onReady={() => this.setState({ muted: screen === '2' })}
+                onEnded={this.onEnded}
+                width="100%"
+                height="100%"
+              />
+            </div>
           )}
           <div
             className="overlay-reproductor"
             role="presentation"
             onClick={() => this.setScreen(true)}
           />
-        </div>
+        </Screen>
         <Modal
           title="Configuracion Inicial"
           visible={visible}

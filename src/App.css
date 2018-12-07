@@ -33,28 +33,24 @@ body {
 
 /* end helpers */
 
+.player-wrapper {
+  position: relative;
+  padding-top: 56.25%;
+  flex: 1;
+}
+
 .react-player-screen {
   position: absolute;
   top: 0;
-  overflow: hidden;
   left: 0;
-  height: 100vh !important;
-  width: 100% !important;
 }
 
 .overlay-reproductor {
-  position: relative;
+  position: absolute;
   top: 0;
-  left: 0;
-  height: 100vh;
+  height: 100%;
   width: 100%;
 }
-
-/* .react-player > div {
-  position: relative;
-  overflow: hidden;
-  padding-top: 56.25%;
-} */
 
 .videoWrapper {
   position: relative;

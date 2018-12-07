@@ -7573,7 +7573,7 @@ popmotion-pose@^3.4.0:
     style-value-types "^3.0.6"
     tslib "^1.9.1"
 
-popmotion@^8.5.0:
+popmotion@^8.5.0, popmotion@^8.5.3:
   version "8.5.3"
   resolved "https://registry.yarnpkg.com/popmotion/-/popmotion-8.5.3.tgz#693a197c7d724ce9999cc1b6410530360ac347cd"
   integrity sha512-y6Fi/K1JvRFfvYn0BUPH7EUMYywvMwB5MocYwAPD2PkDwZ5D+L5ZidAQ9M/4nto9YU//2F2Q9xR6XztGnDfvyQ==
