@@ -210,6 +210,22 @@ const videoclips = {
         url: 'https://youtu.be/nJ6A6GC_ki4',
         singer_id: 8,
         __typename: 'VideoclipItem'
+      },
+      {
+        id: 27,
+        name: 'Loop & Loop',
+        author: 'Asian kung-fu generation',
+        url: 'https://youtu.be/F4l9qxtTbmM',
+        singer_id: 8,
+        __typename: 'VideoclipItem'
+      },
+      {
+        id: 28,
+        name: 'Re:Re',
+        author: 'Asian kung-fu generation',
+        url: 'https://www.youtube.com/watch?v=-AbZTFS3DAw',
+        singer_id: 8,
+        __typename: 'VideoclipItem'
       }
     ]
   },

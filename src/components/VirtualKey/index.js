@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
-import gql from 'graphql-tag';
-import { graphql } from 'react-apollo';
 import Keyboard from 'react-simple-keyboard';
-import { TimesCircle } from 'styled-icons/fa-solid/TimesCircle';
 import 'simple-keyboard/build/css/index.css';
 import './style.css';
 
-const SEARCH_MUTATION = gql`
-  mutation changedSearch($text: String!) {
-    changeSearch(text: $text) @client
-  }
-`;
+const layout = {
+  default: [
+    'q w e r t y u i o p {bksp}',
+    'a s d f g h j k l {shift}',
+    'z x c v b n m {space}'
+  ],
+  shift: [
+    'Q W E R T Y U I O P {bksp}',
+    'A S D F G H J K L {shift}',
+    'Z X C V B N M {space}'
+  ]
+};
 
 class VirtualKey extends Component {
   state = {
@@ -19,16 +23,16 @@ class VirtualKey extends Component {
   };
 
   onChange = input => {
-    this.props.onSearch(input);
-    this.setState({
-      input
-    });
+    const { onSearch } = this.props;
+    onSearch(input);
+    this.setState({ input });
   };
 
   onKeyPress = button => {
     const { input } = this.state;
+    const { onSearch } = this.props;
     if (button === '{enter}') {
-      this.props.onSearch(input);
+      onSearch(input);
     }
     if (button === '{shift}' || button === '{lock}') this.handleShift();
   };
@@ -41,55 +45,32 @@ class VirtualKey extends Component {
     });
   };
 
-  inputStyle = {
-    width: '100%',
-    height: '60px',
-    padding: '5px',
-    fontSize: 18,
-    borderRadius: '5px',
-    border: 0
-  };
-
   onClose = () => {
-    this.props.onSearch('');
-    this.props.toogle();
+    const { onSearch, toogle } = this.props;
+    onSearch('');
+    toogle();
   };
 
   render() {
     const { input, layoutName } = this.state;
-    const { toogle } = this.props;
     return (
       <div className="wrapTeclado">
+        <div className="wrapInput">
+          <input value={input} placeholder="Que estás buscando ..." readOnly />
+        </div>
         <div className="teclado">
-          <div
-            onClick={this.onClose}
-            role="presentation"
-            className="closeKeyboard"
-          >
-            <TimesCircle />
-          </div>
-          <div className="wrapInput">
-            <input
-              value={input}
-              style={this.inputStyle}
-              placeholder="Que estás buscando..."
-              readOnly
-            />
-          </div>
           <Keyboard
             ref={r => {
               this.keyboard = r;
             }}
+            layout={layout}
             layoutName={layoutName}
             theme="hg-theme-default myTheme1"
             onChange={text => this.onChange(text)}
             onKeyPress={button => this.onKeyPress(button)}
             display={{
-              '{enter}': 'buscar',
-              '{bksp}': 'borrar',
-              '{lock}': 'lock',
+              '{bksp}': '⌫',
               '{shift}': 'shift',
-              '{tab}': 'tab',
               '{space}': ' '
             }}
             debug
@@ -100,8 +81,4 @@ class VirtualKey extends Component {
   }
 }
 
-export default graphql(SEARCH_MUTATION, {
-  props: ({ mutate }) => ({
-    onSearch: text => mutate({ variables: { text } })
-  })
-})(VirtualKey);
+export default VirtualKey;

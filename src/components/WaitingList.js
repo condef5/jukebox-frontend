@@ -23,6 +23,7 @@ class WaitingList extends Component {
 
   observerScroll = () => {
     setInterval(() => {
+      if (!this.list) return;
       const { scroll } = this.state;
       if (this.list.scrollHeight > minScrollHeight && scroll) {
         this.setState({ scroll: false });
