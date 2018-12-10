@@ -4,38 +4,60 @@ import { QuestionCircle as Question } from 'styled-icons/fa-regular/QuestionCirc
 import { Search } from 'styled-icons/material/Search';
 import { Keyboard } from 'styled-icons/material/Keyboard';
 import ButtonListStyled from './styles/ButtonList';
-import VirtualKey from './VirtualKey';
+import SearchModal from './Modals/Search';
+import HomeModal from './Modals/Home';
+import QuestionsModal from './Modals/Questions';
 
 class ButtonList extends Component {
   state = {
-    actived: false
+    modalSearch: false,
+    modalHome: false,
+    modalQuestions: false
   };
 
-  toogle = () => {
-    const { actived } = this.state;
-    this.setState({ actived: !actived });
+  showModal = name => {
+    this.setState({ [name]: true });
+  };
+
+  hideModal = name => {
+    this.setState({ [name]: false });
   };
 
   render() {
-    const { actived } = this.state;
+    const { modalSearch, modalHome, modalQuestions } = this.state;
     return (
       <div>
         <ButtonListStyled className="list-button">
-          <button type="button" style={{ width: '100%' }} onClick={this.toogle}>
+          <button
+            type="button"
+            style={{ width: '100%' }}
+            onClick={() => this.showModal('modalSearch')}
+          >
             <Search />
             <span>Buscar directo</span>
           </button>
-          <button type="button">
+          <button type="button" onClick={() => this.showModal('modalHome')}>
             <Home />
           </button>
-          <button type="button" onClick={this.toogle}>
+          <button type="button" onClick={() => this.showModal('modalSearch')}>
             <Keyboard />
           </button>
-          <button type="button">
+          <button
+            type="button"
+            onClick={() => this.showModal('modalQuestions')}
+          >
             <Question />
           </button>
         </ButtonListStyled>
-        {actived && <VirtualKey toogle={this.toogle} />}
+        <SearchModal
+          show={modalSearch}
+          close={() => this.hideModal('modalSearch')}
+        />
+        <HomeModal show={modalHome} close={() => this.hideModal('modalHome')} />
+        <QuestionsModal
+          show={modalQuestions}
+          close={() => this.hideModal('modalQuestions')}
+        />
       </div>
     );
   }
