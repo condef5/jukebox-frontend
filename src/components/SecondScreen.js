@@ -5,6 +5,7 @@ import screenfull from 'screenfull';
 import { hot } from 'react-hot-loader';
 import { Title } from './styles/Common';
 import Termometro from './Termometro';
+import Timer from './ui/Timer';
 
 const prizes = [
   'Ganaste una cerveza',
@@ -21,7 +22,7 @@ class SecondScreen extends Component {
 
     this.state = {
       countVideos: 0,
-      numVideoWinner: 2,
+      numVideoWinner: 12,
       finished: true,
       progress: 0,
       playing: true,
@@ -29,6 +30,9 @@ class SecondScreen extends Component {
       url: null,
       winner: false,
       volume: 0.8,
+      name: '',
+      author: '',
+      gender: '',
     };
 
     this._attachEvents = this._attachEvents.bind(this);
@@ -84,7 +88,7 @@ class SecondScreen extends Component {
   };
 
   onDuration = duration => {
-    this.sendData({ action: 'duration', duration });
+    this.setState({ duration });
   };
 
   onProgress = state => {
@@ -127,7 +131,10 @@ class SecondScreen extends Component {
               finished: false,
               time: data.time,
               url: data.url,
-              countVideos: countVideos + 1
+              name: data.name,
+              author: data.author,
+              gender: data.gender,
+              countVideos: countVideos + 1,
             },
             () => this.setProgress()
           );
@@ -166,7 +173,7 @@ class SecondScreen extends Component {
   };
 
   render() {
-    const { url, playing, volume, finished, winner, progress } = this.state;
+    const { url, playing, volume, finished, winner, duration, name, author, gender } = this.state;
 
     if (winner) {
       this.setStop();
@@ -190,7 +197,7 @@ class SecondScreen extends Component {
     }
 
     return (
-      <div>
+      <div className="WrapScreen">
         <ReactPlayer
           ref={this.ref}
           className="react-player"
@@ -215,7 +222,12 @@ class SecondScreen extends Component {
           onProgress={this.onProgress}
           onDuration={this.onDuration}
         />
-        <Termometro load={progress + '%'} />
+        <div className="MetaScreen">
+          <div>Genero: <span>{gender}</span></div>
+          <div>Artista: <span>{author}</span></div>
+          <div>Cancion: <span>{name}</span></div>
+          <div>Tiempo: <span><Timer seconds={duration} /></span></div>
+        </div>
       </div>
     );
   }

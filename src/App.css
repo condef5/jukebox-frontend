@@ -217,3 +217,22 @@ body {
   -webkit-transition: fill 0.3s;
   transition: fill 0.3s;
 }
+
+.MetaScreen {
+  align-items: center;
+  background: rgba(20, 20, 20, 0.85);
+  bottom: 0;
+  display: flex;
+  font-size: 19px;
+  font-weight: bold;
+  justify-content: space-around;
+  height: 45px;
+  left: 0;
+  letter-spacing: 1px;
+  position: fixed;
+  text-transform: uppercase;
+  width: 100%;
+}
+.MetaScreen span {
+  font-weight: 400;
+}

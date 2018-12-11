@@ -2,16 +2,8 @@ import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
 import VideoclipList from '../components/VideoclipList';
 
-const filterSingers = (videoclips, singerId, search) => {
-  if (search === '') {
-    return videoclips.filter(videoclip => videoclip.singer_id === singerId);
-  }
-  return videoclips.filter(
-    videoclip =>
-      videoclip.name.toLowerCase().indexOf(search) > -1 ||
-      videoclip.author.toLowerCase().indexOf(search) > -1
-  );
-};
+const filterSingers = (videoclips, singerId) =>
+  videoclips.filter(videoclip => videoclip.singer_id === singerId);
 
 const VIDEOCLIPS_QUERY = gql`
   {
@@ -23,7 +15,6 @@ const VIDEOCLIPS_QUERY = gql`
       author
     }
     selectedSinger @client
-    search @client
   }
 `;
 
@@ -31,11 +22,7 @@ const withVideoclips = graphql(VIDEOCLIPS_QUERY, {
   props: ({ data }) => {
     if (data.loading || data.error) return { videoclips: [] };
     return {
-      videoclips: filterSingers(
-        data.videoclips,
-        data.selectedSinger,
-        data.search.toLowerCase()
-      )
+      videoclips: filterSingers(data.videoclips, data.selectedSinger)
     };
   }
 });

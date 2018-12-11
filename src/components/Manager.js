@@ -5,7 +5,7 @@ import { Screen } from './Animations';
 import { NavigatorProvider } from '../context/NavigatorContext';
 
 const RadioGroup = Radio.Group;
-const timeShowScreen = 10000;
+const timeShowScreen = 100000;
 
 export class Manager extends Component {
   constructor(props) {
@@ -162,7 +162,10 @@ export class Manager extends Component {
         msgData = {
           finished: false,
           url: currentVideo.url,
-          time: currentVideo.time
+          time: currentVideo.time,
+          name: currentVideo.name,
+          author: currentVideo.author,
+          gender: 'Rock'
         };
         break;
       case 'SET_FINISHED':
