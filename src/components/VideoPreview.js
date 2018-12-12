@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import ReactPlayer from 'react-player';
 import posed from 'react-pose';
 import WaitingListContainer from '../containers/WaitingListContainer';
 import { NavigatorConsumer } from '../context/NavigatorContext';
 import { TextShadow } from './styles/Common';
+import Preview from './Preview';
 
 const Item = posed.div({
   show: { x: 0, opacity: 1, transition: { duration: 400 } },
@@ -50,72 +50,30 @@ const StylePreview = styled.div`
   width: 100%;
 `;
 
-/* eslint-disable */
-class VideoPreview extends Component {
-  constructor() {
-    super();
-    this.state = {
-      muted: true,
-      playing: true,
-      maxTime: 20
-    };
-  }
-
-  onProgress = state => {
-    const { maxTime } = this.state;
-    if (state.playedSeconds > maxTime) {
-      this.player.seekTo(parseFloat(0));
-    }
-    console.log('onProgress', state);
-  };
-
-  ref = player => {
-    this.player = player;
-  };
-
-  render() {
-    const { playing, muted } = this.state;
-
-    return (
-      <NavigatorConsumer>
-        {({ state: { previewVideo } }) => (
-          <PreviewWrapper>
-            <div>
-              <div className="player-wrapper">
-                <ReactPlayer
-                  className="react-player-preview"
-                  ref={this.ref}
-                  url={previewVideo ? previewVideo.url : null}
-                  playing={playing}
-                  muted={muted}
-                  onProgress={this.onProgress}
-                  width="100%"
-                  height="100%"
-                  config={{
-                    youtube: {
-                      playerVars: { showinfo: 0, controls: 0, title: 0 }
-                    }
-                  }}
-                />
-                <StylePreview>Video Previo</StylePreview>
-              </div>
-            </div>
-            <TextShadow
-              className="meta-video"
-              fontSize="14px"
-              fontWeigth="normal"
-              textAlign="center"
-            >
-              <Item pose={previewVideo ? 'show' : 'hide'}>
-                {previewVideo && previewVideo.author + ' - ' + previewVideo.name}
-              </Item>
-            </TextShadow>
-            <WaitingListContainer />
-          </PreviewWrapper>
-        )}
-      </NavigatorConsumer>
-    );
-  }
-}
+const VideoPreview = () => (
+  <NavigatorConsumer>
+    {({ state: { previewVideo } }) => (
+      <PreviewWrapper>
+        <div>
+          <div className="player-wrapper">
+            <Preview url={previewVideo ? previewVideo.url : null} />
+            <StylePreview>Video Previo</StylePreview>
+          </div>
+        </div>
+        <TextShadow
+          className="meta-video"
+          fontSize="14px"
+          fontWeigth="normal"
+          textAlign="center"
+        >
+          <Item pose={previewVideo ? 'show' : 'hide'}>
+            {previewVideo && `${previewVideo.author} - ${previewVideo.name}`}
+          </Item>
+        </TextShadow>
+        <WaitingListContainer />
+      </PreviewWrapper>
+    )}
+  </NavigatorConsumer>
+);
 
 export default VideoPreview;

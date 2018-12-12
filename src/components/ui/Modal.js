@@ -10,7 +10,7 @@ const CustomModal = styled.div`
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.6);
-    z-index: 100000;
+    z-index: 100;
   }
 
   .modal-main {

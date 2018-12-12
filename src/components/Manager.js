@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactPlayer from 'react-player';
-import { Modal, Radio } from 'antd';
+import { Modal, Radio, message } from 'antd';
 import { Screen } from './Animations';
 import { NavigatorProvider } from '../context/NavigatorContext';
 
@@ -120,6 +120,7 @@ export class Manager extends Component {
       });
     }
     this.setState({ previewVideo: null });
+    message.success('Se agrego un video');
   };
 
   orderPriority = arr => [
