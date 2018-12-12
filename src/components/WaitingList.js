@@ -87,7 +87,7 @@ class WaitingList extends Component {
                         <span>{`${index + 1}.`}</span>
                         <p className="song ellipsis-one-line">{video.name}</p>
                         <span className={`option ${video.option}`}>
-                          {video.option}
+                          {video.option !== 'normal' && video.option}
                         </span>
                       </div>
                       <h4 className="author">{video.author}</h4>
