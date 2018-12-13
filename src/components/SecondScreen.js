@@ -4,7 +4,7 @@ import ReactPlayer from 'react-player';
 import screenfull from 'screenfull';
 import { hot } from 'react-hot-loader';
 import { Title } from './styles/Common';
-import Termometro from './Termometro';
+import { format } from './ui/Timer';
 import Timer from './ui/Timer';
 
 const prizes = [
@@ -226,7 +226,7 @@ class SecondScreen extends Component {
           <div>Genero: <span>{gender}</span></div>
           <div>Artista: <span>{author}</span></div>
           <div>Cancion: <span>{name}</span></div>
-          <div>Tiempo: <span><Timer seconds={duration} /></span></div>
+          <div>Tiempo: <span><Timer seconds={duration} /> de {format(duration)}</span></div>
         </div>
       </div>
     );

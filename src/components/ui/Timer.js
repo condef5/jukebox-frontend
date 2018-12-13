@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 
 const pad = string => `0${string}`.slice(-2);
 
-const format = seconds => {
-  if (seconds === 0) return '0:00';
+export const format = seconds => {
+  if (seconds === 0 || !seconds) return '0:00';
   const date = new Date(seconds * 1000);
   const hh = date.getUTCHours();
   const mm = date.getUTCMinutes();
