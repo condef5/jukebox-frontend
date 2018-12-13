@@ -3,6 +3,7 @@
 const singers = {
   defaults: {
     selectedSinger: 1,
+    selectedSingerSearch: 0,
     singers: [
       {
         id: 1,
@@ -100,8 +101,7 @@ const singers = {
       {
         id: 14,
         name: 'Artick Monkeys',
-        image:
-          'https://assets7.domestika.org/project-items/002/247/677/arctic_01_BIG-big.png?1517993254',
+        image: 'https://i.imgur.com/YClBmxg.png',
         gender_id: 1,
         __typename: 'SingerItem'
       }
@@ -111,6 +111,10 @@ const singers = {
     Mutation: {
       selectedSinger: (_, { id }, { cache }) => {
         cache.writeData({ data: { selectedSinger: id } });
+        return null;
+      },
+      selectedSingerSearch: (_, { id }, { cache }) => {
+        cache.writeData({ data: { selectedSingerSearch: id } });
         return null;
       }
     }

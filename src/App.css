@@ -23,6 +23,10 @@ body {
   text-align: center;
 }
 
+.ligth .ant-modal-mask {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
 .pointer {
   cursor: pointer;
 }
@@ -249,5 +253,6 @@ body {
   text-align: center;
   color: #000;
   bottom: 0%;
+  z-index: 1010;
   right: 10px;
 }

@@ -27,6 +27,7 @@ export default `
   type Mutation {
     selectedGender(id: Int!): Int!
     selectedSinger(id: Int!): Int!
+    selectedSingerSearch(id: Int!): Int!
     addVideo(id: Int!): String
     changeSearch(text: String): String
   }
@@ -34,6 +35,7 @@ export default `
   type Query {
     genderSelected: String!
     selectedSinger: String!
+    selectedSingerSearch: String!
     genders: [Gender]
     singers: [Singer]
     videoclips: [Videoclip]
