@@ -1,5 +1,4 @@
 #!/bin/bash
-yarn build
 docker build -t condef5/jukebox .
 docker push condef5/jukebox
 
