@@ -3,9 +3,9 @@ import { findDOMNode } from 'react-dom';
 import ReactPlayer from 'react-player';
 import screenfull from 'screenfull';
 import { hot } from 'react-hot-loader';
-import { Title } from './styles/Common';
-import { format } from './ui/Timer';
-import Timer from './ui/Timer';
+import Timer, { format } from './ui/Timer';
+import Logo from '../assets/logo.gif';
+import Termometro from './Termometro';
 
 const prizes = [
   'Ganaste una cerveza',
@@ -191,7 +191,7 @@ class SecondScreen extends Component {
     if (finished) {
       return (
         <div className="centerMessage">
-          <Title>Perumatic</Title>
+          <img src={Logo} alt="peru entertaiment"/>
         </div>
       );
     }
@@ -228,6 +228,7 @@ class SecondScreen extends Component {
           <div>Cancion: <span>{name}</span></div>
           <div>Tiempo: <span><Timer seconds={duration} /> de {format(duration)}</span></div>
         </div>
+        <Termometro /> 
       </div>
     );
   }
