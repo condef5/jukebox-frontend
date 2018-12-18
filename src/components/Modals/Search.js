@@ -41,22 +41,91 @@ const WrapIcon = styled(PoseIcon)`
   }
 `;
 
-const ResultSearch = styled.div`
-  max-width: 1200px;
+const PreviewWrapper = styled.div`
+  text-align: center;
+  color: #fff;
+  h3,
+  p {
+    letter-spacing: 2px;
+    text-shadow: 1px 1px 15px rgba(255, 0, 0, 0.61),
+      -1px -1px 15px rgba(255, 0, 0, 0.61), 1px 1px 15px rgba(255, 0, 0, 0.61);
+    font-weight: 700;
+    font-size: 16px;
+  }
+
+  h3 {
+    text-transform: uppercase;
+    font-size: 18px;
+    color: #ffffff;
+    word-spacing: 4px;
+  }
+
+  .previewPlayer {
+    height: 320px;
+    margin: 1em 0px;
+    background: #080d1a;
+    border-radius: 5px;
+    box-shadow: 2px 2px 20px #ff000078, -2px -2px 20px #ff000078;
+  }
+`;
+
+const ButtonTitle = styled.button`
+  background: #f40407;
+  box-shadow: 1px 1px 20px rgba(255, 0, 0, 0.61),
+    -1px -1px 20px rgba(255, 0, 0, 0.61);
+  border-radius: 5px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 100;
+  letter-spacing: 3px;
+  margin: 1em 0;
+  outline: none;
+  padding: 10px 15px;
+  text-align: center;
+  text-transform: uppercase;
+`;
+
+const ButtonGradient = styled(ButtonTitle)`
+  background: linear-gradient(to right, #f3282b, #ec0509, #f3282b);
+  width: ${props => props.size || '100%'};
+`;
+
+const Data = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+`;
+
+const ActionsSearch = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 220px 1fr 220px;
   grid-column-gap: 40px;
-  margin: auto;
+  align-items: center;
+  min-height: 220px;
+  padding: 0 1em;
+`;
+
+const ResultSearch = styled.div`
+  display: grid;
+  grid-template-columns: 300px 1fr 300px;
+  grid-column-gap: 70px;
+  padding: 1em;
+  overflow-y: auto;
 
   .grid {
     display: grid;
-    grid-column-gap: 40px;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-row-gap: 20px;
+    grid-column-gap: 10px;
+    grid-template-columns: calc(50% - 5px) calc(50% - 5px);
+    grid-row-gap: 7px;
   }
 
   img {
-    max-width: 100%;
+    max-width: 200px;
+    width: 100%;
   }
 
   h2 {
@@ -70,10 +139,19 @@ const ResultSearch = styled.div`
   }
 
   .singer h3 {
-    font-size: 16px;
+    font-size: 11px;
     line-height: 22px;
-    letter-spacing: 0.015em;
+    text-align: center;
+    letter-spacing: 0.25em;
     color: #fff;
+    font-weight: 700;
+    text-transform: uppercase;
+    overflow: hidden;
+    margin: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-right: 1px;
+    margin-right: -1px;
   }
 `;
 
@@ -123,7 +201,7 @@ const ListVideos = ({ videoclips, preview, showModal, color }) => (
       </div>
     ))}
   </FullVideos>
-)
+);
 
 class SearchModal extends Component {
   state = {
@@ -163,10 +241,10 @@ class SearchModal extends Component {
 
     return (
       <Modal show={show} handleClose={this.close}>
-        <div>
+        <Data>
           <ResultSearch>
             <div>
-              <h2>Artistas</h2>
+              <ButtonTitle>Artistas - Album</ButtonTitle>
               <div className="grid">
                 {singers.map(singer => (
                   <div
@@ -178,14 +256,26 @@ class SearchModal extends Component {
                     role="presentation"
                     key={singer.id}
                   >
-                    <img src={singer.image} alt={singer.name} />
+                    <div>
+                      <img src={singer.image} alt={singer.name} />
+                    </div>
                     <h3>{singer.name}</h3>
                   </div>
                 ))}
               </div>
             </div>
+            <PreviewWrapper>
+              <h3>Daft Punk - Radmon all access</h3>
+              <p>&quot;Give Life back to music&quot;</p>
+              <div className="previewPlayer">
+                <Preview
+                  url={state.previewVideo ? state.previewVideo.url : null}
+                />
+              </div>
+              <ButtonGradient size="initial">Video Previo</ButtonGradient>
+            </PreviewWrapper>
             <div>
-              <h2>Cancciones</h2>
+              <ButtonTitle>Canciones</ButtonTitle>
               <ListVideos
                 videoclips={videoclips}
                 preview={preview}
@@ -193,7 +283,18 @@ class SearchModal extends Component {
               />
             </div>
           </ResultSearch>
-          <VirtualKey onSearch={onSearch} />
+          <ActionsSearch>
+            <div>
+              <ButtonGradient>Karaoke</ButtonGradient>
+              <ButtonGradient>Canciones - MP3</ButtonGradient>
+            </div>
+            <VirtualKey onSearch={onSearch} />
+            <div>
+              <ButtonGradient>Todo</ButtonGradient>
+              <ButtonGradient>Artista</ButtonGradient>
+              <ButtonGradient>Canciones</ButtonGradient>
+            </div>
+          </ActionsSearch>
           <OptionVideo
             visible={visible}
             music={music}
@@ -211,13 +312,10 @@ class SearchModal extends Component {
               videoclips={singerVideos}
               preview={preview}
               showModal={this.showModal}
-              color={'black'}
+              color="black"
             />
           </AntModal>
-          <div className="Preview">
-            <Preview url={state.previewVideo ? state.previewVideo.url : null} />
-          </div>
-        </div>
+        </Data>
       </Modal>
     );
   }
