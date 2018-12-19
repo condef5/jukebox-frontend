@@ -33,7 +33,12 @@ class OptionVideo extends Component {
         visible={visible}
         onCancel={handleClose}
         footer={[
-          <Button type="primary" ghost onClick={() => this.addVideo()}>
+          <Button
+            key="optionV"
+            type="primary"
+            ghost
+            onClick={() => this.addVideo()}
+          >
             Aceptar
           </Button>
         ]}

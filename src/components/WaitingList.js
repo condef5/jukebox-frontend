@@ -49,7 +49,7 @@ class WaitingList extends Component {
   backMove = elem => {
     let height = elem.scrollTop;
     let id = null;
-    if (height === 0) {
+    if (height < 10) {
       this.setState({ scroll: true });
       clearInterval(id);
       return;

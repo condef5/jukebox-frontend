@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Swiper, Slide } from 'react-dynamic-swiper';
 import StyleSwipper from './styles/SingerList';
 

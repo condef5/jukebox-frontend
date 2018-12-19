@@ -32,6 +32,7 @@ class Controls extends Component {
               footer={[
                 <Button
                   type="primary"
+                  key="controls"
                   ghost
                   onClick={() => this.setState({ visible: false })}
                 >
