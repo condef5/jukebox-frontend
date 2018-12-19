@@ -115,6 +115,10 @@ export class Manager extends Component {
         () => this.sendData('ADD_VIDEO')
       );
     } else {
+      if (this.checkLastVideo(video)) {
+        message.error('Video repetido en cola');
+        return;
+      }
       this.setState({
         videos: this.orderPriority([...videos, { time, ...video }])
       });
@@ -128,6 +132,14 @@ export class Manager extends Component {
     ...arr.filter(item => item.option === 'vip'),
     ...arr.filter(item => item.option === 'normal')
   ];
+
+  checkLastVideo = video => {
+    const { videos, currentVideo } = this.state;
+    if (currentVideo.url === video.url && videos.length === 0) return true;
+    const data = videos.filter(item => item.option === video.option);
+    if (data.length === 0) return false;
+    return data[data.length - 1].url === video.url;
+  };
 
   nextVideo = () => {
     const { videos } = this.state;
@@ -328,7 +340,7 @@ export class Manager extends Component {
           visible={visible}
           centered
           footer={[
-            <Button type="primary" onClick={this.handleOk}>
+            <Button key="accept" type="primary" onClick={this.handleOk}>
               Aceptar
             </Button>
           ]}
