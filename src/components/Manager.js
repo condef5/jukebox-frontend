@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactPlayer from 'react-player';
-import { Modal, Radio, message } from 'antd';
+import { Modal, Radio, message, Button } from 'antd';
 import { Screen } from './Animations';
 import { NavigatorProvider } from '../context/NavigatorContext';
 
@@ -236,6 +236,7 @@ export class Manager extends Component {
     } else {
       this.setState({ muted: false });
     }
+    this.setState({ visible: false });
   };
 
   observerScreen = () => {
@@ -326,8 +327,11 @@ export class Manager extends Component {
           title="Configuracion Inicial"
           visible={visible}
           centered
-          onOk={this.handleOk}
-          onCancel={() => this.setState({ visible: false })}
+          footer={[
+            <Button type="primary" onClick={this.handleOk}>
+              Aceptar
+            </Button>
+          ]}
         >
           <RadioGroup
             onChange={this.onChange}

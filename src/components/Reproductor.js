@@ -25,7 +25,7 @@ const StyleBeat = styled.div`
   .content {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-end;
   }
 
   .music {
@@ -39,21 +39,48 @@ const StyleBeat = styled.div`
     width: 60%;
     img {
       width: 100%;
+      vertical-align: bottom;
+      margin-bottom: -1px;
+    }
+  }
+
+  .buffer_stop {
+    display: flex;
+    justify-content: center;
+    margin: 0 3px;
+    & > div {
+      background-color: #fff;
+      flex: 1;
+      height: 10px;
+      border: 1px solid red;
+      margin: 1px;
     }
   }
 `;
 
 const Reproductor = () => (
   <NavigatorConsumer>
-    {({ state: { currentVideo, playing, duration }, nextVideo }) => (
+    {({ state: { currentVideo, duration }, nextVideo }) => (
       <StyleBeat>
         <div className="head">
-          <TextShadow>{playing ? 'Reproducciendo...' : 'Pausa'}</TextShadow>
+          <TextShadow>
+            {currentVideo ? 'Reproducciendo...' : 'Pausa'}
+          </TextShadow>
           <SkipNext onClick={nextVideo} />
         </div>
         <div className="content">
           <div className="sound">
-            <img src={buffer} alt="perumatic buffer" />
+            {currentVideo ? (
+              <img src={buffer} alt="perumatic buffer" />
+            ) : (
+              <div className="buffer_stop">
+                <div />
+                <div />
+                <div />
+                <div />
+                <div />
+              </div>
+            )}
           </div>
           <TextShadow className="music">
             <Duration seconds={duration} />

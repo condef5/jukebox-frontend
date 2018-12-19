@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
-import { Modal, Radio } from 'antd';
 import { PlayCircle } from 'styled-icons/feather/PlayCircle';
 import posed, { PoseGroup } from 'react-pose';
 import { Tab, MusicContainer, Letters } from './styles/VideoclipList';
 import { NavigatorConsumer } from '../context/NavigatorContext';
+import OptionVideo from './Modals/OptionVideo';
 
 /* eslint-disable */
 const letters = Array.from({ length: 26 }, (_, i) => String.fromCharCode(65 + i));
 
 const minVideos = 4;
-const RadioGroup = Radio.Group;
 
 const Item = posed.div({
   enter: { y: 0, opacity: 1, transition: { duration: 500 } },
@@ -54,13 +53,8 @@ class VideoclipList extends Component {
     }
   };
 
-  addVideo = () => {
-    this.props.add({ ...this.state.music, option: this.state.option });
-    this.setState({ modal: false, option: 'normal' });
-  };
-
   render() {
-    const { videoclips, state, preview } = this.props;
+    const { videoclips, state, preview, add } = this.props;
     return (
       <div style={{ marginBottom: '1em', padding: '0 1em' }}>
         <Tab>
@@ -97,19 +91,12 @@ class VideoclipList extends Component {
             ))}
           </Letters>
         </MusicContainer>
-        <Modal
-          title="Elija su opcion de video"
-          centered
-          visible={this.state.modal}
-          onOk={() => this.addVideo()}
-          onCancel={() => this.setState({ modal: false })}
-        >
-          <RadioGroup onChange={this.onChange} value={this.state.option} buttonStyle="solid">
-            <Radio value={'normal'}>Normal</Radio>
-            <Radio value={'vip'}>Vip</Radio>
-            <Radio value={'supervip'}>Super vip</Radio>
-          </RadioGroup>
-        </Modal>
+        <OptionVideo
+            visible={this.state.modal}
+            music={this.state.music}
+            add={add}
+            handleClose={() => this.setState({ modal: false })}
+          />
       </div>
     );
   }

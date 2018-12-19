@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, Radio } from 'antd';
+import { Modal, Radio, Button } from 'antd';
 
 const RadioGroup = Radio.Group;
 
@@ -31,8 +31,12 @@ class OptionVideo extends Component {
         title="Elija su opcion de video"
         centered
         visible={visible}
-        onOk={() => this.addVideo()}
         onCancel={handleClose}
+        footer={[
+          <Button type="primary" ghost onClick={() => this.addVideo()}>
+            Aceptar
+          </Button>
+        ]}
       >
         <RadioGroup onChange={this.onChange} value={option} buttonStyle="solid">
           <Radio value="normal">Normal</Radio>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { VolumeUp } from 'styled-icons/fa-solid/VolumeUp';
-import { Modal, Slider } from 'antd';
+import { Modal, Slider, Button } from 'antd';
 import ControlStyle from './styles/Controls';
 import { NavigatorConsumer } from '../context/NavigatorContext';
 
@@ -29,10 +29,15 @@ class Controls extends Component {
               title="Control de volumen"
               visible={visible}
               centered
-              onOk={() => this.setState({ visible: false })}
-              onCancel={() => this.setState({ visible: false })}
-              okText="OK"
-              cancelText="Cancelar"
+              footer={[
+                <Button
+                  type="primary"
+                  ghost
+                  onClick={() => this.setState({ visible: false })}
+                >
+                  Aceptar
+                </Button>
+              ]}
             >
               <Slider
                 min={0}
