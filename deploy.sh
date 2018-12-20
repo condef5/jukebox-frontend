@@ -2,7 +2,7 @@
 docker build -t condef5/jukebox .
 docker push condef5/jukebox
 
-ssh root@207.154.247.193 << EOF
+ssh root@46.101.98.60 << EOF
 docker pull condef5/jukebox:latest
 docker stop web || true
 docker rm web || true
