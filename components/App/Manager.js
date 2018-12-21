@@ -339,7 +339,7 @@ export class Manager extends Component {
           title="Configuracion Inicial"
           visible={visible}
           centered
-          onCancel={this.handleCancel}
+          onCancel={this.handleOk}
           footer={[
             <Button key="accept" type="primary" onClick={this.handleOk}>
               Aceptar

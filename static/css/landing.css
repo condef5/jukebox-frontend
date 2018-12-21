@@ -34,6 +34,10 @@ body {
 }
 
 .nav a {
+  padding-right: 10px;
+}
+
+a {
   color: #fff;
   text-decoration: none;
 }
@@ -130,4 +134,88 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+/* login */
+.login {
+  height: 100vh;
+  background: #ff1769;
+  background: linear-gradient(rgb(30, 50, 100), rgb(4, 6, 12) 85%);
+}
+
+.login .logo {
+  display: block;
+  height: 75px;
+  padding-top: 40px;
+  cursor: pointer;
+  margin: 0 auto 30px;
+}
+
+.login .vertical-form {
+  margin: 0 auto;
+  width: 470px;
+  padding: 40px;
+  border-radius: 3px;
+  background: white;
+  padding-bottom: 20px;
+}
+
+.login .vertical-form legend {
+  text-align: center;
+  font-weight: 300;
+  color: #444;
+  margin: 0 auto 45px;
+  font-size: 35px;
+  line-height: 38px;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.login .vertical-form input[type='text'],
+.login .vertical-form input[type='email'],
+.login .vertical-form input[type='password'],
+.login .vertical-form input[type='number'],
+.login .vertical-form input[type='submit'] {
+  background: #fcfcfc;
+  border: 2px solid #e7e7e7;
+  margin: 20px auto;
+  padding: 15px;
+  width: 100%;
+  display: block;
+  border-radius: 3px;
+  font-size: 18px;
+  transition: opacity 0.4s;
+  text-align: left;
+  height: auto;
+  -webkit-appearance: none;
+}
+
+.login .vertical-form input[type='submit'] {
+  color: white;
+  background: #ff1769;
+  border: 0;
+  font-weight: 600;
+  font-size: 17px;
+  text-align: center;
+  cursor: pointer;
+  margin-bottom: 0;
+  height: auto;
+  -webkit-appearance: none;
+}
+
+.login .footer {
+  text-align: center;
+  color: white;
+  margin: 20px auto;
+}
+
+.login .footer p {
+  margin-bottom: 40px;
+  font-size: 18px;
+}
+
+.login .footer a {
+  font-weight: 600;
+  border: 0;
+  padding: 0;
 }

@@ -18,9 +18,12 @@ export default () => (
         <a href="/">
           <img src="/static/assets/images/logo-flat.svg" alt="logo-perumatic" />
         </a>
-        <Link href="/login">
-          <a>Iniciar sesion</a>
-        </Link>
+        <div>
+          <a href="/app">Go to app</a>
+          <Link >
+            <a href="/login">Iniciar sesion</a>
+          </Link>
+        </div>
       </div>
       <div className="wrap">
         <article>
