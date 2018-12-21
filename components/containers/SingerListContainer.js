@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
-import SingerList from '../components/SingerList';
+import SingerList from '../App/SingerList';
 
-const filterSingers = (singers, genderId, search) =>
+const filterSingers = (singers, genderId) =>
   singers.filter(singer => singer.gender_id === genderId);
 
 const SINGERS_QUERY = gql`

@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
-import VideoclipList from '../components/VideoclipList';
+import VideoclipList from '../App/VideoclipList';
 
 const filterSingers = (videoclips, singerId) =>
   videoclips.filter(videoclip => videoclip.singer_id === singerId);

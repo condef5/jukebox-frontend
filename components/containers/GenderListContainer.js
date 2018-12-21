@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
-import GenderList from '../components/GenderList';
+import GenderList from '../App/GenderList';
 
 const GENDERS_QUERY = gql`
   {

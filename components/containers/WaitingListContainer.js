@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
-import WaitingList from '../components/WaitingList';
+import WaitingList from '../App/WaitingList';
 
 const addFieldsVideos = (videos, list) =>
   videos.filter(video => !!list.find(item => item.video_id === video.id));
