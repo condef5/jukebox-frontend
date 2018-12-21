@@ -29,6 +29,7 @@ class Controls extends Component {
               title="Control de volumen"
               visible={visible}
               centered
+              onCancel={() => this.setState({ visible: false })}
               footer={[
                 <Button
                   type="primary"

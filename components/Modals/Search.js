@@ -5,11 +5,13 @@ import { graphql } from 'react-apollo';
 import posed from 'react-pose';
 import { PlayCircle } from 'styled-icons/feather/PlayCircle.cjs';
 import { Modal as AntModal } from 'antd';
-import VirtualKey from '../VirtualKey';
+import dynamic from 'next/dynamic';
 import Modal from '../ui/Modal';
 import OptionVideo from './OptionVideo';
 import Preview from '../Preview';
 import { NavigatorConsumer } from '../../context/NavigatorContext';
+
+const VirtualKey = dynamic(import('../VirtualKey'), { ssr: false });
 
 const SEARCH_MUTATION = gql`
   mutation changedSearch($text: String!) {
@@ -288,7 +290,7 @@ class SearchModal extends Component {
               <ButtonGradient>Karaoke</ButtonGradient>
               <ButtonGradient>Canciones - MP3</ButtonGradient>
             </div>
-            {show && <VirtualKey onSearch={onSearch} />}
+            <VirtualKey onSearch={onSearch} />
             <div>
               <ButtonGradient>Todo</ButtonGradient>
               <ButtonGradient>Artista</ButtonGradient>
