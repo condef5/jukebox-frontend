@@ -47,7 +47,7 @@ export class Manager extends Component {
     const { presenting } = this.state;
     if (presenting === false && window.PresentationRequest) {
       const presentationRequest = new PresentationRequest([
-        `${originalLocation}?reproductor`
+        `${originalLocation}/app?reproductor=true`
       ]);
       navigator.presentation.defaultRequest = presentationRequest;
       presentationRequest.start().then(connection => {

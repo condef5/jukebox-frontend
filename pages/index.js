@@ -1,12 +1,7 @@
-import App from '../components/App';
-import SecondScreen from '../components/SecondScreen';
+import Link from 'next/link';
 
-// eslint-disable-next-line
-const isReproductor = false; // location.href.indexOf('?reproductor') !== -1;
-
-export default () => {
-  if (isReproductor) {
-    return <SecondScreen />;
-  }
-  return <App />;
-};
+export default () => (
+  <div>
+    <a href="/app">Go to app</a>
+  </div>
+);

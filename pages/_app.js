@@ -10,13 +10,23 @@ Router.onRouteChangeComplete = () => NProgress.done();
 Router.onRouteChangeError = () => NProgress.done();
 
 class MyApp extends App {
+  static async getInitialProps({ Component, ctx }) {
+    let pageProps = {};
+    if (Component.getInitialProps) {
+      pageProps = await Component.getInitialProps(ctx);
+    }
+    // this exposes the query to the user
+    pageProps.query = ctx.query;
+    return { pageProps };
+  }
+
   render() {
     const { Component, pageProps, apollo } = this.props;
 
     return (
       <Container>
         <Head>
-          <title>My new cool app</title>
+          <title>Jukebox - Perumatic</title>
         </Head>
         <ApolloProvider client={apollo}>
           <Component {...pageProps} />

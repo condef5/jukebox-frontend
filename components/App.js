@@ -1,6 +1,5 @@
 import React from 'react';
 import { hot } from 'react-hot-loader';
-import Link from 'next/link';
 import GenderListContainer from '../containers/GenderListContainer';
 import SingerListContainer from '../containers/SingerListContainer';
 import VideoclipListContainer from '../containers/VideoclipListContainer';
@@ -21,9 +20,7 @@ const App = () => (
     <Row>
       <Column span="25">
         <WrapLogo>
-          <Link href="/demo">
-            <img src="/static/assets/logo.gif" alt="perumatic-logo" />
-          </Link>
+          <img src="/static/assets/logo.gif" alt="perumatic-logo" />
         </WrapLogo>
         <VideoclipListContainer />
         <ButtonList />
