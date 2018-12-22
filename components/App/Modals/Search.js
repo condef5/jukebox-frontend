@@ -196,7 +196,7 @@ const ListVideos = ({ videoclips, preview, showModal, color }) => (
         </div>
         <WrapIcon color={color}>
           <PlayCircle
-            style={{ minWidth: '25px', color: 'inherit' }}
+            style={{ width: '25px', color: 'inherit' }}
             onClick={() => showModal(videoclip)}
           />
         </WrapIcon>

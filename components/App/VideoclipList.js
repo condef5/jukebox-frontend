@@ -77,7 +77,7 @@ class VideoclipList extends Component {
                   </div>
                   <WrapIcon>
                     <PlayCircle
-                      style={{ minWidth: '22px', color: 'inherit' }}
+                      style={{ width: '22px', color: 'inherit' }}
                       onClick={() => this.showModal(music, state.videos.length)}
                     />
                   </WrapIcon>
