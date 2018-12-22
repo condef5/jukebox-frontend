@@ -3,7 +3,7 @@ import Head from 'next/head';
 import { ApolloProvider } from 'react-apollo';
 import Router from 'next/router';
 import NProgress from 'nprogress';
-import withApollo from '../lib/apollo';
+import withApollo from '../lib/apollo/withApollo';
 
 Router.onRouteChangeStart = () => NProgress.start();
 Router.onRouteChangeComplete = () => NProgress.done();
@@ -21,14 +21,14 @@ class MyApp extends App {
   }
 
   render() {
-    const { Component, pageProps, apollo } = this.props;
+    const { Component, pageProps, apolloClient } = this.props;
 
     return (
       <Container>
         <Head>
           <title>Jukebox - Perumatic</title>
         </Head>
-        <ApolloProvider client={apollo}>
+        <ApolloProvider client={apolloClient}>
           <Component {...pageProps} />
         </ApolloProvider>
       </Container>

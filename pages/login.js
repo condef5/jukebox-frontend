@@ -1,8 +1,10 @@
 import Head from 'next/head';
 import Link from 'next/link';
+import SigninBox from '../components/Signin';
+import withAuth from '../lib/withAuth';
 
 /* eslint-disable */
-export default () => (
+const Login = () => (
   <div className="login">
     <Head>
       <title>Jukebox - Log In</title>
@@ -11,12 +13,7 @@ export default () => (
     <Link href="/">
       <img className="logo" src="/static/assets/images/logo-flat.svg" alt="perumatic" />
     </Link>
-    <form className="vertical-form">
-      <legend>Log In</legend>
-      <input type="text" placeholder="Email Address" />
-      <input type="password" placeholder="Password" />
-      <input type="submit" name="commit" value="Log In" />
-    </form>
+    <SigninBox />
     <div className="footer">
       <p>
         ¿Aún no tienes una cuenta?{' '}
@@ -27,3 +24,5 @@ export default () => (
     </div>
   </div>
 );
+
+export default withAuth(Login, { logoutRequired: true });

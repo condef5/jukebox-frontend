@@ -3,7 +3,7 @@ module.exports = {
   extends: ['airbnb', 'plugin:prettier/recommended'],
   env: {
     browser: true,
-    jest: true,
+    jest: true
   },
   plugins: ['react', 'jsx-a11y', 'import'],
   rules: {
@@ -15,10 +15,9 @@ module.exports = {
     'react/jsx-filename-extension': [
       'error',
       {
-        extensions: ['.js'],
-      },
+        extensions: ['.js']
+      }
     ],
-    'react/prop-types': 0,
     'class-methods-use-this': 0,
     'import/no-named-as-default': 0,
     allowShortCircuit: true,
@@ -27,30 +26,30 @@ module.exports = {
     'react/jsx-filename-extension': [
       'error',
       {
-        extensions: ['.js', '.jsx'],
-      },
+        extensions: ['.js', '.jsx']
+      }
     ],
     'react/sort-comp': [
       1,
       {
-        order: ['constructor', 'lifecycle', 'everything-else', 'render'],
-      },
+        order: ['constructor', 'lifecycle', 'everything-else', 'render']
+      }
     ],
     'prefer-destructuring': [
       'error',
       {
         VariableDeclarator: {
           array: false,
-          object: true,
+          object: true
         },
         AssignmentExpression: {
           array: true,
-          object: false,
-        },
+          object: false
+        }
       },
       {
-        enforceForRenamedProperties: false,
-      },
-    ],
-  },
+        enforceForRenamedProperties: false
+      }
+    ]
+  }
 };

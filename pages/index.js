@@ -1,8 +1,10 @@
 import Head from 'next/head';
 import Link from 'next/link';
+import withAuth from '../lib/withAuth';
+import Signout from '../components/Signout';
 
 /* eslint-disable */
-export default () => (
+const Index = ({ user }) => (
   <>
     <Head>
       <title>Jukebox</title>
@@ -19,10 +21,17 @@ export default () => (
           <img src="/static/assets/images/logo-flat.svg" alt="logo-perumatic" />
         </a>
         <div>
-          <a href="/app">Go to app</a>
-          <Link href="/login">
-            <a>Iniciar sesion</a>
-          </Link>
+          {!user ? (
+            <Link href="/login">
+              <a>Iniciar sesion</a>
+            </Link>
+          ) : (
+            <>
+              <a href="#">{user.username}</a>
+              <a href="/app">Go to app</a>
+              <Signout />
+            </>
+          )}
         </div>
       </div>
       <div className="wrap">
@@ -56,3 +65,5 @@ export default () => (
     </section>
   </>
 );
+
+export default withAuth(Index);

@@ -1,8 +1,10 @@
 import Head from 'next/head';
 import Link from 'next/link';
+import Signup from '../components/Signup';
+import withAuth from '../lib/withAuth';
 
 /* eslint-disable */
-export default () => (
+const Register = () => (
   <div className="login">
     <Head>
       <title>Jukebox - Register</title>
@@ -11,13 +13,7 @@ export default () => (
     <Link href="/">
       <img className="logo" src="/static/assets/images/logo-flat.svg" alt="perumatic" />
     </Link>
-    <form className="vertical-form">
-      <legend>Sign Up</legend>
-      <input type="text" placeholder="Full Name" />
-      <input type="text" placeholder="Email Address" />
-      <input type="password" placeholder="Password" />
-      <input type="submit" name="commit" value="Sign Up" />
-    </form>
+    <Signup />
     <div className="footer">
       <p>
         ¿Ya tienes una cuenta?{' '}
@@ -28,3 +24,5 @@ export default () => (
     </div>
   </div>
 );
+
+export default withAuth(Register, { logoutRequired: true });
