@@ -20,8 +20,8 @@ export default () => (
         </a>
         <div>
           <a href="/app">Go to app</a>
-          <Link >
-            <a href="/login">Iniciar sesion</a>
+          <Link href="/login">
+            <a>Iniciar sesion</a>
           </Link>
         </div>
       </div>
@@ -39,16 +39,16 @@ export default () => (
         </article>
       </div>
     </section>
-    <section id="business" class="hero align-center color-white">
+    <section id="business" className="hero align-center color-white">
       <div className="wrap">
         <article>
           <h3 className="wow fadeIn">
             ¿Tienes un <span>bar</span>?
           </h3>
-          <p class="wow fadeIn" data-wow-delay=".1s">
+          <p className="wow fadeIn" data-wow-delay=".1s">
             Instalá Jukebox y que tus clientes elijan la música
           </p>
-          <a href="#" class="btn btn-hero wow fadeIn" data-wow-delay=".2s">
+          <a href="#" className="btn btn-hero wow fadeIn" data-wow-delay=".2s">
             Jukebox para negocios
           </a>
         </article>

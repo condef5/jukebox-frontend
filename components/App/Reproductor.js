@@ -63,7 +63,7 @@ const Reproductor = () => (
       <StyleBeat>
         <div className="head">
           <TextShadow>
-            {currentVideo ? 'Reproducciendo...' : 'Pausa'}
+            {currentVideo ? 'Reproducciendo...' : 'Lista vacía'}
           </TextShadow>
           <SkipNext onClick={nextVideo} />
         </div>
