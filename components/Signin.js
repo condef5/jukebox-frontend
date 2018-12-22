@@ -53,7 +53,6 @@ const SigninBox = ({ client }) => {
           }}
         >
           <legend>Log In</legend>
-          {error && <p>.</p>}
           {error && (
             <span style={{ color: '#333' }}>Usuario no encontrado</span>
           )}

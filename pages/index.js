@@ -66,4 +66,4 @@ const Index = ({ user }) => (
   </>
 );
 
-export default withAuth(Index);
+export default withAuth(Index, { loginRequired: false });
