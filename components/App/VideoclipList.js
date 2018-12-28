@@ -1,9 +1,24 @@
 import React, { Component } from 'react';
 import { PlayCircle } from 'styled-icons/feather/PlayCircle.cjs';
 import posed, { PoseGroup } from 'react-pose';
+import gql from 'graphql-tag';
+import { Query } from 'react-apollo';
 import { Tab, MusicContainer, Letters } from './styles/VideoclipList';
 import { NavigatorConsumer } from '../context/NavigatorContext';
 import OptionVideo from './Modals/OptionVideo';
+
+const VIDEOCLIPS_QUERY = gql`
+  query videoclips($id: Int!) {
+    singer(id: $id) {
+      name
+      videoclips {
+        id
+        name
+        url
+      }
+    }
+  }
+`;
 
 /* eslint-disable */
 const letters = Array.from({ length: 26 }, (_, i) => String.fromCharCode(65 + i));
@@ -46,15 +61,16 @@ class VideoclipList extends Component {
     });
   };
 
-  showModal = music => {
+  showModal = (music, author) => {
     if (this.props.state.videos.length >= minVideos) this.setState({ music, modal: true });
     else {
-      this.props.add({ ...music, option: 'normal' });
+      this.props.add({ ...music, option: 'normal', author });
     }
   };
 
   render() {
-    const { videoclips, state, preview, add } = this.props;
+    const { selectedSinger, state, preview, add } = this.props;
+    const id = 1;
     return (
       <div style={{ marginBottom: '1em', padding: '0 1em' }}>
         <Tab>
@@ -68,22 +84,30 @@ class VideoclipList extends Component {
         </Tab>
         <MusicContainer>
           <div style={{ flex: '1', paddingRight: '1em' }}>
-            <PoseGroup>
-              {videoclips.map(music => (
-                <Item className="musica" key={music.id}>
-                  <div onClick={() => preview(music)}>
-                    <div>{music.author}</div>
-                    <div>{music.name}</div>
-                  </div>
-                  <WrapIcon>
-                    <PlayCircle
-                      style={{ width: '22px', color: 'inherit' }}
-                      onClick={() => this.showModal(music, state.videos.length)}
-                    />
-                  </WrapIcon>
-                </Item>
-              ))}
-            </PoseGroup>
+            <Query query={VIDEOCLIPS_QUERY} variables={{ id: selectedSinger }}>
+              {({ loading, error, data }) => {
+                if (loading) return 'Loading...';
+                if (error) return `Error! ${error.message}`;
+                return (
+                  <PoseGroup>
+                    {data.singer.videoclips.map(music => (
+                      <Item className="musica" key={music.id}>
+                        <div onClick={() => preview(music)}>
+                          <div>{data.singer.name}</div>
+                          <div>{music.name}</div>
+                        </div>
+                        <WrapIcon>
+                          <PlayCircle
+                            style={{ width: '22px', color: 'inherit' }}
+                            onClick={() => this.showModal(music, data.singer.name, state.videos.length)}
+                          />
+                        </WrapIcon>
+                      </Item>
+                    ))}
+                  </PoseGroup>
+                );
+              }}
+            </Query>
           </div>
           <Letters>
             {letters.map(item => (

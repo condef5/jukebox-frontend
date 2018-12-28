@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import posed from 'react-pose';
-import WaitingListContainer from '../containers/WaitingListContainer';
+import WaitingList from './WaitingList';
 import { NavigatorConsumer } from '../context/NavigatorContext';
 import { TextShadow } from './styles/Common';
 import Preview from './Preview';
@@ -70,7 +70,7 @@ const VideoPreview = () => (
             {previewVideo && `${previewVideo.author} - ${previewVideo.name}`}
           </Item>
         </TextShadow>
-        <WaitingListContainer />
+        <WaitingList />
       </PreviewWrapper>
     )}
   </NavigatorConsumer>

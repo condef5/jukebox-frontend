@@ -4,7 +4,7 @@ import { QuestionCircle as Question } from 'styled-icons/fa-regular/QuestionCirc
 import { Search } from 'styled-icons/material/Search.cjs';
 import { Keyboard } from 'styled-icons/material/Keyboard.cjs';
 import ButtonListStyled from './styles/ButtonList';
-import SearchModal from './Modals/Search';
+// import SearchModal from './Modals/Search';
 import HomeModal from './Modals/Home';
 import QuestionsModal from './Modals/Questions';
 
@@ -49,10 +49,10 @@ class ButtonList extends Component {
             <Question />
           </button>
         </ButtonListStyled>
-        <SearchModal
+        {/* <SearchModal
           show={modalSearch}
           close={() => this.hideModal('modalSearch')}
-        />
+        /> */}
         <HomeModal show={modalHome} close={() => this.hideModal('modalHome')} />
         <QuestionsModal
           show={modalQuestions}

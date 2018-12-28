@@ -4,7 +4,7 @@ import GenderList from '../App/GenderList';
 
 const GENDERS_QUERY = gql`
   {
-    genders @client {
+    genders {
       id
       name
     }
