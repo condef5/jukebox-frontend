@@ -18,7 +18,7 @@ class Controls extends Component {
             <ControlStyle>
               <div className="credits">
                 <div>Créditos</div>
-                <div>20</div>
+                <div>{context.state.credits}</div>
               </div>
               <VolumeUp
                 style={{ width: '40px' }}

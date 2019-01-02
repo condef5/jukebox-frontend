@@ -72,7 +72,7 @@ class VideoclipList extends Component {
     const { selectedSinger, state, preview, add } = this.props;
     const id = 1;
     return (
-      <div style={{ marginBottom: '1em', padding: '0 1em' }}>
+      <div style={{ marginBottom: '1em', maxHeight: '545px' }}>
         <Tab>
           <div>Canciones</div>
           <div>Nuevos</div>
@@ -83,7 +83,7 @@ class VideoclipList extends Component {
           </div>
         </Tab>
         <MusicContainer>
-          <div style={{ flex: '1', paddingRight: '1em' }}>
+          <div style={{ flex: '1' }}>
             <Query query={VIDEOCLIPS_QUERY} variables={{ id: selectedSinger }}>
               {({ loading, error, data }) => {
                 if (loading) return 'Loading...';
@@ -99,7 +99,9 @@ class VideoclipList extends Component {
                         <WrapIcon>
                           <PlayCircle
                             style={{ width: '22px', color: 'inherit' }}
-                            onClick={() => this.showModal(music, data.singer.name, state.videos.length)}
+                            onClick={() =>
+                              this.showModal(music, data.singer.name, state.videos.length)
+                            }
                           />
                         </WrapIcon>
                       </Item>

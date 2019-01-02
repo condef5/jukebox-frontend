@@ -4,7 +4,8 @@ const Controls = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-bottom: 1em;
+  padding-bottom: 0.5em;
+  max-height: 100px;
   img {
     width: 40px;
   }
@@ -14,8 +15,8 @@ const Controls = styled.div`
     flex-direction: column;
     justify-content: center;
     display: flex;
-    height: 100px;
-    width: 100px;
+    height: 90px;
+    width: 90px;
     align-items: center;
     border: 3px solid #fff;
     margin-right: 1.15em;
@@ -27,10 +28,10 @@ const Controls = styled.div`
       font-size: 15px;
       letter-spacing: 1px;
       text-transform: uppercase;
-      margin-top: 10px;
+      margin-top: 15px;
     }
     div:last-child {
-      font-size: 35px;
+      font-size: 30px;
       letter-spacing: 2px;
     }
   }

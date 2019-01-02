@@ -38,6 +38,11 @@ export const MusicContainer = styled.div`
 
   & > div {
     color: #ef1a1c;
+    @media (max-width: 1000px) {
+      overflow: auto;
+      max-height: 500px;
+      padding-right: 5px;
+    }
   }
 
   .musica {

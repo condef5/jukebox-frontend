@@ -15,7 +15,7 @@ const PreviewWrapper = styled.div`
   transform-style: preserve-3d;
   transform: perspective(900px);
   /* width: 95%; */
-  margin: 10px 10px 10px 0px;
+  margin: 0px 10px 10px 0px;
   & > div {
     transform: rotateX(-7deg) rotateY(-25deg) translateZ(15px);
   }
@@ -24,7 +24,7 @@ const PreviewWrapper = styled.div`
     padding-top: 56.25%;
     border: 3px solid #291844;
     border-radius: 4px;
-    margin-bottom: 1.5em;
+    margin-bottom: 7px;
     box-shadow: 4px 0px 8px rgba(0, 0, 0, 0.3);
   }
   .react-player-preview {

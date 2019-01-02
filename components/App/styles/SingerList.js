@@ -1,9 +1,16 @@
 import styled from 'styled-components';
 
-const sizeImage = '275px';
+const sizeImage = '290px';
 
 const StyleSwipper = styled.div`
-  margin: 2em 0em;
+  margin: 30px 0;
+  height: 320px;
+
+  &.loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
   .column {
     border-radius: 5px;

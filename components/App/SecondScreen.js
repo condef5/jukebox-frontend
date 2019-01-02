@@ -10,7 +10,7 @@ const prizes = [
   'Ganaste una cerveza',
   'Ganaste una canción más',
   'Ganaste un miniron',
-  'Ganaste una entrada gratis',
+  'Ganaste una entrada gratis'
 ];
 
 /* eslint-disable*/
@@ -31,7 +31,7 @@ class SecondScreen extends Component {
       volume: 0.8,
       name: '',
       author: '',
-      gender: '',
+      gender: ''
     };
 
     this._attachEvents = this._attachEvents.bind(this);
@@ -65,7 +65,7 @@ class SecondScreen extends Component {
   load = (url, time) => {
     this.setState({
       url,
-      time,
+      time
     });
   };
 
@@ -96,7 +96,7 @@ class SecondScreen extends Component {
 
   onEnded = () => {
     this.sendData({
-      action: 'finished',
+      action: 'finished'
     });
   };
 
@@ -133,9 +133,9 @@ class SecondScreen extends Component {
               name: data.name,
               author: data.author,
               gender: data.gender,
-              countVideos: countVideos + 1,
+              countVideos: countVideos + 1
             },
-            () => this.setProgress(),
+            () => this.setProgress()
           );
         }, 2000);
         break;
@@ -144,7 +144,7 @@ class SecondScreen extends Component {
         break;
       case 'SET_PLAY':
         this.setState(prevState => ({
-          playing: !prevState.playing,
+          playing: !prevState.playing
         }));
         break;
       default:
@@ -209,7 +209,7 @@ class SecondScreen extends Component {
           onStart={() => {
             console.log('onStart');
             this.sendData({
-              action: 'load',
+              action: 'load'
             });
           }}
           onPlay={this.onPlay}

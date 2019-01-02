@@ -24,8 +24,15 @@ export const Title = styled.h1`
 `;
 
 export const WrapLogo = styled.div`
+  height: 60px;
+  text-align: center;
   img {
-    width: 100%;
+    width: 80%;
+  }
+  @media (max-width: 1024px) {
+    img {
+      width: 100%;
+    }
   }
 `;
 

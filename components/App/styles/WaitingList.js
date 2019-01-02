@@ -9,7 +9,7 @@ const StyleContain = styled.div`
     max-height: 200px;
     min-height: 200px;
     position: relative;
-    margin: 1em 0;
+    margin: 7px 0;
     text-align: center;
     padding: 0 10px 10px;
     overflow: auto;
