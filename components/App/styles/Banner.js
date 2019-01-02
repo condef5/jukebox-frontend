@@ -3,12 +3,13 @@ import styled from 'styled-components';
 const Banner = styled.div`
   max-width: 100%;
   max-height: 100px;
+  position: relative;
   img {
     display: none;
   }
 
   .row {
-    height: 150px;
+    height: 100px;
   }
 
   .swiper-slide {

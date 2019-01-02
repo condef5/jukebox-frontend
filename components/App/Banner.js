@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Swiper, Slide } from 'react-dynamic-swiper';
 import StyleBanner from './styles/Banner';
+import Ticker from './ui/Ticker';
 
 const params = {
   slidesPerView: 1,
@@ -34,6 +35,7 @@ export default class Banner extends Component {
             </Slide>
           ))}
         </Swiper>
+        <Ticker />
       </StyleBanner>
     );
   }

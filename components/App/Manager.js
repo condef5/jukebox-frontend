@@ -125,6 +125,14 @@ export class Manager extends Component {
       message.error('Inserte créditos por favor');
       return;
     }
+
+    if (
+      (credits <= 1 && video.option === 'vip') ||
+      (credits <= 2 && video.option === 'supervip')
+    ) {
+      message.error('Créditos insuficientes');
+      return;
+    }
     const time = new Date().getTime();
     if (!currentVideo) {
       this.setState(
