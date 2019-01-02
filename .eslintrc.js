@@ -50,6 +50,7 @@ module.exports = {
       {
         enforceForRenamedProperties: false
       }
-    ]
+    ],
+    'react/forbid-prop-types': 0
   }
 };
