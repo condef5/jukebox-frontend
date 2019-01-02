@@ -24,7 +24,8 @@ export class Manager extends Component {
       volume: 0.8,
       videos: [],
       visible: true,
-      winner: false
+      winner: false,
+      credits: 0
     };
   }
 
@@ -75,6 +76,17 @@ export class Manager extends Component {
     window.removeEventListener('click', this.lastEvent);
   };
 
+  addCredit = () => {
+    this.setState(prev => ({ credits: prev.credits + 3 }));
+  };
+
+  removeCredit = option => {
+    let quit = 1;
+    if (option === 'vip') quit = 2;
+    if (option === 'supervip') quit = 3;
+    this.setState(prev => ({ credits: prev.credits - quit }));
+  };
+
   lastEvent = () => {
     const lastActivity = Date.now();
     this.setState({ lastActivity });
@@ -89,6 +101,9 @@ export class Manager extends Component {
       !event.metaKey
     ) {
       this.initPresenterMode();
+    }
+    if (event.keyCode === 48) {
+      this.addCredit();
     }
   };
 
@@ -105,7 +120,11 @@ export class Manager extends Component {
   };
 
   addVideo = video => {
-    const { videos, currentVideo } = this.state;
+    const { videos, currentVideo, credits } = this.state;
+    if (credits <= 0) {
+      message.error('Inserte créditos por favor');
+      return;
+    }
     const time = new Date().getTime();
     if (!currentVideo) {
       this.setState(
@@ -124,6 +143,7 @@ export class Manager extends Component {
       });
     }
     this.setState({ previewVideo: null });
+    this.removeCredit(video.option);
     message.success('Se agrego un video');
   };
 
@@ -289,7 +309,8 @@ export class Manager extends Component {
       screen,
       volume,
       muted,
-      visible
+      visible,
+      credits
     } = this.state;
     const data = {
       state: {
@@ -299,7 +320,8 @@ export class Manager extends Component {
         playing,
         presenting,
         previewVideo,
-        volume
+        volume,
+        credits
       },
       add: this.addVideo,
       init: this.initPresenterMode,
