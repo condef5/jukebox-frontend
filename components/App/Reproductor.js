@@ -4,6 +4,7 @@ import { SkipNext } from 'styled-icons/material/SkipNext.cjs';
 import Duration from './Duration';
 import { NavigatorConsumer } from '../context/NavigatorContext';
 import { TextShadow } from './styles/Common';
+import { format } from './ui/Timer';
 
 const StyleBeat = styled.div`
   padding: 1em;
@@ -84,8 +85,9 @@ const Reproductor = () => (
               </div>
             )}
           </div>
-          <TextShadow className="music">
+          <TextShadow className="music" fontSize="14px">
             <Duration seconds={duration} />
+            <span>{` de ${format(duration)}`}</span>
             <div>
               <div className="author">
                 {currentVideo ? currentVideo.author : 'Artista Desconocido'}

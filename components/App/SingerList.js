@@ -6,7 +6,7 @@ import { Query } from 'react-apollo';
 import StyleSwipper from './styles/SingerList';
 
 const SINGERS_QUERY = gql`
-  query singers($id: Int!) {
+  query singers($id: ID!) {
     gender(id: $id) {
       singers {
         id

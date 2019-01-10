@@ -8,4 +8,4 @@ const AppWrap = ({ query }) => {
   return <App />;
 };
 
-export default withAuth(AppWrap, { loginRequired: false });
+export default withAuth(AppWrap, { loginRequired: true });
